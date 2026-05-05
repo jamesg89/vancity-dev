@@ -1,0 +1,8 @@
+name = "vancity-dev"
+main = ".svelte-kit/build/cloudflare/_worker.js"
+compatibility_date = "2026-05-05"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".svelte-kit/build/cloudflare"
+binding = "ASSETS"
