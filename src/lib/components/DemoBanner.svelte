@@ -7,6 +7,10 @@
   function switchVariant(key: string) {
     goto(`?v=${key}`, { replaceState: true, noScroll: true });
   }
+
+  function shortLabel(label: string): string {
+    return label.split(' — ')[1] ?? label;
+  }
 </script>
 
 <div class="demo-banner">
@@ -17,6 +21,7 @@
     </span>
 
     <div class="variant-switcher">
+      <span class="style-prefix">STYLE</span>
       {#each demo.variants as v (v.key)}
         <button
           class="variant-btn"
@@ -24,13 +29,14 @@
           onclick={() => switchVariant(v.key)}
           title={v.label}
         >
-          {v.key.toUpperCase()}
+          <span class="variant-letter">{v.key.toUpperCase()}</span>
+          <span class="variant-name">{shortLabel(v.label)}</span>
         </button>
       {/each}
     </div>
 
     <a href="https://vancity.dev/#contact" class="demo-cta" target="_blank" rel="noopener noreferrer">
-      by Vancity Dev →
+      Get your website →
     </a>
   </div>
 </div>
@@ -93,47 +99,92 @@
 
   .variant-switcher {
     display: flex;
+    align-items: center;
     gap: 4px;
   }
 
+  .style-prefix {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.3);
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
   .variant-btn {
-    width: 28px;
     height: 28px;
+    padding: 0 10px;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     background: transparent;
-    color: rgba(255, 255, 255, 0.5);
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 11px;
-    font-weight: 500;
     cursor: pointer;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
-    display: grid;
-    place-items: center;
+    transition: background 0.15s, border-color 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
   }
 
   .variant-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .variant-letter {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.35);
+    transition: color 0.15s;
+  }
+
+  .variant-name {
+    font-size: 10px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.04em;
+    transition: color 0.15s;
   }
 
   .variant-btn[data-active='true'] {
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .variant-btn[data-active='true'] .variant-letter {
+    color: #69c97a;
+  }
+
+  .variant-btn[data-active='true'] .variant-name {
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .demo-cta {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.45);
+    color: #0d1f18;
+    background: #69c97a;
+    padding: 0 12px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
     white-space: nowrap;
-    transition: color 0.15s;
+    transition: filter 0.15s;
+    text-decoration: none;
   }
 
   .demo-cta:hover {
-    color: rgba(255, 255, 255, 0.85);
+    filter: brightness(1.08);
+  }
+
+  @media (max-width: 720px) {
+    .style-prefix { display: none; }
+    .variant-name { display: none; }
+    .variant-btn { width: 28px; padding: 0; justify-content: center; }
   }
 
   @media (max-width: 520px) {
