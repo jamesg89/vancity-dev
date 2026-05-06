@@ -1,63 +1,5 @@
-<section id="pricing" class="pricing-section">
-	<p class="section-label">— 02 / Pricing</p>
-	<h2>Honest, fixed pricing.</h2>
-	<p class="section-intro">
-		Two ways to work together. Standard covers most marketing sites and small shops. Pro is for when
-		you need custom logic, integrations, or a real backend.
-	</p>
-
-	<div class="plans">
-		<div class="plan plan-a">
-			<p class="plan-label">PLAN A · MOST PROJECTS</p>
-			<h3>Standard Custom</h3>
-			<div class="price">
-				<span class="price-amount">$1,200</span>
-				<span class="price-cadence">one-time</span>
-			</div>
-			<ul class="features">
-				{#each planAFeatures as f}<li>✓ {f}</li>{/each}
-			</ul>
-			<div class="hosting">
-				<p class="hosting-label">ONGOING HOSTING · PICK ONE</p>
-				<div class="hosting-options">
-					<div><strong>$25 / mo</strong><span>Simple hosting — manage yourself</span></div>
-					<div><strong>$150 / mo</strong><span>Complete management — email, forms, support, security</span></div>
-				</div>
-			</div>
-			<a href="#contact" class="plan-cta plan-cta-light">Start a project →</a>
-		</div>
-
-		<div class="plan plan-b">
-			<div class="plan-b-header">
-				<p class="plan-label">PLAN B · ADVANCED BUILDS</p>
-				<span class="badge">MOST POPULAR</span>
-			</div>
-			<h3>Pro Custom</h3>
-			<div class="price">
-				<span class="price-amount">$3,000</span>
-				<span class="price-modifier">++</span>
-				<span class="price-cadence">from — scope dependent</span>
-			</div>
-			<ul class="features">
-				{#each planBFeatures as f}<li>✓ {f}</li>{/each}
-			</ul>
-			<div class="hosting">
-				<p class="hosting-label">ONGOING HOSTING · PICK ONE</p>
-				<div class="hosting-options">
-					<div><strong>$25 / mo</strong><span>Simple hosting — manage yourself</span></div>
-					<div><strong>$150 / mo</strong><span>Complete management — email, forms, support, security</span></div>
-				</div>
-			</div>
-			<a href="#contact" class="plan-cta plan-cta-dark">Book a free consult →</a>
-		</div>
-	</div>
-
-	<p class="fine-print">// All prices in CAD. GST extra. 50% deposit, 50% on launch.</p>
-	<a href="#contact" class="soft-cta">Not sure which? — tell me about your project →</a>
-</section>
-
 <script lang="ts">
-	const planAFeatures = [
+	const stdFeatures = [
 		'Fully custom, cutting-edge tech website',
 		'Bespoke design process, three written proposals',
 		'Five rounds of design edits, no surprises',
@@ -68,7 +10,7 @@
 		'On-page SEO + sitemap + structured data'
 	];
 
-	const planBFeatures = [
+	const proExtras = [
 		'Everything in Standard Custom',
 		'Custom API + database integrations',
 		'Headless CMS or admin dashboard',
@@ -78,193 +20,373 @@
 	];
 </script>
 
+<section id="pricing" class="pricing">
+	<div class="container">
+		<div class="sec-head reveal">
+			<div class="sec-num">— 02 / Pricing</div>
+			<div>
+				<h2 class="sec-title">Honest, <em>fixed</em> pricing.</h2>
+				<p class="sec-kicker">
+					Two ways to work together. Standard covers most marketing sites and small shops. Pro is for
+					when you need custom logic, integrations, or a real backend.
+				</p>
+			</div>
+		</div>
+
+		<div class="pricing-grid">
+			<!-- Plan A -->
+			<div class="price-card">
+				<div class="price-eyebrow">Plan A · most projects</div>
+				<h3 class="price-name">Standard <em>Custom</em></h3>
+				<div class="price-amt">
+					<span class="num">$1,200</span>
+					<span class="unit">one-time</span>
+				</div>
+				<hr class="price-sep" />
+				<div class="price-feat">
+					{#each stdFeatures as f}
+						<div class="row">
+							<svg class="check" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+								<path
+									d="M3.5 9.5 L7.5 13.5 L14.5 5"
+									stroke="currentColor"
+									stroke-width="1.6"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+							<span>{f}</span>
+						</div>
+					{/each}
+				</div>
+				<div class="price-hosting">
+					<div class="h">Ongoing hosting · pick one</div>
+					<div class="opts">
+						<div class="opt">
+							<b>$25 / mo</b>
+							<span class="lbl">Simple hosting — manage yourself</span>
+						</div>
+						<div class="opt">
+							<b>$150 / mo</b>
+							<span class="lbl">Complete management — email, forms, support, security</span>
+						</div>
+					</div>
+				</div>
+				<div class="price-cta">
+					<a href="#contact" class="btn">
+						Start a project
+						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+							<path
+								d="M3 13 L13 3 M6 3 H13 V10"
+								stroke="currentColor"
+								stroke-width="1.4"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</a>
+				</div>
+			</div>
+
+			<!-- Plan B (featured) -->
+			<div class="price-card featured">
+				<div class="price-tag">Most popular</div>
+				<div class="price-eyebrow">Plan B · advanced builds</div>
+				<h3 class="price-name">Pro <em>Custom</em></h3>
+				<div class="price-amt">
+					<span class="num">$3,000</span>
+					<span class="plus">++</span>
+					<span class="unit">from — scope dependent</span>
+				</div>
+				<hr class="price-sep" />
+				<div class="price-feat">
+					{#each proExtras as f}
+						<div class="row">
+							<svg class="check" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+								<path
+									d="M3.5 9.5 L7.5 13.5 L14.5 5"
+									stroke="currentColor"
+									stroke-width="1.6"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+							<span>{f}</span>
+						</div>
+					{/each}
+				</div>
+				<div class="price-hosting">
+					<div class="h">Ongoing hosting · pick one</div>
+					<div class="opts">
+						<div class="opt">
+							<b>$25 / mo</b>
+							<span class="lbl">Simple hosting — manage yourself</span>
+						</div>
+						<div class="opt">
+							<b>$150 / mo</b>
+							<span class="lbl">Complete management — email, forms, support, security</span>
+						</div>
+					</div>
+				</div>
+				<div class="price-cta">
+					<a href="#contact" class="btn">
+						Book a free consult
+						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+							<path
+								d="M3 13 L13 3 M6 3 H13 V10"
+								stroke="currentColor"
+								stroke-width="1.4"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="price-foot reveal">
+			<span>// All prices in CAD. GST extra. 50% deposit, 50% on launch.</span>
+			<span
+				>Not sure which? — <a href="#contact" class="soft-link">tell me about your project</a></span
+			>
+		</div>
+	</div>
+</section>
+
 <style>
-	.pricing-section {
-		padding: 6rem 2.5rem;
+	.pricing {
 		background: var(--paper);
+		padding-bottom: 140px;
 	}
 
-	.section-label {
-		font-family: var(--mono);
-		font-size: 0.68rem;
-		letter-spacing: 0.08em;
-		color: var(--ink-soft);
-		margin-bottom: 1rem;
-		max-width: 960px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	h2 {
-		font-family: var(--serif);
-		font-size: clamp(2.2rem, 4vw, 3.5rem);
-		font-weight: 400;
-		letter-spacing: -0.02em;
-		margin-bottom: 1.25rem;
-		max-width: 960px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.section-intro {
-		font-size: 1rem;
-		color: var(--ink-soft);
-		max-width: 520px;
-		line-height: 1.7;
-		margin-bottom: 3rem;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.plans {
+	.pricing-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1.5rem;
-		max-width: 960px;
-		margin: 0 auto 2rem;
+		gap: 24px;
+		margin-top: 20px;
 	}
 
-	.plan { border-radius: 12px; padding: 2.5rem; }
-	.plan-a { background: var(--bg); border: 1px solid var(--line); }
-	.plan-b { background: var(--accent); color: #fff; }
-
-	.plan-label {
-		font-family: var(--mono);
-		font-size: 0.62rem;
-		letter-spacing: 0.1em;
-		opacity: 0.6;
-		margin-bottom: 0.75rem;
+	@media (max-width: 900px) {
+		.pricing-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
-	.plan-b-header {
+	.price-card {
+		background: var(--bg);
+		border-radius: 4px;
+		padding: 44px 40px 36px;
+		position: relative;
+		box-shadow: 0 1px 0 var(--line);
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 0.75rem;
+		flex-direction: column;
+		min-height: 620px;
 	}
 
-	.plan-b-header .plan-label { margin-bottom: 0; }
+	.price-card.featured {
+		background: var(--ink);
+		color: var(--bg);
+	}
 
-	.badge {
+	.price-tag {
+		position: absolute;
+		top: 24px;
+		right: 24px;
 		font-family: var(--mono);
-		font-size: 0.6rem;
-		letter-spacing: 0.08em;
+		font-size: 10.5px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		padding: 5px 10px;
+		border-radius: 999px;
 		background: var(--warm);
-		color: #fff;
-		padding: 0.25rem 0.6rem;
-		border-radius: 9999px;
+		color: var(--bg);
 	}
 
-	h3 {
-		font-family: var(--serif);
-		font-size: 2rem;
-		font-weight: 400;
-		letter-spacing: -0.02em;
-		margin-bottom: 1rem;
-	}
-
-	.plan-b h3 { font-style: italic; }
-
-	.price {
-		display: flex;
-		align-items: baseline;
-		gap: 0.4rem;
-		margin-bottom: 1.75rem;
-	}
-
-	.price-amount {
-		font-family: var(--serif);
-		font-size: 2.5rem;
-		font-weight: 300;
-		letter-spacing: -0.03em;
-	}
-
-	.price-modifier {
+	.price-eyebrow {
 		font-family: var(--mono);
-		font-size: 0.9rem;
+		font-size: 11px;
+		text-transform: uppercase;
+		letter-spacing: 0.14em;
+		color: var(--ink-soft);
+	}
+
+	.featured .price-eyebrow {
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.price-name {
+		font-family: var(--serif);
+		font-weight: 350;
+		font-size: clamp(36px, 4.4vw, 56px);
+		letter-spacing: -0.025em;
+		line-height: 1;
+		margin: 12px 0 0;
+	}
+
+	.price-name em {
+		font-style: italic;
+		color: var(--accent);
+	}
+
+	.featured .price-name em {
 		color: var(--warm);
 	}
 
-	.price-cadence {
-		font-family: var(--mono);
-		font-size: 0.68rem;
-		opacity: 0.55;
+	.price-amt {
+		margin-top: 32px;
+		display: flex;
+		align-items: baseline;
+		gap: 10px;
 	}
 
-	.features {
-		list-style: none;
-		margin-bottom: 2rem;
+	.price-amt .num {
+		font-family: var(--serif);
+		font-weight: 350;
+		font-size: 72px;
+		letter-spacing: -0.03em;
+		line-height: 1;
+	}
+
+	.price-amt .plus {
+		font-family: var(--serif);
+		font-size: 38px;
+		line-height: 1;
+		color: var(--warm);
+	}
+
+	.price-amt .unit {
+		font-family: var(--mono);
+		font-size: 12px;
+		color: var(--ink-soft);
+		margin-left: 4px;
+	}
+
+	.featured .price-amt .unit {
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.price-sep {
+		margin: 28px 0;
+		border: 0;
+		border-top: 0.5px solid var(--line);
+	}
+
+	.featured .price-sep {
+		border-color: rgba(255, 255, 255, 0.18);
+	}
+
+	.price-feat {
 		display: flex;
 		flex-direction: column;
-		gap: 0.6rem;
+		gap: 14px;
+		flex: 1;
 	}
 
-	.features li { font-size: 0.875rem; line-height: 1.4; opacity: 0.85; }
-	.plan-a .features li { color: var(--ink-soft); }
-
-	.hosting {
-		margin-bottom: 2rem;
-		border-top: 1px solid var(--line);
-		padding-top: 1.25rem;
+	.price-feat .row {
+		display: grid;
+		grid-template-columns: 18px 1fr;
+		gap: 12px;
+		align-items: flex-start;
+		font-size: 14.5px;
+		line-height: 1.45;
 	}
 
-	.plan-b .hosting { border-top-color: rgba(255,255,255,0.15); }
+	.check {
+		width: 18px;
+		height: 18px;
+		flex: 0 0 18px;
+		color: var(--accent);
+		margin-top: 2px;
+	}
 
-	.hosting-label {
+	.featured .check {
+		color: var(--warm);
+	}
+
+	.price-hosting {
+		margin-top: 20px;
+		padding: 18px;
+		border: 0.5px solid var(--line);
+		border-radius: 4px;
+		font-size: 13px;
+		line-height: 1.5;
+	}
+
+	.featured .price-hosting {
+		background: rgba(255, 255, 255, 0.04);
+		border-color: rgba(255, 255, 255, 0.12);
+	}
+
+	.price-hosting .h {
 		font-family: var(--mono);
-		font-size: 0.6rem;
-		letter-spacing: 0.08em;
-		opacity: 0.5;
-		margin-bottom: 0.75rem;
+		font-size: 10.5px;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--ink-soft);
+		margin-bottom: 10px;
 	}
 
-	.hosting-options { display: flex; flex-direction: column; gap: 0.5rem; }
+	.featured .price-hosting .h {
+		color: rgba(255, 255, 255, 0.55);
+	}
 
-	.hosting-options div { display: flex; gap: 0.75rem; align-items: baseline; }
-	.hosting-options strong { font-family: var(--mono); font-size: 0.75rem; white-space: nowrap; }
-	.hosting-options span { font-size: 0.78rem; opacity: 0.6; }
+	.opts {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
 
-	.plan-cta {
-		display: inline-flex;
-		align-items: center;
-		font-family: var(--sans);
-		font-size: 0.875rem;
+	.opt {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.opt b {
+		font-family: var(--serif);
 		font-weight: 500;
-		padding: 0.75rem 1.5rem;
-		border-radius: 9999px;
-		transition: background 0.15s;
+		font-size: 18px;
 	}
 
-	.plan-cta-light { background: var(--ink); color: var(--bg); }
-	.plan-cta-light:hover { background: var(--accent); }
-	.plan-cta-dark { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.25); }
-	.plan-cta-dark:hover { background: rgba(255,255,255,0.25); }
+	.opt .lbl {
+		font-size: 12px;
+		color: var(--ink-soft);
+	}
 
-	.fine-print {
+	.featured .opt .lbl {
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.price-cta {
+		margin-top: 28px;
+	}
+
+	.featured .btn {
+		background: var(--bg);
+		color: var(--ink);
+	}
+
+	.featured .btn:hover {
+		background: var(--warm);
+		color: var(--bg);
+	}
+
+	.price-foot {
+		margin-top: 60px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 30px;
+		flex-wrap: wrap;
 		font-family: var(--mono);
-		font-size: 0.65rem;
+		font-size: 11.5px;
+		letter-spacing: 0.06em;
 		color: var(--ink-soft);
-		opacity: 0.5;
-		text-align: center;
-		max-width: 960px;
-		margin: 0 auto 1rem;
 	}
 
-	.soft-cta {
-		display: block;
-		text-align: center;
-		font-size: 0.875rem;
-		color: var(--ink-soft);
-		border-bottom: 1px solid var(--line);
-		width: max-content;
-		margin: 0 auto;
-		padding-bottom: 1px;
-	}
-
-	.soft-cta:hover { color: var(--ink); }
-
-	@media (max-width: 768px) {
-		.plans { grid-template-columns: 1fr; }
-		.pricing-section { padding: 4rem 1.25rem; }
+	.soft-link {
+		color: var(--ink);
+		text-decoration: underline;
 	}
 </style>

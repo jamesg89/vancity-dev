@@ -15,7 +15,7 @@ test('body uses cream background', async ({ page }) => {
 
 test('nav has logo and links', async ({ page }) => {
 	await page.goto('/');
-	await expect(page.getByRole('link', { name: /Vancity.*Dev/i })).toBeVisible();
+	await expect(page.locator('nav').getByRole('link', { name: /Vancity.*Dev/i })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Work', exact: true })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Pricing', exact: true })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'About', exact: true })).toBeVisible();
@@ -25,21 +25,21 @@ test('nav has logo and links', async ({ page }) => {
 
 test('hero has headline and CTAs', async ({ page }) => {
 	await page.goto('/');
-	await expect(page.getByText('VANCOUVER, BC · EST. 2019')).toBeVisible();
+	await expect(page.locator('.hero-eyebrow')).toBeVisible();
 	await expect(page.getByRole('heading', { level: 1 })).toContainText('Bespoke websites');
 	await expect(page.getByRole('link', { name: /See pricing/i })).toBeVisible();
 	await expect(page.getByRole('link', { name: /Recent work/i })).toBeVisible();
 });
 
-test('landscape illustration is rendered', async ({ page }) => {
+test('horizon illustration is rendered', async ({ page }) => {
 	await page.goto('/');
-	const svg = page.locator('.landscape-svg');
-	await expect(svg).toBeVisible();
+	const horizon = page.locator('.horizon');
+	await expect(horizon).toBeVisible();
 });
 
 test('marquee ticker is present', async ({ page }) => {
 	await page.goto('/');
-	await expect(page.getByText('HAND-CODED SINCE 2019')).toBeVisible();
+	await expect(page.getByText(/Hand-coded since 2019/i).first()).toBeVisible();
 });
 
 test('work section shows 6 projects', async ({ page }) => {
@@ -67,7 +67,7 @@ test('about section shows bio and stats', async ({ page }) => {
 
 test('contact section and footer render', async ({ page }) => {
 	await page.goto('/');
-	await expect(page.getByRole('heading', { name: "Let's build" })).toBeVisible();
+	await expect(page.getByRole('heading', { name: /let.s build/i })).toBeVisible();
 	await expect(page.getByText('hello@vancitydev.ca')).toBeVisible();
 	await expect(page.getByText('Booking projects starting Q3 2026')).toBeVisible();
 	await expect(page.getByText('© 2026 Vancity Dev')).toBeVisible();
