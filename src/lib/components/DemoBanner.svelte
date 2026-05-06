@@ -35,7 +35,7 @@
       {/each}
     </div>
 
-    <a href="https://vancity.dev/#contact" class="demo-cta" target="_blank" rel="noopener noreferrer">
+    <a href="https://vancity.dev/#pricing" class="demo-cta" target="_blank" rel="noopener noreferrer">
       Get your website →
     </a>
   </div>

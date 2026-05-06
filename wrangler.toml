@@ -14,3 +14,7 @@ zone_name = "vancity.dev"
 [[routes]]
 pattern = "*.vancity.dev/*"
 zone_name = "vancity.dev"
+
+[[send_email]]
+name = "SEND_EMAIL"
+destination_address = "james@vancity.dev"

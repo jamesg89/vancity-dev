@@ -1,4 +1,6 @@
 <script lang="ts">
+	let { onBookConsult }: { onBookConsult: () => void } = $props();
+
 	const stdFeatures = [
 		'Fully custom, cutting-edge tech website',
 		'Bespoke design process, three written proposals',
@@ -39,7 +41,7 @@
 				<div class="price-eyebrow">Plan A · most projects</div>
 				<h3 class="price-name">Standard <em>Custom</em></h3>
 				<div class="price-amt">
-					<span class="num">$1,200</span>
+					<span class="num">$1,500</span>
 					<span class="unit">one-time</span>
 				</div>
 				<hr class="price-sep" />
@@ -73,8 +75,8 @@
 					</div>
 				</div>
 				<div class="price-cta">
-					<a href="#contact" class="btn">
-						Start a project
+					<button class="btn" onclick={onBookConsult}>
+						Book a Consult
 						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
 							<path
 								d="M3 13 L13 3 M6 3 H13 V10"
@@ -84,7 +86,7 @@
 								stroke-linejoin="round"
 							/>
 						</svg>
-					</a>
+					</button>
 				</div>
 			</div>
 
@@ -129,8 +131,8 @@
 					</div>
 				</div>
 				<div class="price-cta">
-					<a href="#contact" class="btn">
-						Book a free consult
+					<button class="btn" onclick={onBookConsult}>
+						Book a Consult
 						<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
 							<path
 								d="M3 13 L13 3 M6 3 H13 V10"
@@ -140,7 +142,7 @@
 								stroke-linejoin="round"
 							/>
 						</svg>
-					</a>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -148,7 +150,9 @@
 		<div class="price-foot reveal">
 			<span>// All prices in CAD. GST extra. 50% deposit, 50% on launch.</span>
 			<span
-				>Not sure which? — <a href="#contact" class="soft-link">tell me about your project</a></span
+				>Not sure which? — <button class="soft-link" onclick={onBookConsult}
+					>tell me about your project</button
+				></span
 			>
 		</div>
 	</div>
@@ -362,6 +366,11 @@
 		margin-top: 28px;
 	}
 
+	.price-cta .btn {
+		width: 100%;
+		justify-content: center;
+	}
+
 	.featured .btn {
 		background: var(--bg);
 		color: var(--ink);
@@ -386,7 +395,15 @@
 	}
 
 	.soft-link {
+		background: none;
+		border: none;
+		padding: 0;
+		font: inherit;
+		font-family: var(--mono);
+		font-size: inherit;
+		letter-spacing: inherit;
 		color: var(--ink);
 		text-decoration: underline;
+		cursor: pointer;
 	}
 </style>

@@ -1,3 +1,7 @@
+<script>
+	import headshot from '$lib/assets/James Goodwin 2023-03-22 Headshot.jpg';
+</script>
+
 <section id="about" class="about">
 	<div class="container">
 		<div class="sec-head reveal">
@@ -44,9 +48,7 @@
 			</div>
 
 			<div class="about-portrait reveal" style="--rd: 200ms">
-				<div class="ph"></div>
-				<div class="corner">[ portrait · 4:5 ]</div>
-				<div class="lbl">Drop a photo here — JG, studio, Vancouver</div>
+				<img src={headshot} alt="James Goodwin" class="portrait-img" />
 			</div>
 		</div>
 	</div>
@@ -119,33 +121,12 @@
 		background: var(--paper);
 	}
 
-	.ph {
+	.portrait-img {
 		position: absolute;
 		inset: 0;
-		background: repeating-linear-gradient(
-			135deg,
-			color-mix(in oklab, var(--accent) 20%, var(--paper)) 0 12px,
-			color-mix(in oklab, var(--accent) 10%, var(--paper)) 12px 24px
-		);
-	}
-
-	.lbl {
-		position: absolute;
-		bottom: 16px;
-		left: 18px;
-		font-family: var(--mono);
-		font-size: 11px;
-		color: var(--ink-soft);
-		letter-spacing: 0.08em;
-	}
-
-	.corner {
-		position: absolute;
-		top: 14px;
-		right: 14px;
-		font-family: var(--mono);
-		font-size: 10.5px;
-		color: var(--ink-soft);
-		letter-spacing: 0.06em;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
 	}
 </style>

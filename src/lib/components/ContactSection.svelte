@@ -1,3 +1,7 @@
+<script lang="ts">
+	let { onBookConsult }: { onBookConsult: () => void } = $props();
+</script>
+
 <section id="contact" class="contact">
 	<div class="container">
 		<h2 class="contact-h reveal">
@@ -32,6 +36,7 @@
 				<h4>Now</h4>
 				<p>Booking projects starting Q3 2026.</p>
 				<p>One Pro slot remaining this quarter.</p>
+				<button class="book-btn" onclick={onBookConsult}>Book a Consult →</button>
 			</div>
 		</div>
 
@@ -123,6 +128,27 @@
 		margin-top: 14px !important;
 		color: rgba(255, 255, 255, 0.55) !important;
 		font-size: 13.5px !important;
+	}
+
+	.book-btn {
+		margin-top: 14px;
+		background: none;
+		border: 0.5px solid rgba(255, 255, 255, 0.35);
+		border-radius: 2px;
+		padding: 9px 14px;
+		font-family: var(--mono);
+		font-size: 11px;
+		letter-spacing: 0.08em;
+		color: rgba(255, 255, 255, 0.85);
+		cursor: pointer;
+		transition: background 0.15s, border-color 0.15s, color 0.15s;
+		white-space: nowrap;
+	}
+
+	.book-btn:hover {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.6);
+		color: #fff;
 	}
 
 	.contact-foot {
