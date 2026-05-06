@@ -1,12 +1,11 @@
 <script lang="ts">
 	const projects = [
-		{ name: 'Coastline Coffee Roasters', year: '2025', tags: ['E-commerce', 'Headless'], hue: 18 },
-		{ name: 'Mount Seymour Trail Co.', year: '2025', tags: ['Branding', 'Marketing site'], hue: 150 },
-		{ name: 'Granville Island Studio', year: '2024', tags: ['Portfolio', 'CMS'], hue: 200 },
-		{ name: 'False Creek Architecture', year: '2024', tags: ['Custom build', 'API'], hue: 35 },
-		{ name: 'Kitsilano Wellness Co-op', year: '2024', tags: ['Booking', 'Stripe'], hue: 95 },
-		{ name: 'Howe Sound Outfitters', year: '2023', tags: ['E-commerce', 'Custom CMS'], hue: 220 }
-	];
+		{ name: 'The Local Real Estate Group', url:'local.group', year: '2024', tags: ['Real Estate', 'Advanced API'], hue: 18 },
+		{ name: 'Cafe Portrait', url:'cafeportrait.com', year: '2026', tags: ['Cafe', 'Custom CMS'], hue: 150 },
+		{ name: 'Waterstreet Bookkeeping', url:'waterstreetbookkeeping.com', year: '2026', tags: ['Bookkeeping', 'CMS'], hue: 200 },
+		{ name: 'Lending BC', url:'lendingbc.com', year: '2023', tags: ['Mortgage Website', 'Custom Calculators'], hue: 35 },
+		{ name: 'New Condo Vancouver', url:'newcondovancouver.com', year: '2018', tags: ['Real Estate', 'Custom Product CMS'], hue: 95 },
+	 ];
 
 	type Project = (typeof projects)[0];
 
