@@ -1,4 +1,3 @@
-import { EmailMessage } from 'cloudflare:email';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
@@ -31,6 +30,8 @@ export const actions: Actions = {
 		const raw = `${headers}\r\n\r\n${bodyLines.join('\n')}`;
 
 		try {
+			// Dynamic import — only executes at runtime in Workers, never during build
+			const { EmailMessage } = await import(/* @vite-ignore */ 'cloudflare:email');
 			const message = new EmailMessage('no-reply@vancity.dev', 'james@vancity.dev', raw);
 			await platform?.env?.SEND_EMAIL?.send(message);
 			return { success: true };
