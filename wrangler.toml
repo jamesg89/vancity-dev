@@ -8,5 +8,9 @@ directory = ".svelte-kit/build/cloudflare"
 binding = "ASSETS"
 
 [[routes]]
+pattern = "*.vancity.dev"
+zone_name = "vancity.dev"
+
+[[routes]]
 pattern = "*.vancity.dev/*"
 zone_name = "vancity.dev"

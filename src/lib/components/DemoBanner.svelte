@@ -29,7 +29,7 @@
       {/each}
     </div>
 
-    <a href="https://vancity.dev/#contact" class="demo-cta" target="_blank" rel="noopener">
+    <a href="https://vancity.dev/#contact" class="demo-cta" target="_blank" rel="noopener noreferrer">
       by Vancity Dev →
     </a>
   </div>
