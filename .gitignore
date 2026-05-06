@@ -27,3 +27,6 @@ test-results
 
 # Design reference files
 /design
+
+# Brainstorm sessions
+.superpowers/
