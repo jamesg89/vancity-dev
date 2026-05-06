@@ -30,6 +30,11 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 - Use `onclick` not `on:click` for event handlers
 - `$props()` for typed component props; `$state()` for reactive vars; `$derived()` for computed
 
+## Demo Routes — Known Gotchas
+- `app.css` sets `cursor: none` globally (for marketing custom cursor) — demo layouts MUST set `cursor: auto` on `.demo-root` or the OS cursor disappears
+- When a demo uses its own CSS var names (e.g. `--ivory`, `--gold`), map them from palette vars using `:global(.demo-root) { --ivory: var(--bg); --gold: var(--accent); }` in the page's `<style>`
+- Large design reference HTML files are not covered by the `/design` gitignore entry — add them explicitly or move them into `/design/`
+
 ## Wrangler Config
 - Asset binding uses `[assets]` + `binding = "ASSETS"` (not the old `[site]` format)
 - Wildcard subdomain routing requires two `[[routes]]` entries: `*.vancity.dev` AND `*.vancity.dev/*`
