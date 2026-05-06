@@ -25,5 +25,24 @@
     min-height: 100vh;
     background: var(--bg);
     color: var(--ink);
+    cursor: auto;
+  }
+
+  :global(.demo-root *) {
+    cursor: inherit;
+  }
+
+  :global(.demo-root a),
+  :global(.demo-root button),
+  :global(.demo-root [role="button"]),
+  :global(.demo-root input),
+  :global(.demo-root select),
+  :global(.demo-root textarea) {
+    cursor: pointer;
+  }
+
+  :global(.demo-root input),
+  :global(.demo-root textarea) {
+    cursor: text;
   }
 </style>
