@@ -7,21 +7,7 @@ export const alexjo: DemoConfig = {
 	variants: [
 		{
 			key: 'a',
-			label: 'Option A — Editorial',
-			palette: {
-				'--bg': '#F5F1EA',
-				'--paper': '#FBF8F2',
-				'--ink': '#0E1B2C',
-				'--ink-soft': '#3A4A60',
-				'--accent': '#B08A3E',
-				'--accent2': '#C9A769',
-				'--warm': '#D4B896',
-				'--line': 'rgba(14,27,44,0.14)',
-			},
-		},
-		{
-			key: 'b',
-			label: 'Option B — Architectural',
+			label: 'Option A — Architectural Style',
 			palette: {
 				'--bg': '#F0EDE6',
 				'--paper': '#F8F5EF',
@@ -30,6 +16,20 @@ export const alexjo: DemoConfig = {
 				'--accent': '#9C7935',
 				'--accent2': '#B89450',
 				'--warm': '#C8A87A',
+				'--line': 'rgba(14,27,44,0.14)',
+			},
+		},
+		{
+			key: 'b',
+			label: 'Option B — Editorial',
+			palette: {
+				'--bg': '#F5F1EA',
+				'--paper': '#FBF8F2',
+				'--ink': '#0E1B2C',
+				'--ink-soft': '#3A4A60',
+				'--accent': '#B08A3E',
+				'--accent2': '#C9A769',
+				'--warm': '#D4B896',
 				'--line': 'rgba(14,27,44,0.14)',
 			},
 		},

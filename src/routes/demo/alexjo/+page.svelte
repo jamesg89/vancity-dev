@@ -46,9 +46,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 </svelte:head>
 
-<div class="aj-root" class:ed-root={data.variant?.key === 'a'} class:ar-root={data.variant?.key === 'b'} class:pr-root={data.variant?.key === 'c'}>
+<div class="aj-root" class:ed-root={data.variant?.key === 'b'} class:ar-root={data.variant?.key === 'a'} class:pr-root={data.variant?.key === 'c'}>
 
-  {#if data.variant?.key === 'a'}
+  {#if data.variant?.key === 'b'}
     <!-- ===================================================== -->
     <!-- DIRECTION A — EDITORIAL                                -->
     <!-- ===================================================== -->
@@ -226,7 +226,7 @@
       </div>
     </footer>
 
-  {:else if data.variant?.key === 'b'}
+  {:else if data.variant?.key === 'a'}
     <!-- ===================================================== -->
     <!-- DIRECTION B — ARCHITECTURAL                            -->
     <!-- ===================================================== -->
