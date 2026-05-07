@@ -12,8 +12,7 @@
 		<div class="contact-grid">
 			<div class="contact-col reveal">
 				<h4>Start a project</h4>
-				<a href="mailto:hello@vancitydev.ca">hello@vancitydev.ca</a>
-				<a href="tel:+16045550199">+1 (604) 555-0199</a>
+				<a href="mailto:hello@vancitydev.ca">hello@vancity.dev</a>
 				<p class="note">
 					Most replies within one business day. I&rsquo;ll usually suggest a 30-min video call to
 					scope the work.
@@ -21,20 +20,17 @@
 			</div>
 			<div class="contact-col reveal" style="--rd: 100ms">
 				<h4>Studio</h4>
-				<p>East Vancouver</p>
+				<p>North Vancouver</p>
 				<p>British Columbia</p>
 				<p>49.2827° N, 123.1207° W</p>
 			</div>
 			<div class="contact-col reveal" style="--rd: 200ms">
 				<h4>Elsewhere</h4>
-				<a href="https://www.are.na" target="_blank" rel="noopener">Are.na</a>
-				<a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
-				<a href="https://read.cv" target="_blank" rel="noopener">Read.cv</a>
-				<a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+				<a href="https://www.linkedin.com/in/james-goodwin-a74b9031/" target="_blank" rel="noopener">LinkedIn</a>
 			</div>
 			<div class="contact-col reveal" style="--rd: 300ms">
 				<h4>Now</h4>
-				<p>Booking projects starting Q3 2026.</p>
+				<p>Projects Typically Complete In Four Weeks</p>
 				<p>One Pro slot remaining this quarter.</p>
 				<button class="book-btn" onclick={onBookConsult}>Book a Consult →</button>
 			</div>
