@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import ConsultModal from './ConsultModal.svelte';
 
 	let scrolled = $state(false);
 	let menuOpen = $state(false);
+	let consultOpen = $state(false);
 
 	onMount(() => {
 		const onScroll = () => {
@@ -41,10 +43,10 @@
 		<a href="#contact">Contact</a>
 	</div>
 
-	<a href="#contact" class="nav-cta">
+	<button class="nav-cta" onclick={() => (consultOpen = true)}>
 		<span class="dot"></span>
-		Booking projects · Q3
-	</a>
+		Book a Consult
+	</button>
 
 	<button
 		class="menu-btn"
@@ -65,6 +67,8 @@
 	</div>
 	<div class="mobile-coords">49.2827° N, 123.1207° W &nbsp;·&nbsp; Vancouver, BC</div>
 </div>
+
+<ConsultModal bind:open={consultOpen} />
 
 <style>
 	nav {
@@ -159,10 +163,12 @@
 		gap: 8px;
 		padding: 9px 16px;
 		border-radius: 999px;
+		border: none;
 		background: var(--ink);
 		color: var(--bg);
 		font-size: 13px;
 		font-weight: 500;
+		cursor: pointer;
 		transition:
 			transform 0.2s,
 			background 0.2s;

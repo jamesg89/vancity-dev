@@ -133,6 +133,7 @@
 		max-height: 90dvh;
 		overflow-y: auto;
 		box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
+		cursor: auto;
 	}
 
 	.consult-dialog::backdrop {
