@@ -1,7 +1,7 @@
 # Vancity Dev — Claude Context
 
 ## Project
-SvelteKit 2 + Svelte 5 + TypeScript. Cloudflare Workers via `@sveltejs/adapter-cloudflare-workers`.
+SvelteKit 2 + Svelte 5 + TypeScript. Cloudflare Workers via `@sveltejs/adapter-cloudflare`.
 Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys on push.
 
 ## Commands
@@ -39,3 +39,11 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 - Asset binding uses `[assets]` + `binding = "ASSETS"` (not the old `[site]` format)
 - Wildcard subdomain routing requires two `[[routes]]` entries: `*.vancity.dev` AND `*.vancity.dev/*`
 - Wildcard CNAME (`* → @`, proxied) must be set manually in Cloudflare DNS dashboard
+- `send_email` binding also needs manual activation: CF dashboard → Workers & Pages → Worker → Settings → Email
+
+## Cloudflare Built-in Modules (`cloudflare:*`)
+- NEVER statically import `cloudflare:email` (or any `cloudflare:*`) at the top of server files — Node.js throws `ERR_UNSUPPORTED_ESM_URL_SCHEME` during Vite SSR build
+- Fix: dynamic import inside the function — `const { EmailMessage } = await import(/* @vite-ignore */ 'cloudflare:email')`
+- Ambient type declarations for `cloudflare:*` must go in a separate `.d.ts` file with no `export {}` (not inside `app.d.ts`)
+- `ssr.external` in vite.config does NOT fix this in Vite 8/rolldown — dynamic import is the only solution
+- Local `npm run build` may hit `EBUSY` on Windows at the adapter cleanup step — Cloudflare CI (Linux) is unaffected
