@@ -13,6 +13,7 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 
 ## Architecture
 - All global CSS tokens in `src/app.css` (--bg, --ink, --accent, --warm, --line, --serif, --sans, --mono)
+- Brand hex values (for static assets that can't use CSS vars): --bg #f4f1ea (cream), --ink #1a2a26 (dark green), --accent #2d4f3f, --warm #c97a4a
 - Global classes: `.btn`, `.btn.ghost`, `.container`, `.reveal` (scroll animation), `.sec-head`
 - Root layout (`src/routes/+layout.svelte`) is minimal — only loads `app.css`
 - Marketing pages live in `src/routes/(marketing)/` route group (has NavBar, cursor, scroll-reveal)
@@ -29,6 +30,7 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 - `<svelte:head>` cannot be inside `{#if}` blocks — put it at component top level with internal guards
 - Use `onclick` not `on:click` for event handlers
 - `$props()` for typed component props; `$state()` for reactive vars; `$derived()` for computed
+- When converting a styled `<a>` to `<button>`, reset browser defaults: `border: none; cursor: pointer` — easy to miss if the class was shared
 
 ## Demo Routes — Known Gotchas
 - `app.css` sets `cursor: none` globally (for marketing custom cursor) — demo layouts MUST set `cursor: auto` on `.demo-root` or the OS cursor disappears
