@@ -15,7 +15,17 @@
 const ADMIN_HOSTS = new Set(['vancity.dev', 'localhost']);
 
 export function isAdminPath(pathname: string): boolean {
-  return pathname === '/admin' || pathname.startsWith('/admin/');
+  // This runs before routing, so it must see the path the way the router will: SvelteKit
+  // decodes once (decode_pathname: decodeURI on each piece split at %25), and /%61dmin
+  // serves /admin. Decode once, no more: /%2561dmin is /%61dmin, which is no route.
+  let path: string;
+  try {
+    path = pathname.split('%25').map(decodeURI).join('%25');
+  } catch {
+    // Malformed escape. SvelteKit answers 400 itself; failing closed here loses nothing.
+    return true;
+  }
+  return path === '/admin' || path.startsWith('/admin/');
 }
 
 export function adminAccessAllowed(url: URL, headers: Headers, dev: boolean): boolean {

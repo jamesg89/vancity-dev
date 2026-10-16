@@ -14,6 +14,22 @@ describe('isAdminPath', () => {
     expect(isAdminPath('/p')).toBe(false);
     expect(isAdminPath('/')).toBe(false);
   });
+
+  it('matches the path the router will see, not the encoded form it arrived in', () => {
+    expect(isAdminPath('/%61dmin')).toBe(true);
+    expect(isAdminPath('/%61dmin/x')).toBe(true);
+    expect(isAdminPath('/adm%69n')).toBe(true);
+    expect(isAdminPath('/%41dmin')).toBe(false); // /Admin is not the /admin route
+  });
+
+  it('decodes once, as SvelteKit does: /%2561dmin routes to /%61dmin, which is no route', () => {
+    expect(isAdminPath('/%2561dmin')).toBe(false);
+  });
+
+  it('fails closed on a malformed escape', () => {
+    expect(isAdminPath('/%zz')).toBe(true);
+    expect(isAdminPath('/%')).toBe(true);
+  });
 });
 
 describe('adminAccessAllowed', () => {

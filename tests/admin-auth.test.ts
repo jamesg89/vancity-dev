@@ -31,3 +31,13 @@ test('a forged Access header does not admit a request on a non-allowlisted host'
 test('a POST to /admin without the Access header is 403, not 405', async ({ request }) => {
   expect((await request.post(ADMIN)).status()).toBe(403);
 });
+
+// The guard runs before routing, and SvelteKit decodes the path when routing, so an encoded
+// spelling of /admin must be caught too. Node's URL keeps %61 as written, so this really goes
+// out as /%61dmin (the RED run below proves it: against a raw-pathname guard it returns 200).
+for (const path of ['/%61dmin', '/adm%69n', '/%61dmin/x']) {
+  test(`percent-encoded ${path} is guarded like /admin`, async ({ request }) => {
+    expect((await request.get(`http://localhost:4173${path}`)).status()).toBe(403);
+    expect((await request.post(`http://localhost:4173${path}`)).status()).toBe(403);
+  });
+}
