@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { derivePlumbingContent, toTelHref } from './derive';
-import type { Prospect } from '$lib/prospects/types';
+import type { ReadyProspect } from '$lib/prospects/types';
 
-const turk: Prospect = {
+const turk: ReadyProspect = {
   slug: 'turk-plumbing',
   companyName: 'Turk Plumbing',
   industry: 'plumbing',
@@ -153,14 +153,18 @@ describe('derivePlumbingContent', () => {
     expect(c.serviceHrefs['Drain Cleaning']).toBeUndefined();
   });
 
-  describe('without a phone', () => {
-    it('falls back to #book and emits no tel: link', () => {
-      for (const phone of [null, '', '   ', 'call us']) {
-        const c = derivePlumbingContent({ ...turk, phone });
-        expect(c.phoneHref).toBe('#book');
-        expect(c.serviceHrefs).toEqual({ '24/7 Emergency': '#book' });
-        expect(JSON.stringify(c)).not.toContain('tel:');
-      }
+  describe('phone', () => {
+    it('requires a phone at the type level', () => {
+      // @ts-expect-error a prospect without a phone cannot be rendered
+      const input: ReadyProspect = { ...turk, phone: null };
+      expect(input).toBeDefined();
+    });
+
+    it('never links a phone that has no digits', () => {
+      const c = derivePlumbingContent({ ...turk, phone: 'call us' });
+      expect(c.phoneHref).toBe('#book');
+      expect(c.serviceHrefs).toEqual({ '24/7 Emergency': '#book' });
+      expect(JSON.stringify(c)).not.toContain('tel:');
     });
   });
 

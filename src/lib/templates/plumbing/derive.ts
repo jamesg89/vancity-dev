@@ -1,4 +1,4 @@
-import type { Prospect } from '$lib/prospects/types';
+import type { ReadyProspect } from '$lib/prospects/types';
 import type { PlumbingContent } from './types';
 
 const CA_REGIONS = new Set([
@@ -88,7 +88,7 @@ function joinAnd(items: string[]): string {
   return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
 }
 
-export function derivePlumbingContent(prospect: Prospect): PlumbingContent {
+export function derivePlumbingContent(prospect: ReadyProspect): PlumbingContent {
   const companyName = clean(prospect.companyName);
   const city = clean(prospect.city);
   const region = clean(prospect.region) || null;
@@ -99,6 +99,7 @@ export function derivePlumbingContent(prospect: Prospect): PlumbingContent {
   const brandLead = brandTail === null ? companyName : words.slice(0, -1).join(' ');
 
   const telHref = toTelHref(prospect.phone);
+  // A phone with no digits is not dialable, so the CTA points at the booking form instead.
   const phoneHref = telHref || '#book';
   const phoneDisplay = clean(prospect.phone);
 
@@ -115,7 +116,7 @@ export function derivePlumbingContent(prospect: Prospect): PlumbingContent {
     city,
     heroHeadline: `Fast, Honest Plumbing in ${location}`,
     availabilityPill: `Plumbers available now in ${city}`,
-    phoneDisplay: phoneDisplay || 'Book online',
+    phoneDisplay,
     phoneHref,
     email: null,
     licenceLine: 'Licensed & Insured',
