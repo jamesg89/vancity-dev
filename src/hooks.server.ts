@@ -1,11 +1,11 @@
 import { error, type Handle } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 import { demos } from '$lib/demos/index';
-import { adminAccessAllowed, isAdminPath } from '$lib/admin-guard';
+import { adminAccessAllowed, isAdminRequest } from '$lib/admin-guard';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	// Before routing, so page loads, form actions and +server.ts endpoints are all covered.
-	if (isAdminPath(event.url.pathname) && !adminAccessAllowed(event.url, event.request.headers, dev)) {
+	// Before resolve, so page loads, form actions and +server.ts endpoints are all covered.
+	if (isAdminRequest(event.url.pathname, event.route.id) && !adminAccessAllowed(event.url, event.request.headers, dev)) {
 		error(403, 'Forbidden');
 	}
 

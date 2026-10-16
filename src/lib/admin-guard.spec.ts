@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { adminAccessAllowed, isAdminPath } from './admin-guard';
+import { adminAccessAllowed, isAdminPath, isAdminRequest } from './admin-guard';
 
 const u = (s: string) => new URL(s);
 const withHeader = new Headers({ 'cf-access-jwt-assertion': 'x' });
@@ -46,5 +46,23 @@ describe('adminAccessAllowed', () => {
   });
   it('lets everything through in dev', () => {
     expect(adminAccessAllowed(u('http://127.0.0.1:5173/admin'), none, true)).toBe(true);
+  });
+});
+
+describe('isAdminRequest', () => {
+  it('guards on route.id alone, even when the pathname would not match', () => {
+    expect(isAdminRequest('/something-else', '/admin')).toBe(true);
+    expect(isAdminRequest('/something-else', '/admin/prospects')).toBe(true);
+    expect(isAdminRequest('/', '/admin/[id]')).toBe(true);
+  });
+  it('guards on the decoded path alone, even when route.id is /site or null', () => {
+    expect(isAdminRequest('/admin', '/site')).toBe(true); // prospect subdomain stays refused
+    expect(isAdminRequest('/%61dmin', null)).toBe(true);
+    expect(isAdminRequest('/%zz', undefined)).toBe(true);
+  });
+  it('lets non-admin requests through', () => {
+    expect(isAdminRequest('/p', '/p')).toBe(false);
+    expect(isAdminRequest('/', null)).toBe(false);
+    expect(isAdminRequest('/administrator', '/administrator')).toBe(false);
   });
 });

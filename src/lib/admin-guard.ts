@@ -28,6 +28,15 @@ export function isAdminPath(pathname: string): boolean {
   return path === '/admin' || path.startsWith('/admin/');
 }
 
+// True when either the router's own decision (event.route.id, set before `handle` runs) or the
+// decoded URL path says this is the admin area. Two arms on purpose: route.id is authoritative
+// for what will serve the request, the path arm also covers requests rerouted elsewhere (a
+// prospect subdomain's /admin resolves to /site, and is deliberately still refused).
+export function isAdminRequest(pathname: string, routeId: string | null | undefined): boolean {
+  const id = routeId ?? '';
+  return id === '/admin' || id.startsWith('/admin/') || isAdminPath(pathname);
+}
+
 export function adminAccessAllowed(url: URL, headers: Headers, dev: boolean): boolean {
   if (dev) return true;
   // Host first and unconditional: a header is forgeable anywhere Access is not in front of the
