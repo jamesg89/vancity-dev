@@ -12,6 +12,8 @@ export interface PlumbingContent {
   email: string | null; // null => mailto links hidden
   licenceLine: string;
   licenceShort: string | null;
+  bookingLicenceLine: string; // booking checklist item, e.g. "Licensed & insured · Lic. #123"
+  licenceFaqClause: string; // FAQ clause after the company name, e.g. "holds licence #123"
   foundedLine: string;
   heroLead: string;
   whyLead: string;

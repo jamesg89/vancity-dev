@@ -15,6 +15,8 @@ export const octopusDefaults: PlumbingContent = {
   email: 'hello@octopusplumbing.ca',
   licenceLine: 'Licensed & Insured · Lic. #PL-204871',
   licenceShort: 'Lic. #PL-204871',
+  bookingLicenceLine: 'Licensed & insured · Lic. #PL-204871',
+  licenceFaqClause: 'holds BC licence #PL-204871',
   foundedLine: 'Family-owned plumbers serving Metro Vancouver since 2009.',
   heroLead:
     'Eight arms, one honest price. We find the problem, quote a flat price, and start only when you approve it.',

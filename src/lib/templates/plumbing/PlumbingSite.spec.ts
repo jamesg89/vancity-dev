@@ -20,6 +20,8 @@ const turk: PlumbingContent = {
   email: null,
   licenceLine: 'Licensed & Insured',
   licenceShort: null,
+  bookingLicenceLine: 'Licensed & insured',
+  licenceFaqClause: 'is licensed',
   foundedLine: 'Family-owned plumbers serving Greater Austin.',
   heroLead: 'We find the problem, quote a flat price, and start only when you approve it.',
   whyLead: 'Our plumbers live in the neighbourhoods they work in.',
@@ -39,6 +41,17 @@ const turk: PlumbingContent = {
   address: null,
   copyrightLine: '© 2026 Turk Plumbing',
   footerLicenceLine: 'Licensed & Insured'
+};
+
+// Same prospect, but with a licence number supplied, so the branches that only render
+// when `licenceShort` is set (float card, trust item, FAQ clause, booking line) are swept too.
+const turkLicensed: PlumbingContent = {
+  ...turk,
+  licenceLine: 'Licensed & Insured · Lic. #TX-48213',
+  licenceShort: 'Lic. #TX-48213',
+  bookingLicenceLine: 'Licensed & insured · Lic. #TX-48213',
+  licenceFaqClause: 'holds Texas licence #TX-48213',
+  footerLicenceLine: 'Lic. #TX-48213 · Licensed, Bonded & Insured'
 };
 
 // Octopus / Vancouver values that must never appear on a prospect page. Plain strings are
@@ -77,21 +90,43 @@ function renderedMarkup(content: PlumbingContent): string {
   return (head + body).replace(/\sd="[^"]*"/g, '');
 }
 
-describe('PlumbingSite with a prospect-shaped fixture', () => {
-  const html = renderedMarkup(turk);
+const fixtures: [string, PlumbingContent][] = [
+  ['no licence number', turk],
+  ['with a licence number', turkLicensed]
+];
 
-  it('renders the prospect company and phone', () => {
-    expect(html).toContain('Turk');
-    expect(html).toContain('(512) 555-0147');
+for (const [name, content] of fixtures) {
+  describe(`PlumbingSite with a prospect-shaped fixture (${name})`, () => {
+    const html = renderedMarkup(content);
+
+    it('renders the prospect company and phone', () => {
+      expect(html).toContain('Turk');
+      expect(html).toContain('(512) 555-0147');
+    });
+
+    for (const label of [...LEAK_STRINGS, 'BC']) {
+      it(`leaks no "${label}"`, () => {
+        expect(findLeak(html, label), `"${label}" found near this markup`).toBeNull();
+      });
+    }
+
+    it('renders no mailto link without an email', () => {
+      expect(html).not.toContain('mailto:');
+    });
+  });
+}
+
+describe('PlumbingSite licence branches', () => {
+  it('renders the licence number everywhere it is supplied', () => {
+    const html = renderedMarkup(turkLicensed);
+    expect(html).toContain('holds Texas licence #TX-48213');
+    expect(html).toContain('Licensed &amp; insured · Lic. #TX-48213');
+    expect(html.split('Lic. #TX-48213').length - 1).toBeGreaterThanOrEqual(5);
   });
 
-  for (const label of [...LEAK_STRINGS, 'BC']) {
-    it(`leaks no "${label}"`, () => {
-      expect(findLeak(html, label), `"${label}" found near this markup`).toBeNull();
-    });
-  }
-
-  it('renders no mailto link without an email', () => {
-    expect(html).not.toContain('mailto:');
+  it('makes no licence-number claim when none is supplied', () => {
+    const html = renderedMarkup(turk);
+    expect(html).toContain('Turk Plumbing is licensed');
+    expect(html).not.toContain('Lic. #');
   });
 });

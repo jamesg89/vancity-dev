@@ -19,3 +19,12 @@ test('/p has no failing-contrast anchors', async ({ page }) => {
   await page.goto('/p');
   expect(await page.evaluate(contrastSweep)).toEqual([]);
 });
+
+// .mobile-bar (and its sticky "Book" button) is display:none above 899px, so the desktop
+// sweep skips it. This is the viewport where that button actually exists.
+test('/p has no failing-contrast anchors at mobile width', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/p');
+  await expect(page.locator('.mobile-bar-book')).toBeVisible();
+  expect(await page.evaluate(contrastSweep)).toEqual([]);
+});

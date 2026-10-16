@@ -185,25 +185,14 @@
     }
   ]);
 
-  // "Lic. #PL-204871" becomes "holds BC licence #PL-204871". With no licence number the
-  // answer makes no claim beyond being licensed.
-  const licenceClaim = $derived(
-    content.licenceShort
-      ? `holds BC licence ${content.licenceShort.replace(/^Lic\.\s*/, '')}`
-      : 'is licensed'
-  );
-
   const insuranceSentence = $derived(
     content.insuranceClaim ? ` and ${content.insuranceClaim}` : '.'
   );
 
-  // The booking checklist writes "insured" in lower case where the utility bar capitalises it.
-  const bookLicenceLine = $derived(content.licenceLine.replace('& Insured', '& insured'));
-
   const faqs = $derived([
     {
       q: 'Are you licensed and insured?',
-      a: `Yes. ${content.companyName} ${licenceClaim}${insuranceSentence} Every plumber is background-checked.`
+      a: `Yes. ${content.companyName} ${content.licenceFaqClause}${insuranceSentence} Every plumber is background-checked.`
     },
     {
       q: 'How much will it cost?',
@@ -752,7 +741,7 @@
             <li>
               <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"
                 ><path d={icons.check} /></svg
-              >{bookLicenceLine}
+              >{content.bookingLicenceLine}
             </li>
             <li>
               <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"
