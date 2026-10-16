@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 // `vite preview` reaches the same local D1 state that `wrangler d1 execute --local` writes,
 // so the rows below are what the /site load actually reads. Local only: never pass --remote.
@@ -100,4 +100,42 @@ test('existing demo subdomains still work', async ({ page }) => {
 test('/p is unaffected', async ({ page }) => {
   await page.goto('http://localhost:4173/p');
   await expect(page.locator('.brand-name')).toContainText('Octopus');
+});
+
+test('prospect page is noindex', async ({ page }) => {
+  await page.goto('http://turk-plumbing.localhost:4173/');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+});
+
+// page.goto, not the `request` fixture: Chromium resolves *.localhost itself, Node's resolver
+// does not on every platform (ENOTFOUND on Windows).
+async function robots(page: Page, origin: string) {
+  const res = await page.goto(`${origin}/robots.txt`);
+  return { res, body: (await res?.text()) ?? '' };
+}
+
+test('robots.txt on a prospect host is the restrictive body, not the site HTML', async ({ page }) => {
+  const { res, body } = await robots(page, 'http://turk-plumbing.localhost:4173');
+  expect(res?.status()).toBe(200);
+  expect(res?.headers()['content-type']).toContain('text/plain');
+  expect(body).toContain('User-agent: *');
+  expect(body).toContain('Disallow: /');
+  expect(body).not.toContain('<');
+});
+
+test('robots.txt on an unknown subdomain is also restrictive', async ({ page }) => {
+  const { body } = await robots(page, 'http://nobody-here.localhost:4173');
+  expect(body).toContain('Disallow: /');
+});
+
+test('robots.txt on the apex stays permissive', async ({ page }) => {
+  const { body } = await robots(page, 'http://localhost:4173');
+  expect(body).toContain('User-agent: *');
+  expect(body).not.toContain('Disallow: /');
+});
+
+test('robots.txt on www stays permissive', async ({ page }) => {
+  const { body } = await robots(page, 'http://www.localhost:4173');
+  expect(body).toContain('User-agent: *');
+  expect(body).not.toContain('Disallow: /');
 });
