@@ -18,3 +18,10 @@ zone_name = "vancity.dev"
 [[send_email]]
 name = "SEND_EMAIL"
 destination_address = "james@vancity.dev"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "vancity-prospects"
+# PLACEHOLDER: replace with the id printed by `wrangler d1 create vancity-prospects`
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
