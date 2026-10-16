@@ -10,9 +10,11 @@ import type { LayoutServerLoad } from './$types';
 // Prospect subdomains never get here: reroute sends them to /site.
 const ADMIN_HOSTS = new Set(['vancity.dev', 'www.vancity.dev', 'localhost', 'www.localhost']);
 
-// Cloudflare Access is the real control (Zero Trust policy on vancity.dev/admin/*).
-// This is defence in depth: refuse any request that never passed through Access.
-// Presence only; the JWT signature is deliberately not verified here.
+// Defence in depth, deliberately partial. This checks only that the host is allowlisted and
+// that a Cf-Access-Jwt-Assertion header is present; it does NOT authenticate anyone.
+// Cloudflare Access (Zero Trust policy on vancity.dev/admin/*) is the real control.
+// Hardening, once the Access application exists and its AUD tag is known: verify the JWT
+// signature, aud, iss and expiry against https://<team>.cloudflareaccess.com/cdn-cgi/access/certs.
 export const load: LayoutServerLoad = ({ request, url }) => {
   if (dev) return;
 
