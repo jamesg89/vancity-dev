@@ -15,3 +15,12 @@ test('admin is reachable when the request carries the Access header', async ({ r
   expect(res.status()).toBe(200);
   expect(await res.text()).toContain('Admin');
 });
+
+// [::1] is a hostname the guard does not allow (like workers.dev or a preview host).
+// The header is forged, as anyone reaching the Worker outside Access could do.
+test('a forged Access header does not admit a request on a non-allowlisted host', async ({ request }) => {
+  const res = await request.get('http://[::1]:4173/admin', {
+    headers: { 'Cf-Access-Jwt-Assertion': 'forged' }
+  });
+  expect(res.status()).toBe(403);
+});

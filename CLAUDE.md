@@ -43,7 +43,7 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 - Wildcard CNAME (`* → @`, proxied) must be set manually in Cloudflare DNS dashboard
 - `send_email` binding also needs manual activation: CF dashboard → Workers & Pages → Worker → Settings → Email
 - D1 binding `DB` (database `vancity-prospects`, holds the prospects table): run `npx wrangler d1 create vancity-prospects` once per environment and paste the returned `database_id` over the placeholder in `wrangler.toml`. Deploys fail until this is done (the placeholder id doesn't resolve), so do it BEFORE merging to master
-- Cloudflare Access: create an application covering `vancity.dev/admin/*` by hand in the Zero Trust dashboard. `src/routes/admin/+layout.server.ts` only checks the `Cf-Access-Jwt-Assertion` header is present (defence in depth), it does not replace the policy
+- Cloudflare Access: create an application covering `vancity.dev/admin/*` by hand in the Zero Trust dashboard. `src/routes/admin/+layout.server.ts` only checks the `Cf-Access-Jwt-Assertion` header is present (defence in depth), it does not replace the policy. It also 403s any host other than the apex/www/localhost, because a forged header would otherwise get in via `workers.dev`, which Access cannot cover: disable that route (CF dashboard → the Worker → Settings → Domains & Routes)
 - Migrations live in `migrations/`; apply locally with `npx wrangler d1 migrations apply vancity-prospects --local`, and to the real database with `--remote` (the default without a flag is local)
 
 ## Cloudflare Built-in Modules (`cloudflare:*`)
