@@ -42,7 +42,7 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 - Wildcard subdomain routing requires two `[[routes]]` entries: `*.vancity.dev` AND `*.vancity.dev/*`
 - Wildcard CNAME (`* → @`, proxied) must be set manually in Cloudflare DNS dashboard
 - `send_email` binding also needs manual activation: CF dashboard → Workers & Pages → Worker → Settings → Email
-- D1 binding `DB` (database `vancity-prospects`, holds the prospects table): run `npx wrangler d1 create vancity-prospects` once per environment and paste the returned `database_id` over the placeholder in `wrangler.toml`
+- D1 binding `DB` (database `vancity-prospects`, holds the prospects table): run `npx wrangler d1 create vancity-prospects` once per environment and paste the returned `database_id` over the placeholder in `wrangler.toml`. Deploys fail until this is done (the placeholder id doesn't resolve), so do it BEFORE merging to master
 - Migrations live in `migrations/`; apply locally with `npx wrangler d1 migrations apply vancity-prospects --local`, and to the real database with `--remote` (the default without a flag is local)
 
 ## Cloudflare Built-in Modules (`cloudflare:*`)
