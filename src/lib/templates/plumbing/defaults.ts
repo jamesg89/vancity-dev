@@ -31,6 +31,11 @@ export const octopusDefaults: PlumbingContent = {
     jobsCompleted: '9,400+',
     averageArrival: '47 min'
   },
+  photoCaptions: {
+    hero: '[ photo · 4:5 · Octopus plumber at a Vancouver customer’s door ]',
+    team: '[ photo · 5:4 · the Octopus crew with branded vans ]',
+    map: '[ map · 4:3 · Metro Vancouver service area ]'
+  },
   insuranceClaim: 'carries $5M liability insurance and WorkSafeBC coverage.',
   postal: {
     label: 'Postal code',

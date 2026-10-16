@@ -27,6 +27,8 @@ export interface PlumbingContent {
     jobsCompleted: string; // "9,400+"
     averageArrival: string; // "47 min"
   } | null;
+  // Placeholder captions inside the photo slots; null => slots render empty and aria-hidden
+  photoCaptions: { hero: string; team: string; map: string } | null;
   // FAQ clause after the licence sentence; empty => the sentence ends after the licence
   insuranceClaim: string;
   postal: { label: string; hint: string; pattern: string }; // pattern is passed to new RegExp()

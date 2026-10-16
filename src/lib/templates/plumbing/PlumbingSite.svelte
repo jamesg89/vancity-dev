@@ -420,8 +420,8 @@
         </div>
 
         <div class="hero-media">
-          <div class="photo-slot hero-photo">
-            <span>[ photo · 4:5 · {content.brandLead} plumber at a {content.city} customer’s door ]</span>
+          <div class="photo-slot hero-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}>
+            {#if content.photoCaptions}<span>{content.photoCaptions.hero}</span>{/if}
           </div>
           <div class="float-card float-card-left">
             <span class="float-icon float-icon-green" aria-hidden="true">
@@ -545,8 +545,8 @@
     <section class="section">
       <div class="container why-inner">
         <div class="why-media">
-          <div class="photo-slot why-photo">
-            <span>[ photo · 5:4 · the {content.brandLead} crew with branded vans ]</span>
+          <div class="photo-slot why-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}>
+            {#if content.photoCaptions}<span>{content.photoCaptions.team}</span>{/if}
           </div>
           {#if content.socialProof}
             <div class="years-badge">
@@ -709,8 +709,8 @@
             Not sure if we cover you? <a href={content.phoneHref} class="text-link">Call {content.phoneDisplay}</a>
           </p>
         </div>
-        <div class="photo-slot map-photo">
-          <span>[ map · 4:3 · {content.metroLabel} service area ]</span>
+        <div class="photo-slot map-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}>
+          {#if content.photoCaptions}<span>{content.photoCaptions.map}</span>{/if}
         </div>
       </div>
     </section>
