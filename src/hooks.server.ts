@@ -1,7 +1,14 @@
-import type { Handle } from '@sveltejs/kit';
+import { error, type Handle } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 import { demos } from '$lib/demos/index';
+import { adminAccessAllowed, isAdminPath } from '$lib/admin-guard';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	// Before routing, so page loads, form actions and +server.ts endpoints are all covered.
+	if (isAdminPath(event.url.pathname) && !adminAccessAllowed(event.url, event.request.headers, dev)) {
+		error(403, 'Forbidden');
+	}
+
 	const match = event.url.hostname.match(/^(.+)\.(?:vancity\.dev|localhost)$/);
 	if (match && match[1] !== 'www') {
 		// event.url keeps the original hostname after reroute, so the slug is recovered here.

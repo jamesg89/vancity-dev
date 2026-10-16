@@ -24,3 +24,10 @@ test('a forged Access header does not admit a request on a non-allowlisted host'
   });
   expect(res.status()).toBe(403);
 });
+
+// There is no form action yet. Without a guard in `handle`, a POST falls through to SvelteKit's
+// method handling (405), so a 403 proves the guard ran before routing. This is what keeps
+// future actions and +server.ts endpoints under /admin behind the same check.
+test('a POST to /admin without the Access header is 403, not 405', async ({ request }) => {
+  expect((await request.post(ADMIN)).status()).toBe(403);
+});
