@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render } from 'svelte/server';
 import PlumbingSite from './PlumbingSite.svelte';
 import type { PlumbingContent } from './types';
+import { derivePlumbingContent } from './derive';
 
 // A prospect-shaped fixture. Deliberately NOT spread from octopusDefaults: every field is
 // set here (the type enforces it), so anything Octopus-specific in the output can only
@@ -90,9 +91,24 @@ function renderedMarkup(content: PlumbingContent): string {
   return (head + body).replace(/\sd="[^"]*"/g, '');
 }
 
+// Content produced by the real derivation, not a hand-built fixture. This is the end-to-end
+// check: the page a prospect actually receives must pass the same deny-list.
+const derivedAustin = derivePlumbingContent({
+  slug: 'turk-plumbing',
+  companyName: 'Turk Plumbing',
+  industry: 'plumbing',
+  city: 'Austin',
+  region: 'TX',
+  phone: '(512) 555-0147',
+  nearbyAreas: ['Round Rock', 'Pflugerville', 'Cedar Park'],
+  createdAt: 0,
+  archived: false
+});
+
 const fixtures: [string, PlumbingContent][] = [
   ['no licence number', turk],
-  ['with a licence number', turkLicensed]
+  ['with a licence number', turkLicensed],
+  ['derived from an Austin prospect', derivedAustin]
 ];
 
 for (const [name, content] of fixtures) {
@@ -128,5 +144,33 @@ describe('PlumbingSite licence branches', () => {
     const html = renderedMarkup(turk);
     expect(html).toContain('Turk Plumbing is licensed');
     expect(html).not.toContain('Lic. #');
+  });
+});
+
+describe('PlumbingSite rendered from derivePlumbingContent', () => {
+  const html = renderedMarkup(derivedAustin);
+
+  it('invents no verifiable facts', () => {
+    expect(html).not.toContain('Lic. #');
+    expect(html).not.toContain('mailto:');
+    expect(html).not.toContain('liability insurance and');
+    expect(html).not.toMatch(/years in Austin/);
+    expect(html).not.toMatch(/Family-owned|since 20\d\d/i);
+  });
+
+  it('reads cleanly in the licence FAQ', () => {
+    expect(html).toContain(
+      'Turk Plumbing is licensed and carries liability insurance. Every plumber is background-checked.'
+    );
+  });
+
+  it('links only the emergency card to the phone', () => {
+    expect(html).toContain('tel:5125550147');
+    expect(html).not.toContain('/p/drain-cleaning');
+  });
+
+  it('shows the prospect service area', () => {
+    expect(html).toContain('Serving Austin, Round Rock, Pflugerville &amp; Cedar Park');
+    expect(html).toContain('ZIP code');
   });
 });
