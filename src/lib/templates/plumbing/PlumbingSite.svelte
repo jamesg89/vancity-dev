@@ -101,9 +101,23 @@
 
   const trust = $derived([
     { title: 'Licensed & Insured', sub: content.licenceShort ?? 'Fully insured', icon: icons.shield },
-    { title: '4.9★ on Google', sub: '612+ reviews', icon: icons.star },
+    ...(content.socialProof
+      ? [
+          {
+            title: `${content.socialProof.ratingValue}★ on Google`,
+            sub: `${content.socialProof.ratingCount} reviews`,
+            icon: icons.star
+          }
+        ]
+      : []),
     { title: 'Upfront Pricing', sub: 'You approve first', icon: icons.tag },
-    { title: 'Locally Owned', sub: `17+ years in ${content.city}`, icon: icons.home },
+    {
+      title: 'Locally Owned',
+      sub: content.socialProof
+        ? `${content.socialProof.yearsBadge} years in ${content.city}`
+        : `Serving ${content.city}`,
+      icon: icons.home
+    },
     { title: 'Guaranteed', sub: '2-year written warranty', icon: icons.check }
   ]);
 
@@ -179,13 +193,17 @@
       : 'is licensed'
   );
 
+  const insuranceSentence = $derived(
+    content.insuranceClaim ? ` and ${content.insuranceClaim}` : '.'
+  );
+
   // The booking checklist writes "insured" in lower case where the utility bar capitalises it.
   const bookLicenceLine = $derived(content.licenceLine.replace('& Insured', '& insured'));
 
   const faqs = $derived([
     {
       q: 'Are you licensed and insured?',
-      a: `Yes. ${content.companyName} ${licenceClaim} and carries $5M liability insurance and WorkSafeBC coverage. Every plumber is background-checked.`
+      a: `Yes. ${content.companyName} ${licenceClaim}${insuranceSentence} Every plumber is background-checked.`
     },
     {
       q: 'How much will it cost?',
@@ -231,11 +249,19 @@
       : 'Licensed & insured · You approve the price first'
   );
 
+  const postalPattern = $derived.by(() => {
+    try {
+      return new RegExp(content.postal.pattern);
+    } catch {
+      return /\S/; // a malformed pattern must not break the form
+    }
+  });
+
   function validate(f: typeof emptyForm): Errors {
     return {
       name: !f.name.trim(),
       phone: f.phone.replace(/\D/g, '').length < 10,
-      zip: !/^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/.test(f.zip.trim()),
+      zip: !postalPattern.test(f.zip.trim()),
       service: !f.service
     };
   }
@@ -378,14 +404,19 @@
             </a>
             <a href="#book" class="btn-outline btn-lg">Request Service</a>
           </div>
-          <div class="rating">
-            <span class="stars" aria-hidden="true">
-              {#each [0, 1, 2, 3, 4] as star (star)}
-                <svg width="18" height="18" viewBox="0 0 24 24"><path d={icons.star} /></svg>
-              {/each}
-            </span>
-            <span><strong>4.9/5</strong> from 612+ Google reviews</span>
-          </div>
+          {#if content.socialProof}
+            <div class="rating">
+              <span class="stars" aria-hidden="true">
+                {#each [0, 1, 2, 3, 4] as star (star)}
+                  <svg width="18" height="18" viewBox="0 0 24 24"><path d={icons.star} /></svg>
+                {/each}
+              </span>
+              <span
+                ><strong>{content.socialProof.ratingValue}/5</strong> from {content.socialProof
+                  .ratingCount} Google reviews</span
+              >
+            </div>
+          {/if}
         </div>
 
         <div class="hero-media">
@@ -517,17 +548,17 @@
           <div class="photo-slot why-photo">
             <span>[ photo · 5:4 · the {content.brandLead} crew with branded vans ]</span>
           </div>
-          <div class="years-badge">
-            <span class="years-n">17+</span>
-            <span>years in {content.city}</span>
-          </div>
+          {#if content.socialProof}
+            <div class="years-badge">
+              <span class="years-n">{content.socialProof.yearsBadge}</span>
+              <span>years in {content.city}</span>
+            </div>
+          {/if}
         </div>
         <div>
           <p class="eyebrow">Why {content.brandLead}</p>
           <h2>A local crew that shows up and owns the job</h2>
-          <p class="sec-lead why-lead">
-            Family-owned since 2009. Our plumbers live in the neighbourhoods they work in.
-          </p>
+          <p class="sec-lead why-lead">{content.whyLead}</p>
           <ul class="diffs">
             {#each diffs as d (d.t)}
               <li>
@@ -541,20 +572,22 @@
               </li>
             {/each}
           </ul>
-          <dl class="stats">
-            <div>
-              <dt>Jobs completed</dt>
-              <dd>9,400+</dd>
-            </div>
-            <div>
-              <dt>Average arrival</dt>
-              <dd>47 min</dd>
-            </div>
-            <div>
-              <dt>Google rating</dt>
-              <dd>4.9★</dd>
-            </div>
-          </dl>
+          {#if content.socialProof}
+            <dl class="stats">
+              <div>
+                <dt>Jobs completed</dt>
+                <dd>{content.socialProof.jobsCompleted}</dd>
+              </div>
+              <div>
+                <dt>Average arrival</dt>
+                <dd>{content.socialProof.averageArrival}</dd>
+              </div>
+              <div>
+                <dt>Google rating</dt>
+                <dd>{content.socialProof.ratingValue}★</dd>
+              </div>
+            </dl>
+          {/if}
         </div>
       </div>
     </section>
@@ -625,13 +658,18 @@
             <p class="eyebrow">Reviews</p>
             <h2>What {content.city} says about us</h2>
           </div>
-          <div class="score">
-            <span class="score-n">4.9</span>
-            <span class="score-meta">
-              <span class="score-stars" aria-hidden="true">★★★★★</span>
-              <span>612+ Google reviews · <a href="#reviews" class="text-link">Read them all</a></span>
-            </span>
-          </div>
+          {#if content.socialProof}
+            <div class="score">
+              <span class="score-n">{content.socialProof.ratingValue}</span>
+              <span class="score-meta">
+                <span class="score-stars" aria-hidden="true">★★★★★</span>
+                <span
+                  >{content.socialProof.ratingCount} Google reviews ·
+                  <a href="#reviews" class="text-link">Read them all</a></span
+                >
+              </span>
+            </div>
+          {/if}
         </div>
         <div class="review-grid">
           {#each reviews as r, i (r.name)}
@@ -719,11 +757,13 @@
                 ><path d={icons.check} /></svg
               >Price approved before work starts
             </li>
+            {#if content.socialProof}
             <li>
               <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"
                 ><path d={icons.check} /></svg
-              >4.9★ from 612+ Google reviews
+              >{content.socialProof.ratingValue}★ from {content.socialProof.ratingCount} Google reviews
             </li>
+          {/if}
           </ul>
           <p class="book-note">Emergency? Please call. It’s faster.</p>
         </div>
@@ -776,7 +816,7 @@
               </label>
 
               <label class="field">
-                Postal code
+                {content.postal.label}
                 <input
                   name="postal"
                   autocomplete="postal-code"
@@ -786,7 +826,7 @@
                   class:invalid={errs.zip}
                   aria-invalid={errs.zip ? 'true' : undefined}
                 />
-                {#if errs.zip}<span class="field-error">Enter a postal code like V5T 3B9.</span>{/if}
+                {#if errs.zip}<span class="field-error">{content.postal.hint}</span>{/if}
               </label>
 
               <label class="field">

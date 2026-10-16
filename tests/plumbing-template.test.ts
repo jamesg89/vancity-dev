@@ -11,6 +11,8 @@ test('/p renders the Octopus showcase unchanged', async ({ page }) => {
   await expect(page.locator('.faqs details')).toHaveCount(6);
   await expect(page.getByText('Lic. #PL-204871').first()).toBeVisible();
   await expect(page.locator('a[href="/p/drain-cleaning"]').first()).toBeAttached();
+  await expect(page.getByText('612+').first()).toBeVisible();
+  await expect(page.getByText('17+').first()).toBeVisible();
 });
 
 test('/p has no failing-contrast anchors', async ({ page }) => {
