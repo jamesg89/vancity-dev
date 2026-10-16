@@ -8,7 +8,6 @@ export const octopusDefaults: PlumbingContent = {
   brandLead: 'Octopus',
   brandTail: 'Plumbing',
   city: 'Vancouver',
-  metroLabel: 'Metro Vancouver',
   heroHeadline: 'Fast, Honest Plumbing in Vancouver, BC',
   availabilityPill: 'Plumbers available now in Vancouver',
   phoneDisplay: '(604) 555-0188',

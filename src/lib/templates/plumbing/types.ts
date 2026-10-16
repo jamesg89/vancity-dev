@@ -5,7 +5,6 @@ export interface PlumbingContent {
   brandLead: string;
   brandTail: string | null;
   city: string;
-  metroLabel: string;
   heroHeadline: string;
   availabilityPill: string;
   phoneDisplay: string;

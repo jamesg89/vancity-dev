@@ -420,7 +420,8 @@
         </div>
 
         <div class="hero-media">
-          <div class="photo-slot hero-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}>
+          <div class="photo-slot hero-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}
+            class:bare={!content.photoCaptions}>
             {#if content.photoCaptions}<span>{content.photoCaptions.hero}</span>{/if}
           </div>
           <div class="float-card float-card-left">
@@ -545,7 +546,8 @@
     <section class="section">
       <div class="container why-inner">
         <div class="why-media">
-          <div class="photo-slot why-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}>
+          <div class="photo-slot why-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}
+            class:bare={!content.photoCaptions}>
             {#if content.photoCaptions}<span>{content.photoCaptions.team}</span>{/if}
           </div>
           {#if content.socialProof}
@@ -709,7 +711,8 @@
             Not sure if we cover you? <a href={content.phoneHref} class="text-link">Call {content.phoneDisplay}</a>
           </p>
         </div>
-        <div class="photo-slot map-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}>
+        <div class="photo-slot map-photo" aria-hidden={content.photoCaptions ? undefined : 'true'}
+            class:bare={!content.photoCaptions}>
           {#if content.photoCaptions}<span>{content.photoCaptions.map}</span>{/if}
         </div>
       </div>
@@ -1483,6 +1486,11 @@
     place-items: center;
     padding: 24px;
     text-align: center;
+  }
+
+  /* No caption: a plain tonal panel, so nothing reads as a placeholder. */
+  .photo-slot.bare {
+    border: 1px solid transparent;
   }
 
   .photo-slot span {
