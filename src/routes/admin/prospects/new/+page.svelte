@@ -1,30 +1,20 @@
 <script lang="ts">
-  import CopyButton from '../../CopyButton.svelte';
   import { industries } from '$lib/templates';
   import type { ProspectFormErrors } from '$lib/prospects/validate';
   import type { ActionData } from './$types';
 
   let { form }: { form: ActionData } = $props();
 
-  // A failed submit comes back with the raw values and per-field errors; a successful one has
-  // neither, so the form renders empty beside the new link.
+  // A failed submit comes back with the raw values and per-field errors. Success redirects to
+  // the list, so this page never renders one.
   const values = $derived(form?.values);
   const errors = $derived<ProspectFormErrors>(form?.errors ?? {});
-  const created = $derived(form?.success ? form : undefined);
 </script>
 
 <header class="bar">
   <h1>New prospect</h1>
   <nav><a href="/admin/prospects">All prospects</a></nav>
 </header>
-
-{#if created}
-  <section class="done" aria-label="Prospect created">
-    <p>Created {created.companyName}. Share this link:</p>
-    <p class="url"><code data-testid="share-url">{created.url}</code></p>
-    <CopyButton text={created.url} />
-  </section>
-{/if}
 
 <form method="POST" novalidate>
   {#if errors.form}
@@ -174,21 +164,6 @@
     margin: 0;
     font-size: 0.9rem;
     color: #9b2c2c;
-  }
-  .done {
-    max-width: 32rem;
-    margin-bottom: 2rem;
-    padding: 1rem 1.25rem;
-    border: 1px solid var(--accent);
-    border-radius: 8px;
-    background: var(--paper);
-  }
-  .url {
-    margin: 0.25rem 0 0.75rem;
-  }
-  code {
-    font-family: var(--mono);
-    word-break: break-all;
   }
   button.btn {
     justify-self: start;

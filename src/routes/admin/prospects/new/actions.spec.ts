@@ -3,9 +3,20 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const db = vi.hoisted(() => ({ listProspects: vi.fn(), createProspect: vi.fn() }));
 vi.mock('$lib/prospects/db', () => db);
 
+import { isRedirect } from '@sveltejs/kit';
 import { actions } from './+page.server';
 
-function run(fields: Record<string, string>) {
+// A successful create throws a redirect. Resolve it to its location; anything else passes through.
+async function run(fields: Record<string, string>): Promise<unknown> {
+  try {
+    return await submit(fields);
+  } catch (err) {
+    if (isRedirect(err)) return { status: err.status, location: err.location };
+    throw err;
+  }
+}
+
+function submit(fields: Record<string, string>) {
   const body = new FormData();
   for (const [k, v] of Object.entries(fields)) body.set(k, v);
   const request = new Request('http://localhost/admin/prospects/new', { method: 'POST', body });
@@ -29,11 +40,17 @@ beforeEach(() => {
 });
 
 describe('create action', () => {
+  it('redirects 303 to the list with the new slug', async () => {
+    db.listProspects.mockResolvedValue([]);
+    db.createProspect.mockImplementation(async (_db, input, slug) => ({ ...input, slug }));
+    expect(await run(form)).toEqual({ status: 303, location: '/admin/prospects?created=turk-plumbing' });
+  });
+
   it('skips slugs held by archived rows', async () => {
     db.listProspects.mockResolvedValue([row('turk-plumbing')]);
     db.createProspect.mockImplementation(async (_db, input, slug) => ({ ...input, slug }));
-    const result = (await run(form)) as { url: string };
-    expect(result.url).toBe('https://turk-plumbing-2.vancity.dev');
+    const result = await run(form);
+    expect(result).toEqual({ status: 303, location: '/admin/prospects?created=turk-plumbing-2' });
   });
 
   it('retries with the next slug when the insert collides', async () => {
@@ -43,8 +60,8 @@ describe('create action', () => {
     db.createProspect
       .mockRejectedValueOnce(new Error('D1_ERROR: UNIQUE constraint failed: prospects.slug'))
       .mockImplementation(async (_db, input, slug) => ({ ...input, slug }));
-    const result = (await run(form)) as { url: string };
-    expect(result.url).toBe('https://turk-plumbing-2.vancity.dev');
+    const result = await run(form);
+    expect(result).toEqual({ status: 303, location: '/admin/prospects?created=turk-plumbing-2' });
     expect(db.createProspect).toHaveBeenCalledTimes(2);
   });
 

@@ -1,4 +1,4 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { createProspect, listProspects } from '$lib/prospects/db';
 import { nextAvailableSlug } from '$lib/prospects/slug';
@@ -8,9 +8,6 @@ import {
   type ProspectFormErrors,
   type ProspectFormValues
 } from '$lib/prospects/validate';
-
-// The base domain a prospect's site is served from.
-const SITE_DOMAIN = 'vancity.dev';
 
 // A second admin, or a retry of the same POST, can take the slug between our read and the
 // insert. The primary key is the real arbiter, so a collision re-reads and tries the next slug.
@@ -32,19 +29,15 @@ export const actions = {
     const db = platform?.env?.DB;
     if (!db) return invalid(503, values, { form: 'The database is not available. Nothing was saved.' });
 
+    let createdSlug: string | null = null;
     try {
-      for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+      for (let attempt = 0; attempt < MAX_ATTEMPTS && !createdSlug; attempt++) {
         // listProspects, not getProspectBySlug: that one hides archived rows, which still own
         // their slug (it is the primary key) and would make every retry collide again.
         const taken = new Set((await listProspects(db)).map((p) => p.slug));
         const slug = nextAvailableSlug(parsed.slugBase, (s) => taken.has(s));
         try {
-          const created = await createProspect(db, parsed.prospect, slug);
-          return {
-            success: true as const,
-            companyName: created.companyName,
-            url: `https://${created.slug}.${SITE_DOMAIN}`
-          };
+          createdSlug = (await createProspect(db, parsed.prospect, slug)).slug;
         } catch (err) {
           if (!isCollision(err)) throw err;
         }
@@ -52,6 +45,10 @@ export const actions = {
     } catch {
       return invalid(500, values, { form: 'Could not save the prospect. Try again.' });
     }
-    return invalid(409, values, { form: 'That link was taken while saving. Try again.' });
+    if (!createdSlug) return invalid(409, values, { form: 'That link was taken while saving. Try again.' });
+
+    // Post-redirect-get: reloading or restoring the tab re-requests the list, never the POST,
+    // so a refresh cannot create a second prospect. The list shows the new link.
+    redirect(303, `/admin/prospects?created=${encodeURIComponent(createdSlug)}`);
   }
 } satisfies Actions;

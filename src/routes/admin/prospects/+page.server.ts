@@ -4,11 +4,13 @@ import { listProspects, setArchived } from '$lib/prospects/db';
 
 const SITE_DOMAIN = 'vancity.dev';
 
-export const load: PageServerLoad = async ({ platform }) => {
+export const load: PageServerLoad = async ({ platform, url }) => {
   const db = platform?.env?.DB;
   if (!db) error(503, 'The database is not available.');
   const prospects = await listProspects(db);
   return {
+    // Set by the create action's redirect. The page only highlights it if it is a listed row.
+    created: url.searchParams.get('created'),
     prospects: prospects.map((p) => ({
       slug: p.slug,
       companyName: p.companyName,

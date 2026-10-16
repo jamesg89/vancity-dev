@@ -55,14 +55,34 @@ async function fillAndCreate(page: Page, name: string, extra: { phone?: string }
   await page.getByRole('button', { name: 'Create prospect' }).click();
 }
 
-test('creating a prospect yields a shareable url', async ({ page }) => {
+test('creating a prospect redirects to the list and shows the shareable url', async ({ page }) => {
   await fillAndCreate(page, NAME);
-  await expect(page.getByTestId('share-url')).toHaveText(URL1);
+  await expect(page).toHaveURL(/\/admin\/prospects\?created=admin-e2e-plumbing$/);
+  await expect(page.getByTestId('created-url')).toHaveText(URL1);
+  // The new row is on the same page, highlighted, with its own link and copy button.
+  const row = page.getByRole('row', { name: new RegExp(NAME) });
+  await expect(row).toHaveClass(/highlight/);
+  await expect(row.getByTestId('share-url')).toHaveText(URL1);
+});
+
+test('reloading after a successful create does not create another prospect', async ({ page }) => {
+  await fillAndCreate(page, NAME);
+  await expect(page.getByTestId('created-url')).toHaveText(URL1);
+  await page.reload();
+  await expect(page.getByTestId('created-url')).toHaveText(URL1);
+  await page.reload();
+  await expect(page.getByRole('row', { name: new RegExp(NAME) })).toHaveCount(1);
+  await expect(page.getByText('admin-e2e-plumbing-2.vancity.dev')).toHaveCount(0);
+});
+
+test('a created= value that is not a listed prospect shows nothing', async ({ page }) => {
+  await page.goto('/admin/prospects?created=<b>nope</b>');
+  await expect(page.getByTestId('created-url')).toHaveCount(0);
 });
 
 test('the created prospect is a live, personalized site', async ({ page }) => {
   await fillAndCreate(page, NAME);
-  await expect(page.getByTestId('share-url')).toBeVisible();
+  await expect(page.getByTestId('created-url')).toBeVisible();
   await page.goto('http://admin-e2e-plumbing.localhost:4173/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Fast, Honest Plumbing in Austin, TX');
   await expect(page.locator('.towns li')).toHaveCount(2);
@@ -70,11 +90,11 @@ test('the created prospect is a live, personalized site', async ({ page }) => {
 
 test('a duplicate company name gets a suffixed slug', async ({ page }) => {
   await fillAndCreate(page, NAME);
-  await expect(page.getByTestId('share-url')).toHaveText(URL1);
+  await expect(page.getByTestId('created-url')).toHaveText(URL1);
   await fillAndCreate(page, NAME);
-  await expect(page.getByTestId('share-url')).toHaveText('https://admin-e2e-plumbing-2.vancity.dev');
+  await expect(page.getByTestId('created-url')).toHaveText('https://admin-e2e-plumbing-2.vancity.dev');
   await fillAndCreate(page, NAME);
-  await expect(page.getByTestId('share-url')).toHaveText('https://admin-e2e-plumbing-3.vancity.dev');
+  await expect(page.getByTestId('created-url')).toHaveText('https://admin-e2e-plumbing-3.vancity.dev');
 });
 
 test('an archived prospect still holds its slug, so a new one with the same name is suffixed', async ({
@@ -82,12 +102,13 @@ test('an archived prospect still holds its slug, so a new one with the same name
 }) => {
   await fillAndCreate(page, NAME);
   await page.goto('/admin/prospects');
-  await page
-    .getByRole('row', { name: new RegExp(NAME) })
-    .getByRole('button', { name: 'Archive', exact: true })
-    .click();
+  const row = page.getByRole('row', { name: new RegExp(NAME) });
+  await row.getByRole('button', { name: 'Archive', exact: true }).click();
+  // Wait for the enhanced POST to land. Without this the next navigation can abort it, and an
+  // unarchived row also yields -2, so the test would prove nothing about archived rows.
+  await expect(row.getByRole('button', { name: 'Unarchive' })).toBeVisible();
   await fillAndCreate(page, NAME);
-  await expect(page.getByTestId('share-url')).toHaveText('https://admin-e2e-plumbing-2.vancity.dev');
+  await expect(page.getByTestId('created-url')).toHaveText('https://admin-e2e-plumbing-2.vancity.dev');
 });
 
 test('company name is required and the rest of the input survives', async ({ page }) => {
@@ -120,7 +141,7 @@ test('every field keeps its value when validation fails', async ({ page }) => {
 test('a phone number with no real digits is rejected, not stored', async ({ page }) => {
   await fillAndCreate(page, NAME, { phone: 'call us' });
   await expect(page.getByText(/Enter a phone number/)).toBeVisible();
-  await expect(page.getByTestId('share-url')).toHaveCount(0);
+  await expect(page).toHaveURL(/\/admin\/prospects\/new$/);
   await page.goto('/admin/prospects');
   await expect(page.getByText(NAME)).toHaveCount(0);
 });
@@ -140,7 +161,7 @@ test('a reserved name never becomes a reserved slug', async ({ page }) => {
   await page.getByLabel('City').fill('Austin');
   await page.getByLabel('Phone').fill('512-555-0142');
   await page.getByRole('button', { name: 'Create prospect' }).click();
-  await expect(page.getByTestId('share-url')).toHaveText('https://admin-2.vancity.dev');
+  await expect(page.getByTestId('created-url')).toHaveText('https://admin-2.vancity.dev');
 });
 
 test('the list shows and archives a prospect', async ({ page }) => {
@@ -171,8 +192,9 @@ test('the list shows and archives a prospect', async ({ page }) => {
 test('the copy button puts the url on the clipboard', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await fillAndCreate(page, NAME);
-  await page.getByRole('button', { name: 'Copy link' }).click();
-  await expect(page.getByText('Copied')).toBeVisible();
+  const banner = page.getByRole('region', { name: 'Prospect created' });
+  await banner.getByRole('button', { name: 'Copy link' }).click();
+  await expect(banner.getByText('Copied')).toBeVisible();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(URL1);
 });
 
@@ -181,9 +203,10 @@ test('without a clipboard API the copy button shows the link to copy by hand', a
     Object.defineProperty(navigator, 'clipboard', { value: undefined, configurable: true });
   });
   await fillAndCreate(page, NAME);
-  await page.getByRole('button', { name: 'Copy link' }).click();
-  await expect(page.getByText(/Copying is not available here/)).toBeVisible();
-  await expect(page.getByLabel('Link to copy')).toHaveValue(URL1);
+  const banner = page.getByRole('region', { name: 'Prospect created' });
+  await banner.getByRole('button', { name: 'Copy link' }).click();
+  await expect(banner.getByText(/Copying is not available here/)).toBeVisible();
+  await expect(banner.getByLabel('Link to copy')).toHaveValue(URL1);
 });
 
 test('the admin index links to the prospect list', async ({ page }) => {

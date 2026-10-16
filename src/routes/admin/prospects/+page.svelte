@@ -4,6 +4,8 @@
   import type { ActionData, PageData } from './$types';
 
   let { data, form }: { data: PageData; form: ActionData } = $props();
+
+  const created = $derived(data.prospects.find((p) => p.slug === data.created));
 </script>
 
 <header class="bar">
@@ -13,6 +15,14 @@
     <a class="btn" href="/admin/prospects/new">New prospect</a>
   </nav>
 </header>
+
+{#if created}
+  <section class="done" aria-label="Prospect created">
+    <p>Created {created.companyName}. Share this link:</p>
+    <p class="url"><code data-testid="created-url">{created.url}</code></p>
+    <CopyButton text={created.url} />
+  </section>
+{/if}
 
 {#if form && 'message' in form && form.message}
   <p class="error" role="alert">{form.message}</p>
@@ -33,7 +43,7 @@
     </thead>
     <tbody>
       {#each data.prospects as p (p.slug)}
-        <tr class:archived={p.archived}>
+        <tr class:archived={p.archived} class:highlight={p.slug === created?.slug}>
           <td>
             {p.companyName}
             {#if p.archived}<span class="tag">Archived</span>{/if}
@@ -105,6 +115,23 @@
   code {
     font-family: var(--mono);
     font-size: 0.85rem;
+  }
+  tr.highlight td {
+    background: color-mix(in oklab, var(--accent) 8%, transparent);
+  }
+  .done {
+    max-width: 32rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: var(--paper);
+  }
+  .url {
+    margin: 0.25rem 0 0.75rem;
+  }
+  .done code {
+    word-break: break-all;
   }
   tr.archived td {
     color: var(--ink-soft);
