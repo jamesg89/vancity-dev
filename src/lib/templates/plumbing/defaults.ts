@@ -16,6 +16,10 @@ export const octopusDefaults: PlumbingContent = {
   licenceLine: 'Licensed & Insured · Lic. #PL-204871',
   licenceShort: 'Lic. #PL-204871',
   foundedLine: 'Family-owned plumbers serving Metro Vancouver since 2009.',
+  heroLead:
+    'Eight arms, one honest price. We find the problem, quote a flat price, and start only when you approve it.',
+  currencyNote: 'Prices in CAD before tax.',
+  financingProvider: 'Financeit',
   whyLead: 'Family-owned since 2009. Our plumbers live in the neighbourhoods they work in.',
   servingLine: 'Serving Vancouver, Burnaby, Richmond & the North Shore',
   serviceAreaHeading: 'Plumbers across Metro Vancouver',

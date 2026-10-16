@@ -9,11 +9,14 @@ export interface PlumbingContent {
   availabilityPill: string;
   phoneDisplay: string;
   phoneHref: string;
-  email: string;
+  email: string | null; // null => mailto links hidden
   licenceLine: string;
   licenceShort: string | null;
   foundedLine: string;
+  heroLead: string;
   whyLead: string;
+  currencyNote: string; // e.g. "Prices in CAD before tax."
+  financingProvider: string; // named lender in the financing card and FAQ
   servingLine: string;
   serviceAreaHeading: string;
   serviceAreaIntro: string;

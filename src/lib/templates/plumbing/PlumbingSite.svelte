@@ -219,7 +219,7 @@
     },
     {
       q: 'Do you offer financing?',
-      a: 'Yes, through Financeit, from $79/month on approved credit for larger jobs like water heaters, repipes and sewer lines.'
+      a: `Yes, through ${content.financingProvider}, from $79/month on approved credit for larger jobs like water heaters, repipes and sewer lines.`
     },
     {
       q: 'What areas do you serve?',
@@ -377,10 +377,7 @@
             ><span class="pill-dot" aria-hidden="true"></span>{content.availabilityPill}</span
           >
           <h1>{content.heroHeadline}</h1>
-          <p class="hero-lead">
-            Eight arms, one honest price. We find the problem, quote a flat price, and start only
-            when you approve it.
-          </p>
+          <p class="hero-lead">{content.heroLead}</p>
           <ul class="checklist">
             <li>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icons.check} /></svg>
@@ -612,7 +609,7 @@
               </tbody>
             </table>
             <p class="fine">
-              Prices in CAD before tax. Every home is different, so your plumber confirms the exact
+              {content.currencyNote} Every home is different, so your plumber confirms the exact
               price on-site and you approve it before any work starts.
             </p>
           </div>
@@ -622,7 +619,7 @@
             <p class="card-sub">For water heaters, repipes and sewer lines</p>
             <p class="price-big">$79<span>/mo</span></p>
             <p class="card-body">
-              As low as $79/month through Financeit. Apply in minutes, get a decision on the spot.
+              As low as $79/month through {content.financingProvider}. Apply in minutes, get a decision on the spot.
             </p>
             <a href="#book" class="btn-primary btn-block">Check my options</a>
             <p class="fine">
@@ -746,9 +743,11 @@
           </p>
           <a href={content.phoneHref} class="book-phone">{content.phoneDisplay}</a>
           <p class="book-hours">Open 24 hours, 7 days a week</p>
-          <p class="book-email">
-            <a href="mailto:{content.email}">{content.email}</a>
-          </p>
+          {#if content.email}
+            <p class="book-email">
+              <a href="mailto:{content.email}">{content.email}</a>
+            </p>
+          {/if}
           <ul class="book-checks">
             <li>
               <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"
@@ -945,8 +944,8 @@
         <p class="footer-head">Contact</p>
         <address>
           {#if content.address}{#each content.address as line (line)}{line}<br />{/each}{/if}
-          <a href={content.phoneHref}>{content.phoneDisplay}</a><br />
-          <a href="mailto:{content.email}">{content.email}</a>
+          <a href={content.phoneHref}>{content.phoneDisplay}</a>{#if content.email}<br />
+            <a href="mailto:{content.email}">{content.email}</a>{/if}
         </address>
         <p class="footer-hours">Open 24 hours, 7 days a week</p>
       </div>
