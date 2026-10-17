@@ -90,6 +90,17 @@ describe('/site load', () => {
     );
   });
 
+  // The renderer strips a trailing extension before dialling, so these have no number left.
+  // They contain a digit, which is all the old gate asked for.
+  it.each(['x 123', 'ext. 12', '#5'])(
+    '404s a row whose phone is only an extension, %j',
+    async (phone) => {
+      expect(
+        await statusOf(run('turk-plumbing', platformWith(async () => ({ ...row, phone }))))
+      ).toBe(404);
+    }
+  );
+
   it('is a 500 for an industry with no template', async () => {
     const platform = platformWith(async () => ({ ...row, industry: 'basket-weaving' }));
     expect(await statusOf(run('turk-plumbing', platform))).toBe(500);

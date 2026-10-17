@@ -3,12 +3,13 @@ import type { PageServerLoad } from './$types';
 import { getProspectBySlug } from '$lib/prospects/db';
 import type { Prospect, ReadyProspect } from '$lib/prospects/types';
 import { industries } from '$lib/templates';
-import { derivePlumbingContent } from '$lib/templates/plumbing/derive';
+import { derivePlumbingContent, toTelHref } from '$lib/templates/plumbing/derive';
 
-// ReadyProspect only promises a string at the type level. '' and 'call us' satisfy it and
-// would render "Call call us" in six places, so a phone with no digits is an incomplete row.
+// ReadyProspect only promises a string at the type level. '', 'call us' and an extension-only
+// 'x 123' satisfy it and would render "Call ..." in six places with a dead link. The gate asks
+// toTelHref, the same function the page uses, so the two cannot disagree about what a phone is.
 function isReady(prospect: Prospect): prospect is ReadyProspect {
-  return prospect.phone !== null && /\d/.test(prospect.phone);
+  return toTelHref(prospect.phone) !== '';
 }
 
 export const load: PageServerLoad = async ({ locals, platform }) => {

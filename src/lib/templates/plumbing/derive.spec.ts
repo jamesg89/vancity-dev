@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { derivePlumbingContent, toTelHref } from './derive';
 import type { ReadyProspect } from '$lib/prospects/types';
+import { parseProspectForm } from '$lib/prospects/validate';
 
 const turk: ReadyProspect = {
   slug: 'turk-plumbing',
@@ -91,6 +92,40 @@ describe('derivePlumbingContent', () => {
   it('trims and de-duplicates nearby areas', () => {
     const c = derivePlumbingContent({ ...turk, nearbyAreas: [' A ', 'a', '', 'B'] });
     expect(c.towns).toEqual(['A', 'B']);
+  });
+
+  it('drops an area equal to the city, in any case', () => {
+    const c = derivePlumbingContent({ ...turk, nearbyAreas: ['austin', 'Round Rock', ' AUSTIN '] });
+    expect(c.towns).toEqual(['Round Rock']);
+    expect(c.servingLine).toBe('Serving Austin & Round Rock');
+  });
+
+  it('drops an area equal to the region code', () => {
+    const c = derivePlumbingContent({ ...turk, nearbyAreas: ['tx', 'Round Rock'] });
+    expect(c.towns).toEqual(['Round Rock']);
+  });
+
+  it('turns the natural "Austin, TX" nearby-areas input into no towns at all, end to end', () => {
+    const parsed = parseProspectForm({
+      companyName: 'Turk Plumbing',
+      industry: 'plumbing',
+      city: 'Austin',
+      region: 'TX',
+      phone: '(512) 555-0147',
+      nearbyAreas: 'Austin, TX'
+    });
+    expect(parsed.prospect?.nearbyAreas).toEqual(['Austin', 'TX']);
+    const c = derivePlumbingContent({
+      ...parsed.prospect!,
+      slug: 'turk-plumbing',
+      createdAt: 0,
+      archived: false,
+      phone: parsed.prospect!.phone as string
+    });
+    expect(c.towns).toEqual([]);
+    expect(c.servingLine).toBe('Serving Austin');
+    expect(c.faqAreasAnswer).toBe('Austin. Not sure? Get in touch.');
+    expect(c.reviewTowns).toEqual(['Austin', 'Austin', 'Austin']);
   });
 
   it('builds the area copy from the nearby areas', () => {
@@ -214,6 +249,11 @@ describe('toTelHref', () => {
     expect(toTelHref('5125550147" onclick="x')).toBe('tel:5125550147'));
   it('drops a trailing extension', () =>
     expect(toTelHref('(512) 555-0147 ext. 12')).toBe('tel:5125550147'));
+  it('returns an empty href for an extension on its own', () => {
+    expect(toTelHref('x 123')).toBe('');
+    expect(toTelHref('ext. 12')).toBe('');
+    expect(toTelHref('#5')).toBe('');
+  });
   it('returns an empty href for null', () => expect(toTelHref(null)).toBe(''));
   it('returns an empty href when there are no digits', () =>
     expect(toTelHref('call us')).toBe(''));

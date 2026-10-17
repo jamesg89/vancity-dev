@@ -75,6 +75,28 @@ test('reloading after a successful create does not create another prospect', asy
   await expect(page.getByText('admin-e2e-plumbing-2.vancity.dev')).toHaveCount(0);
 });
 
+test('"Austin, TX" in nearby areas warns, still submits, and the page lists no such towns', async ({
+  page
+}) => {
+  await page.goto('/admin/prospects/new');
+  await page.getByLabel('Company name').fill(NAME);
+  await page.getByLabel('City').fill('Austin');
+  await page.getByLabel('State or province').fill('TX');
+  await page.getByLabel('Phone').fill('512-555-0142');
+  await expect(page.getByRole('status')).toHaveCount(0);
+  await page.getByLabel('Nearby areas').fill('Austin, TX');
+  await expect(page.getByRole('status')).toHaveCount(2);
+  await expect(page.getByRole('status').first()).toContainText('city itself');
+  await expect(page.getByRole('status').last()).toContainText('state or province code');
+
+  await page.getByRole('button', { name: 'Create prospect' }).click();
+  await expect(page.getByTestId('created-url')).toHaveText(URL1);
+
+  await page.goto('http://admin-e2e-plumbing.localhost:4173/');
+  await expect(page.locator('.towns li')).toHaveCount(0);
+  await expect(page.getByText('Serving Austin').first()).toBeVisible();
+});
+
 test('a created= value that is not a listed prospect shows nothing', async ({ page }) => {
   await page.goto('/admin/prospects?created=<b>nope</b>');
   await expect(page.getByTestId('created-url')).toHaveCount(0);

@@ -6,6 +6,8 @@
 
 <svelte:head>
   <meta name="robots" content="noindex, nofollow" />
+  <!-- Neutral icon: no Vancity mark, and no /favicon.ico request that the catch-all would answer with the page. -->
+  <link rel="icon" href="data:," />
 </svelte:head>
 
 {#if data.industry === 'plumbing'}

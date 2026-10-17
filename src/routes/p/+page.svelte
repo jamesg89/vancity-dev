@@ -3,4 +3,8 @@
   import { octopusDefaults } from '$lib/templates/plumbing/defaults';
 </script>
 
+<svelte:head>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</svelte:head>
+
 <PlumbingSite content={octopusDefaults} />

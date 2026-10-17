@@ -63,8 +63,12 @@ function clean(value: string | null | undefined): string {
   return (value ?? '').replace(/\s+/g, ' ').trim();
 }
 
-function uniqueTowns(areas: string[]): string[] {
-  const seen = new Set<string>();
+// The owner types "Austin, TX" naturally, and the form splits on the comma, so the city and
+// the region can arrive as areas. Seeding the seen-set drops them; the city and region are
+// already named on their own in every line that lists towns.
+function uniqueTowns(areas: string[], city: string, region: string | null): string[] {
+  const seen = new Set<string>([city.toLowerCase()]);
+  if (region) seen.add(region.toLowerCase());
   const out: string[] = [];
   for (const area of areas) {
     const town = clean(area);
@@ -103,7 +107,7 @@ export function derivePlumbingContent(prospect: ReadyProspect): PlumbingContent 
   const phoneHref = telHref || '#book';
   const phoneDisplay = clean(prospect.phone);
 
-  const towns = uniqueTowns(prospect.nearbyAreas);
+  const towns = uniqueTowns(prospect.nearbyAreas, city, region);
   const reviewSource = towns.length > 0 ? towns : [city];
   const reviewTowns = [0, 1, 2].map((i) => reviewSource[i % reviewSource.length]);
 

@@ -56,6 +56,15 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Vancity Dev — Bespoke websites, made in Vancouver</title>
+	<meta
+		name="description"
+		content="Bespoke websites, handcrafted and fast. One-person studio building custom websites for businesses across Vancouver and the Lower Mainland."
+	/>
+	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</svelte:head>
+
 <div class="cursor-ring" id="cursor-ring"></div>
 <div class="cursor-dot" id="cursor-dot"></div>
 <NavBar />

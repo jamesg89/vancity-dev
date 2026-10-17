@@ -4,6 +4,7 @@
 
 <svelte:head>
   <title>Admin</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 

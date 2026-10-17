@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseProspectForm } from './validate';
+import { areaWarnings, parseProspectForm } from './validate';
 
 const good = {
   companyName: 'Turk Plumbing',
@@ -81,6 +81,8 @@ describe('parseProspectForm', () => {
 
     it('never produces an area containing a comma, so storage round-trips', () => {
       const r = parseProspectForm({ ...good, nearbyAreas: 'Austin, TX' });
+      // Pinned exactly: a bare .every() here once passed while "TX" became a town on the page.
+      expect(r.prospect?.nearbyAreas).toEqual(['Austin', 'TX']);
       expect(r.prospect?.nearbyAreas.every((a) => !a.includes(','))).toBe(true);
     });
 
@@ -92,5 +94,35 @@ describe('parseProspectForm', () => {
   it('caps field lengths', () => {
     expect(parseProspectForm({ ...good, companyName: 'a'.repeat(200) }).errors.companyName).toBeDefined();
     expect(parseProspectForm({ ...good, city: 'a'.repeat(200) }).errors.city).toBeDefined();
+  });
+});
+
+describe('areaWarnings', () => {
+  it('is quiet for ordinary towns', () => {
+    expect(areaWarnings('Austin', 'Round Rock, Cedar Park')).toEqual([]);
+    expect(areaWarnings('', '')).toEqual([]);
+  });
+
+  it('warns when an area is the city, ignoring case and spacing', () => {
+    const w = areaWarnings(' Austin ', 'round rock,  AUSTIN');
+    expect(w).toHaveLength(1);
+    expect(w[0]).toContain('AUSTIN');
+    expect(w[0]).toContain('city');
+  });
+
+  it('warns on a bare two-letter region code', () => {
+    const w = areaWarnings('Austin', 'Round Rock, TX');
+    expect(w).toHaveLength(1);
+    expect(w[0]).toContain('"TX"');
+  });
+
+  it('warns twice for the natural "Austin, TX" input', () => {
+    expect(areaWarnings('Austin', 'Austin, TX')).toHaveLength(2);
+  });
+
+  it('does not block the submit: the same input still parses', () => {
+    const r = parseProspectForm({ ...good, nearbyAreas: 'Austin, TX' });
+    expect(r.errors).toEqual({});
+    expect(r.prospect).toBeDefined();
   });
 });

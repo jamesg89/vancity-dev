@@ -37,6 +37,7 @@ test.beforeAll(() => {
       row('archived-co', 'Archived Plumbing', 'plumbing', '512-555-0100', null, 1),
       row('no-phone', 'No Phone Plumbing', 'plumbing', null, null),
       row('bad-phone', 'Bad Phone Plumbing', 'plumbing', 'call us', null),
+      row('ext-phone', 'Ext Phone Plumbing', 'plumbing', 'x 123', null),
       row('odd-trade', 'Odd Trade Co', 'basket-weaving', '512-555-0111', null)
     ].join(' ')
   );
@@ -85,6 +86,11 @@ test('prospect whose phone has no digits 404s', async ({ page }) => {
   expect(res?.status()).toBe(404);
 });
 
+test('prospect whose phone is only an extension 404s', async ({ page }) => {
+  const res = await page.goto('http://ext-phone.localhost:4173/');
+  expect(res?.status()).toBe(404);
+});
+
 test('prospect with an unknown industry is a 500', async ({ page }) => {
   const res = await page.goto('http://odd-trade.localhost:4173/');
   expect(res?.status()).toBe(500);
@@ -100,6 +106,64 @@ test('existing demo subdomains still work', async ({ page }) => {
 test('/p is unaffected', async ({ page }) => {
   await page.goto('http://localhost:4173/p');
   await expect(page.locator('.brand-name')).toContainText('Octopus');
+});
+
+// The component-level leak sweep above renders PlumbingSite alone, so it can never see
+// src/app.html. This reads the *document*: the server-sent HTML as a link-preview bot or a
+// non-JS crawler gets it (first <title> and first description win there), and the live DOM
+// after hydration (which rewrites document.title but leaves the duplicate tags in place).
+async function documents(page: Page, url: string) {
+  await page.goto(url);
+  const served = await page.evaluate(async () => {
+    const html = await (await fetch(location.href)).text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return {
+      title: doc.title,
+      titleCount: doc.querySelectorAll('title').length,
+      description: doc.querySelector('meta[name="description"]')?.getAttribute('content') ?? null,
+      descriptionCount: doc.querySelectorAll('meta[name="description"]').length,
+      icons: [...doc.querySelectorAll('link[rel~="icon"]')].map((l) => l.getAttribute('href')),
+      head: doc.head.innerHTML
+    };
+  });
+  const live = await page.evaluate(() => ({
+    title: document.title,
+    description: document.querySelector('meta[name="description"]')?.getAttribute('content') ?? null,
+    icons: [...document.querySelectorAll('link[rel~="icon"]')].map((l) => l.getAttribute('href'))
+  }));
+  return { served, live };
+}
+
+test('prospect page head is its own, with no agency title, description or icon', async ({
+  page
+}) => {
+  const { served, live } = await documents(page, 'http://turk-plumbing.localhost:4173/');
+  const title = 'Plumber in Austin, TX | 24/7 Emergency Plumbing | Turk Plumbing';
+
+  expect(served.title).toBe(title);
+  expect(served.titleCount).toBe(1);
+  expect(served.description).toContain('Turk Plumbing');
+  expect(served.descriptionCount).toBe(1);
+  expect(live.title).toBe(title);
+  expect(live.description).toContain('Turk Plumbing');
+
+  for (const icon of [...served.icons, ...live.icons]) expect(icon).not.toContain('favicon.svg');
+  expect(served.head).not.toContain('favicon.svg');
+  for (const s of ['Vancity', 'Bespoke websites', 'Vancouver']) expect(served.head).not.toContain(s);
+});
+
+test('apex and demo pages still carry their own head', async ({ page }) => {
+  const apex = await documents(page, 'http://localhost:4173/');
+  expect(apex.served.title).toBe('Vancity Dev — Bespoke websites, made in Vancouver');
+  expect(apex.served.titleCount).toBe(1);
+  expect(apex.served.description).toContain('Bespoke websites');
+  expect(apex.served.descriptionCount).toBe(1);
+  expect(apex.served.icons).toContain('/favicon.svg');
+
+  const demo = await documents(page, 'http://waterstcafe.localhost:4173/');
+  expect(demo.served.title).not.toContain('Vancity');
+  expect(demo.served.titleCount).toBe(1);
+  expect(demo.served.icons).toContain('/favicon.svg');
 });
 
 test('prospect page is noindex', async ({ page }) => {

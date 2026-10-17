@@ -1,6 +1,6 @@
 <script lang="ts">
   import { industries } from '$lib/templates';
-  import type { ProspectFormErrors } from '$lib/prospects/validate';
+  import { areaWarnings, type ProspectFormErrors } from '$lib/prospects/validate';
   import type { ActionData } from './$types';
 
   let { form }: { form: ActionData } = $props();
@@ -9,6 +9,15 @@
   // the list, so this page never renders one.
   const values = $derived(form?.values);
   const errors = $derived<ProspectFormErrors>(form?.errors ?? {});
+
+  // Live copies of the two fields the warning compares. They shadow the inputs rather than
+  // control them, so the form still posts exactly what was typed.
+  // null means "untouched", so a returned form's values are used until the owner edits.
+  let cityInput = $state<string | null>(null);
+  let areasInput = $state<string | null>(null);
+  const warnings = $derived(
+    areaWarnings(cityInput ?? values?.city ?? '', areasInput ?? values?.nearbyAreas ?? '')
+  );
 </script>
 
 <header class="bar">
@@ -58,6 +67,7 @@
       type="text"
       autocomplete="off"
       value={values?.city ?? ''}
+      oninput={(e) => (cityInput = e.currentTarget.value)}
       aria-invalid={errors.city ? 'true' : undefined}
       aria-describedby={errors.city ? 'city-error' : undefined}
     />
@@ -102,6 +112,7 @@
       id="nearbyAreas"
       name="nearbyAreas"
       rows="3"
+      oninput={(e) => (areasInput = e.currentTarget.value)}
       aria-invalid={errors.nearbyAreas ? 'true' : undefined}
       aria-describedby={errors.nearbyAreas ? 'nearbyAreas-error' : 'nearbyAreas-hint'}>{values?.nearbyAreas ?? ''}</textarea>
     {#if errors.nearbyAreas}
@@ -109,6 +120,9 @@
     {:else}
       <p class="hint" id="nearbyAreas-hint">Optional. Separate towns with commas or new lines.</p>
     {/if}
+    {#each warnings as warning (warning)}
+      <p class="warning" role="status">{warning}</p>
+    {/each}
   </div>
 
   <button class="btn" type="submit">Create prospect</button>
@@ -164,6 +178,13 @@
     margin: 0;
     font-size: 0.9rem;
     color: #9b2c2c;
+  }
+  .warning {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    border-left: 3px solid var(--warm);
+    padding-left: 0.6rem;
   }
   button.btn {
     justify-self: start;

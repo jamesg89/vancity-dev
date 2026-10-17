@@ -71,6 +71,22 @@ function parseAreas(raw: string): string[] {
   return out;
 }
 
+// Advisory only: these never block a submit, because the owner may have a reason. They name the
+// two ways a comma-split "Austin, TX" goes wrong, since both end up on the prospect's page.
+export function areaWarnings(cityValue: string, areasValue: string): string[] {
+  const city = squash(cityValue).toLowerCase();
+  const warnings: string[] = [];
+  for (const area of parseAreas(areasValue)) {
+    if (city && area.toLowerCase() === city)
+      warnings.push(`"${area}" is the city itself, so it will not be listed as a nearby town.`);
+    else if (/^[A-Za-z]{2}$/.test(area))
+      warnings.push(
+        `"${area}" looks like a state or province code, not a town. Commas separate areas, so "Austin, TX" is two areas.`
+      );
+  }
+  return warnings;
+}
+
 export function parseProspectForm(values: ProspectFormValues): ParsedProspectForm {
   const errors: ProspectFormErrors = {};
 
