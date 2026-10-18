@@ -6,6 +6,7 @@
 </script>
 
 <svelte:head>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   {#if data.demo && data.variant}
     <title>{data.demo.clientName} — {data.demo.tagline}</title>
   {/if}

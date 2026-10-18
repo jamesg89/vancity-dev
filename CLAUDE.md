@@ -42,6 +42,9 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 - Wildcard subdomain routing requires two `[[routes]]` entries: `*.vancity.dev` AND `*.vancity.dev/*`
 - Wildcard CNAME (`* → @`, proxied) must be set manually in Cloudflare DNS dashboard
 - `send_email` binding also needs manual activation: CF dashboard → Workers & Pages → Worker → Settings → Email
+- D1 binding `DB` (database `vancity-prospects`, holds the prospects table): run `npx wrangler d1 create vancity-prospects` once per environment and paste the returned `database_id` over the placeholder in `wrangler.toml`. Deploys fail until this is done (the placeholder id doesn't resolve), so do it BEFORE merging to master
+- Cloudflare Access: create an application by hand in the Zero Trust dashboard covering `vancity.dev/admin` AND `vancity.dev/admin/*` (a `/admin/*` pattern may not match bare `/admin`), apex only. `src/lib/admin-guard.ts`, called from `handle` in `hooks.server.ts` so it covers actions and endpoints as well as pages, only checks the host is allowlisted (apex/localhost; `www` and `workers.dev` get 403) and the `Cf-Access-Jwt-Assertion` header is present (defence in depth), it does not replace the policy. Disable the `workers.dev` route since Access cannot cover it (CF dashboard → the Worker → Settings → Domains & Routes). Follow-up once the Access app and its AUD tag exist: verify the JWT signature/`aud`/`iss`/expiry against the team JWKS in the guard (not done yet)
+- Migrations live in `migrations/`; apply locally with `npx wrangler d1 migrations apply vancity-prospects --local`, and to the real database with `--remote` (the default without a flag is local)
 
 ## Cloudflare Built-in Modules (`cloudflare:*`)
 - NEVER statically import `cloudflare:email` (or any `cloudflare:*`) at the top of server files — Node.js throws `ERR_UNSUPPORTED_ESM_URL_SCHEME` during Vite SSR build
