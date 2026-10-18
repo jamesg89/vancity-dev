@@ -5,7 +5,10 @@ import { adminAccessAllowed, isAdminRequest } from '$lib/admin-guard';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// Before resolve, so page loads, form actions and +server.ts endpoints are all covered.
-	if (isAdminRequest(event.url.pathname, event.route.id) && !adminAccessAllowed(event.url, event.request.headers, dev)) {
+	if (
+		isAdminRequest(event.url.pathname, event.route.id) &&
+		!adminAccessAllowed(event.url, event.request.headers, dev, event.platform?.env?.CF_ACCESS_AUD)
+	) {
 		error(403, 'Forbidden');
 	}
 

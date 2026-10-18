@@ -3,6 +3,10 @@ main = ".svelte-kit/build/cloudflare/_worker.js"
 compatibility_date = "2026-05-05"
 compatibility_flags = ["nodejs_compat"]
 
+# Access policies are scoped to vancity.dev, so they cannot cover a workers.dev URL.
+# Leaving it enabled would expose /admin on a hostname Access never sees.
+workers_dev = false
+
 [assets]
 directory = ".svelte-kit/build/cloudflare"
 binding = "ASSETS"

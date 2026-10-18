@@ -37,10 +37,22 @@ export function isAdminRequest(pathname: string, routeId: string | null | undefi
   return id === '/admin' || id.startsWith('/admin/') || isAdminPath(pathname);
 }
 
-export function adminAccessAllowed(url: URL, headers: Headers, dev: boolean): boolean {
+export function adminAccessAllowed(
+  url: URL,
+  headers: Headers,
+  dev: boolean,
+  accessAud: string | undefined
+): boolean {
   if (dev) return true;
   // Host first and unconditional: a header is forgeable anywhere Access is not in front of the
   // Worker (workers.dev, a raw IP, a preview hostname), so it must never buy admission there.
   if (!ADMIN_HOSTS.has(url.hostname)) return false;
+  // Fail closed until Access is configured. Without a policy in front, the header below is
+  // forgeable by anyone who knows to send it, so presence alone would admit the world. The
+  // CF_ACCESS_AUD secret is the signal that an Access application exists; set it with
+  // `wrangler secret put CF_ACCESS_AUD` after creating the policy. localhost is exempt because
+  // it is the Playwright harness running a production build, and a zone-routed Worker is never
+  // reached with that hostname.
+  if (url.hostname !== 'localhost' && !accessAud) return false;
   return Boolean(headers.get('cf-access-jwt-assertion'));
 }

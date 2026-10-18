@@ -33,19 +33,35 @@ describe('isAdminPath', () => {
 });
 
 describe('adminAccessAllowed', () => {
-  it('admits an allowlisted host carrying the header', () => {
-    expect(adminAccessAllowed(u('https://vancity.dev/admin'), withHeader, false)).toBe(true);
+  const AUD = 'aud-tag-from-the-access-application';
+
+  it('admits an allowlisted host carrying the header once Access is configured', () => {
+    expect(adminAccessAllowed(u('https://vancity.dev/admin'), withHeader, false, AUD)).toBe(true);
   });
   it('rejects an allowlisted host without the header', () => {
-    expect(adminAccessAllowed(u('https://vancity.dev/admin'), none, false)).toBe(false);
+    expect(adminAccessAllowed(u('https://vancity.dev/admin'), none, false, AUD)).toBe(false);
   });
   it('rejects a forged header on any other host', () => {
     for (const host of ['vancity-dev.workers.dev', 'www.vancity.dev', '1.2.3.4', 'x.vancity.dev']) {
-      expect(adminAccessAllowed(u(`https://${host}/admin`), withHeader, false)).toBe(false);
+      expect(adminAccessAllowed(u(`https://${host}/admin`), withHeader, false, AUD)).toBe(false);
     }
   });
   it('lets everything through in dev', () => {
-    expect(adminAccessAllowed(u('http://127.0.0.1:5173/admin'), none, true)).toBe(true);
+    expect(adminAccessAllowed(u('http://127.0.0.1:5173/admin'), none, true, undefined)).toBe(true);
+  });
+
+  // Until an Access application exists, nothing sets the header legitimately, so presence alone
+  // would admit anyone who knows to send it. Fail closed instead.
+  it('rejects even a correct-looking header on the apex when Access is not configured', () => {
+    expect(adminAccessAllowed(u('https://vancity.dev/admin'), withHeader, false, undefined)).toBe(
+      false
+    );
+    expect(adminAccessAllowed(u('https://vancity.dev/admin'), withHeader, false, '')).toBe(false);
+  });
+  it('still admits localhost without the AUD, since that is the production-build test harness', () => {
+    expect(adminAccessAllowed(u('http://localhost:4173/admin'), withHeader, false, undefined)).toBe(
+      true
+    );
   });
 });
 
