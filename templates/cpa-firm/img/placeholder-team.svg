@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Placeholder: replace with a real photo of this team member">
+  <rect width="400" height="400" fill="#EEF2EC"/>
+  <circle cx="200" cy="162" r="58" fill="#D6DCD3"/>
+  <path d="M96 330c0-57 47-104 104-104s104 47 104 104z" fill="#D6DCD3"/>
+  <text x="200" y="372" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="600" fill="#4B5A52">Replace with real photo</text>
+</svg>
