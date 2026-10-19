@@ -4,6 +4,8 @@ import { getProspectBySlug } from '$lib/prospects/db';
 import type { Prospect, ReadyProspect } from '$lib/prospects/types';
 import { industries } from '$lib/templates';
 import { derivePlumbingContent, toTelHref } from '$lib/templates/plumbing/derive';
+import { deriveDefenseContent } from '$lib/templates/defense/derive';
+import { deriveElectricalContent } from '$lib/templates/electrical/derive';
 
 // ReadyProspect only promises a string at the type level. '', 'call us' and an extension-only
 // 'x 123' satisfy it and would render "Call ..." in six places with a dead link. The gate asks
@@ -31,5 +33,11 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
   // The column is free TEXT, so a row can name an industry this build has no template for.
   if (!Object.hasOwn(industries, prospect.industry)) error(500, 'Unsupported industry');
 
-  return { industry: prospect.industry, content: derivePlumbingContent(prospect) };
+  if (prospect.industry === 'defense') {
+    return { industry: 'defense' as const, content: deriveDefenseContent(prospect) };
+  }
+  if (prospect.industry === 'electrical') {
+    return { industry: 'electrical' as const, content: deriveElectricalContent(prospect) };
+  }
+  return { industry: 'plumbing' as const, content: derivePlumbingContent(prospect) };
 };

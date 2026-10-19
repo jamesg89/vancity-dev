@@ -1,5 +1,7 @@
 <script lang="ts">
   import PlumbingSite from '$lib/templates/plumbing/PlumbingSite.svelte';
+  import DefenseSite from '$lib/templates/defense/DefenseSite.svelte';
+  import ElectricalSite from '$lib/templates/electrical/ElectricalSite.svelte';
 
   let { data } = $props();
 </script>
@@ -12,4 +14,8 @@
 
 {#if data.industry === 'plumbing'}
   <PlumbingSite content={data.content} />
+{:else if data.industry === 'defense'}
+  <DefenseSite content={data.content} />
+{:else if data.industry === 'electrical'}
+  <ElectricalSite content={data.content} />
 {/if}
