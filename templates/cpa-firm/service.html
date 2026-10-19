@@ -1,0 +1,553 @@
+<!doctype html>
+<!-- =========================================================================
+     REUSABLE SERVICE PAGE TEMPLATE
+     Duplicate this file per service and rename it: service-payroll.html,
+     service-tax-preparation.html, service-tax-planning.html, service-cfo.html,
+     service-irs-representation.html. Then replace {{SERVICE_NAME}},
+     {{SERVICE_SLUG}}, {{SERVICE_PRICE_FROM}}, {{SERVICE_INTRO}} and the
+     sample body copy (written here for Bookkeeping).
+     ========================================================================= -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{SERVICE_NAME}} in {{CITY}}, {{STATE}} | {{FIRM_NAME}}</title>
+<meta name="description" content="{{SERVICE_NAME}} for {{CITY}} businesses and individuals. Monthly reconciliation, P&amp;L and balance sheet by the 15th, fixed fee from {{SERVICE_PRICE_FROM}}. {{OWNER_CREDENTIALS}}-led. Book a free consultation.">
+<link rel="canonical" href="https://{{DOMAIN}}/{{SERVICE_SLUG}}.html">
+<meta name="theme-color" content="#1F4D3A">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{SERVICE_NAME}} in {{CITY}}, {{STATE}} | {{FIRM_NAME}}">
+<meta property="og:description" content="Fixed-fee {{SERVICE_NAME}} from {{SERVICE_PRICE_FROM}}. Books closed monthly, a named advisor, replies in {{RESPONSE_PROMISE}}.">
+<meta property="og:url" content="https://{{DOMAIN}}/{{SERVICE_SLUG}}.html">
+<meta property="og:image" content="https://{{DOMAIN}}/img/og-{{SERVICE_SLUG}}.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<noscript><style>
+  @media (max-width: 899px) {
+    .nav-toggle { display: none; }
+    #site-nav { display: block; width: 100%; }
+    #site-nav .nav-list { flex-direction: column; align-items: stretch; gap: 0; }
+    #site-nav .nav-item { flex-wrap: wrap; border-top: 1px solid var(--color-line-soft); }
+    #site-nav .sub { position: static; display: block; box-shadow: none; border: 0; padding-left: .75rem; min-width: 0; }
+    #site-nav .sub-toggle { display: none; }
+    .header-inner { flex-wrap: wrap; }
+  }
+</style></noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 9 7 7 7-7"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-7 7 7-7 7"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.3-8 9.8C7.4 20.3 4 17 4 12V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-ledger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h12a2 2 0 0 1 2 2v16H7a2 2 0 0 1-2-2z"/><path d="M9 8h6M9 12h6"/><path d="m9 16.5 1.6 1.6L14 15"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05A4.2 4.2 0 0 1 16.6 8.7c3 0 4.4 1.9 4.4 5.2V21h-4v-6.1c0-1.6-.6-2.7-2-2.7-1.2 0-1.9.8-2.2 1.6-.1.3-.1.7-.1 1.1V21H9z"/></symbol>
+</svg>
+
+<div class="utility-bar">
+  <div class="container utility-inner">
+    <p class="utility-meta">
+      <span>{{STREET_ADDRESS}}, {{CITY}}</span>
+      <span class="utility-sep" aria-hidden="true">&middot;</span>
+      <span>In-person &amp; virtual appointments</span>
+      <span class="utility-sep" aria-hidden="true">&middot;</span>
+      <span class="utility-season">Tax season hours: {{TAX_SEASON_HOURS}}</span>
+    </p>
+    <div class="utility-links">
+      <a class="utility-link" href="{{PORTAL_URL}}"><svg aria-hidden="true"><use href="#i-lock"></use></svg>Client Portal</a>
+      <a class="utility-link" href="{{PAYMENT_URL}}"><svg aria-hidden="true"><use href="#i-card"></use></svg>Make a Payment</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html" aria-label="{{FIRM_NAME}} home">
+      <svg aria-hidden="true" viewBox="0 0 40 40" fill="none">
+        <rect x="1.25" y="1.25" width="37.5" height="37.5" rx="9" fill="#EEF2EC" stroke="#1F4D3A" stroke-width="1.5"/>
+        <path d="M10 13h20M10 19h20M10 25h12" stroke="#1F4D3A" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="m22.5 27.5 3.5 3.5 7-8" stroke="#A6671B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-text">{{FIRM_SHORT}}<span class="logo-sub">CPA &amp; Advisors</span></span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <div class="nav-portal">
+        <a class="utility-link" href="{{PORTAL_URL}}"><svg aria-hidden="true"><use href="#i-lock"></use></svg>Client Portal</a>
+        <a class="utility-link" href="{{PAYMENT_URL}}"><svg aria-hidden="true"><use href="#i-card"></use></svg>Make a Payment</a>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="services.html" aria-current="page">Services</a>
+          <button type="button" class="sub-toggle" aria-expanded="false" aria-controls="sub-services"><span class="sr-only">Show services menu</span><svg aria-hidden="true"><use href="#i-chev"></use></svg></button>
+          <ul class="sub" id="sub-services">
+            <li class="sub-head">For businesses</li>
+            <li><a href="service.html">Bookkeeping</a></li>
+            <li><a href="service-payroll.html">Payroll</a></li>
+            <li><a href="service-tax-planning.html">Tax Planning</a></li>
+            <li><a href="service-cfo.html">Advisory &amp; Fractional CFO</a></li>
+            <li class="sub-head">For individuals</li>
+            <li><a href="service-tax-preparation.html">Tax Preparation</a></li>
+            <li><a href="service-irs-representation.html">IRS Representation</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="industries.html">Industries</a>
+          <button type="button" class="sub-toggle" aria-expanded="false" aria-controls="sub-industries"><span class="sr-only">Show industries menu</span><svg aria-hidden="true"><use href="#i-chev"></use></svg></button>
+          <ul class="sub" id="sub-industries">
+            <li><a href="industry.html">Contractors &amp; Trades</a></li>
+            <li><a href="industry-real-estate.html">Real Estate Investors</a></li>
+            <li><a href="industry-medical.html">Medical &amp; Dental</a></li>
+            <li><a href="industry-agencies.html">Agencies &amp; Consultants</a></li>
+            <li><a href="industry-ecommerce.html">eCommerce</a></li>
+            <li><a href="industry-restaurants.html">Restaurants</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="pricing.html">Pricing</a></li>
+        <li class="nav-item"><a href="about.html">About &amp; Team</a></li>
+        <li class="nav-item">
+          <a href="resources.html">Resources</a>
+          <button type="button" class="sub-toggle" aria-expanded="false" aria-controls="sub-resources"><span class="sr-only">Show resources menu</span><svg aria-hidden="true"><use href="#i-chev"></use></svg></button>
+          <ul class="sub" id="sub-resources">
+            <li><a href="tax-calculators.html">Tax calculators</a></li>
+            <li><a href="tax-deadlines.html">Tax deadline calendar</a></li>
+            <li><a href="checklists.html">Year-end checklists</a></li>
+            <li><a href="blog.html">Articles</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="#consult">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="header-phone" href="tel:{{PHONE_TEL}}"><svg aria-hidden="true"><use href="#i-phone"></use></svg>{{PHONE}}</a>
+    <a class="btn btn-primary btn-sm header-cta" href="{{BOOKING_URL}}">Book a Free Consultation</a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <svg class="icon-menu" aria-hidden="true"><use href="#i-menu"></use></svg>
+      <svg class="icon-close" aria-hidden="true"><use href="#i-close"></use></svg>
+      Menu
+    </button>
+  </div>
+</header>
+
+<nav class="breadcrumb container" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><span aria-current="page">{{SERVICE_NAME}}</span></li>
+  </ol>
+</nav>
+
+<main id="main">
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" style="padding-top:1.5rem">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">{{SERVICE_NAME}}</span>
+        <h1>{{SERVICE_NAME}} for {{CITY}} businesses &amp; individuals</h1>
+        <!-- REPLACE per service: {{SERVICE_INTRO}}. Sample copy written for Bookkeeping. -->
+        <p class="lead">{{SERVICE_INTRO}} We reconcile every account monthly, keep your categories consistent, and hand you a P&amp;L and balance sheet you can take to a bank, a buyer or your own kitchen table.</p>
+        <ul class="checks">
+          <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span>Books closed and reports delivered <strong>by the 15th</strong>, every month</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>One fixed monthly fee</strong> from {{SERVICE_PRICE_FROM}} &mdash; agreed in writing</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span>A named advisor who replies in <strong>{{RESPONSE_PROMISE}}</strong></span></li>
+        </ul>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="{{BOOKING_URL}}">Book a Free Consultation</a>
+          <a class="btn btn-outline" href="pricing.html">See Pricing</a>
+        </div>
+        <p class="proof-line" style="margin-top:1rem">
+          <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span><strong>{{REVIEW_RATING}}</strong> from {{REVIEW_COUNT}} reviews</span>
+          <span class="utility-sep" aria-hidden="true">&middot;</span>
+          <span>{{OWNER_CREDENTIALS}}-led &middot; {{YEARS_IN_BUSINESS}} years</span>
+        </p>
+      </div>
+      <figure class="hero-media" style="margin:0">
+        <!-- REPLACE: real photo — the team at work, or this service in practice -->
+        <div class="media"><img src="img/placeholder-office.svg" width="1200" height="760" fetchpriority="high" decoding="async" alt="The {{FIRM_NAME}} team reviewing a monthly close at the {{CITY}} office"></div>
+        <figcaption>Monthly closes are done by a {{SERVICE_SLUG}} specialist and reviewed by {{OWNER_NAME}}, {{OWNER_CREDENTIALS}}.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section-tight section-alt">
+    <div class="container page-layout">
+
+      <!-- ==================== MAIN COLUMN ==================== -->
+      <div class="page-main">
+
+        <!-- Is this you? -->
+        <section aria-labelledby="pain-head">
+          <h2 id="pain-head">Is this you?</h2>
+          <div class="pain-list">
+            <ul class="checks list-x">
+              <li><svg aria-hidden="true"><use href="#i-x"></use></svg><span>You&rsquo;re three months (or three years) behind and don&rsquo;t know where to start.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-x"></use></svg><span>Your bank balance is the only number you trust &mdash; the P&amp;L never looks right.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-x"></use></svg><span>A lender, landlord or investor asked for financials and you had to stall.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-x"></use></svg><span>You&rsquo;re doing the books yourself at 10pm on a Sunday instead of selling.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-x"></use></svg><span>Your last bookkeeper left and nobody can explain the coding they used.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-x"></use></svg><span>Every April is a surprise, because nobody looked at the numbers until then.</span></li>
+            </ul>
+            <p style="margin-top:1.25rem"><strong>All of that is fixable</strong>, usually inside the first 60 days. Catch-up work is quoted separately, then you move onto a flat monthly fee.</p>
+          </div>
+        </section>
+
+        <!-- What's included -->
+        <section aria-labelledby="included-head">
+          <h2 id="included-head">What&rsquo;s included</h2>
+          <!-- REPLACE per service: these are the Bookkeeping deliverables -->
+          <ul class="deliverables">
+            <li><b>Monthly reconciliation of every account</b><span>Bank, credit card, loan and merchant accounts matched to the statement &mdash; not just &ldquo;cleared in the software&rdquo;.</span></li>
+            <li><b>Profit &amp; loss and balance sheet by the 15th</b><span>Delivered in the portal with a short note on what moved and why. Comparatives against last month and last year.</span></li>
+            <li><b>Clean, consistent chart of accounts</b><span>Set up for your industry so the numbers mean something, and so your tax return doesn&rsquo;t need rebuilding in March.</span></li>
+            <li><b>Accounts payable &amp; receivable tracking</b><span>Who owes you, who you owe, and an aging report so nothing slips past 60 days.</span></li>
+            <li><b>Sales tax and payroll liability checks</b><span>We confirm the liability accounts tie to what was actually filed and paid.</span></li>
+            <li><b>Year-end closing package for your tax return</b><span>Trial balance, adjusting entries, fixed-asset and loan schedules, handed straight to the tax side of the firm.</span></li>
+            <li><b>A named advisor and a quarterly review call</b><span>Thirty minutes on the numbers, what they mean and what to do next &mdash; included, not billed by the hour.</span></li>
+          </ul>
+        </section>
+
+        <!-- Process -->
+        <section aria-labelledby="process-head">
+          <h2 id="process-head">How we work</h2>
+          <ol class="steps">
+            <li><h3>Records review</h3><p>A 20-minute call, then read-only access so we can see the real state of the books.</p></li>
+            <li><h3>Fixed-fee proposal</h3><p>Monthly fee, plus a separate quote for any catch-up. In writing within two business days.</p></li>
+            <li><h3>Onboarding &amp; cleanup</h3><p>Portal and MFA, {{SOFTWARE_1}} connected, opening balances agreed and signed off.</p></li>
+            <li><h3>Monthly rhythm</h3><p>You upload, we close, reports land by the 15th, and we review together each quarter.</p></li>
+          </ol>
+        </section>
+
+        <!-- Pricing box -->
+        <section aria-labelledby="price-head">
+          <h2 id="price-head">Pricing</h2>
+          <div class="price-box">
+            <p class="price-from">{{SERVICE_NAME}} starting at</p>
+            <p class="price"><span class="price-amount">{{SERVICE_PRICE_FROM}}</span><span class="price-per">/month</span></p>
+            <p>Fixed fee, agreed in writing before we start. No hourly billing, and no charge for a phone call.</p>
+            <h3 style="font-size:1.05rem;margin-top:1.25rem">What changes the price</h3>
+            <ul class="checks" style="margin-bottom:1.25rem">
+              <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>Transaction volume</strong> &mdash; 80 transactions a month is not 800.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>Number of accounts</strong> &mdash; each bank, card and merchant account adds a reconciliation.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>Entity and complexity</strong> &mdash; inventory, job costing, multi-state or multiple entities.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>Condition of the records</strong> &mdash; how much catch-up is needed before month one.</span></li>
+              <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>Add-ons</strong> &mdash; payroll, AP runs, sales tax filings, class or location reporting.</span></li>
+            </ul>
+            <div class="btn-group">
+              <a class="btn btn-primary" href="{{BOOKING_URL}}">Get a fixed-fee proposal</a>
+              <a class="btn btn-outline" href="pricing.html">Compare packages</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Testimonial -->
+        <section aria-labelledby="quote-head">
+          <h2 id="quote-head" class="sr-only">What a client says about {{SERVICE_NAME}}</h2>
+          <blockquote class="card quote">
+            <span class="sample-flag">Sample &mdash; replace with a real quote</span>
+            <p style="font-size:1.1rem">&ldquo;We handed over two years of half-finished books and a shoebox. Eight weeks later I had clean financials, a filed return and &mdash; for the first time &mdash; an actual idea of which jobs make money.&rdquo;</p>
+            <cite><b>Dana R.</b>Progressive Electrical &middot; {{AREA_1}}</cite>
+          </blockquote>
+        </section>
+
+        <!-- Related deadlines -->
+        <section aria-labelledby="dates-head">
+          <h2 id="dates-head">Dates that matter for {{SERVICE_NAME}}</h2>
+          <!-- UPDATE YEARLY: tax year {{TAX_YEAR}} -->
+          <ul class="deadline-list">
+            <li><span class="deadline-date"><time datetime="2027-01-15">Jan 15, 2027</time></span><span class="deadline-what">Q4 {{TAX_YEAR}} estimate due<span class="deadline-who">Needs a closed December to be accurate</span></span></li>
+            <li><span class="deadline-date"><time datetime="2027-02-01">Feb 1, 2027</time></span><span class="deadline-what">1099-NEC and W-2 filing<span class="deadline-who">Vendor records must be complete and W-9s on file</span></span></li>
+            <li><span class="deadline-date"><time datetime="2027-03-15">Mar 15, 2027</time></span><span class="deadline-what">Partnership and S-corp returns<span class="deadline-who">Books should be closed by mid-February</span></span></li>
+            <li><span class="deadline-date"><time datetime="2027-04-15">Apr 15, 2027</time></span><span class="deadline-what">Individual and C-corp returns, Q1 2027 estimate<span class="deadline-who">Schedule C and rental figures come straight from the books</span></span></li>
+          </ul>
+          <p class="deadline-note">Dates for {{TAX_YEAR}}; confirm with <a href="https://www.irs.gov/filing">IRS.gov</a> and your state. <a href="tax-deadlines.html">See the full calendar</a>.</p>
+        </section>
+      </div>
+
+      <!-- ==================== STICKY SIDEBAR ==================== -->
+      <aside class="sidebar" aria-label="Book {{SERVICE_NAME}}">
+        <div class="sidebar-card">
+          <h3>Talk to {{OWNER_NAME}}</h3>
+          <p style="color:var(--color-muted);font-size:.95rem">Twenty free minutes on your books. You&rsquo;ll leave with a number and a plan.</p>
+          <a class="btn btn-primary btn-block" href="{{BOOKING_URL}}">Book a Free Consultation</a>
+          <a class="btn btn-outline btn-block btn-sm" href="tel:{{PHONE_TEL}}" style="margin-top:.6rem"><svg aria-hidden="true"><use href="#i-phone"></use></svg>{{PHONE}}</a>
+          <p class="proof-line"><span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span><strong>{{REVIEW_RATING}}</strong> &middot; {{REVIEW_COUNT}} reviews &middot; replies in {{RESPONSE_PROMISE}}</span></p>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="mini-bio">
+            <!-- REPLACE: real owner photo -->
+            <div class="media"><img src="img/placeholder-team.svg" width="400" height="400" loading="lazy" decoding="async" alt="Portrait of {{OWNER_NAME}}"></div>
+            <div>
+              <h3 style="font-size:1rem;margin-bottom:.1rem">{{OWNER_NAME}}, {{OWNER_CREDENTIALS}}</h3>
+              <p>Founder &middot; licensed in {{OWNER_LICENSE_STATE}} &middot; {{YEARS_IN_BUSINESS}} years. Reviews every monthly close personally.</p>
+            </div>
+          </div>
+          <ul class="badges" style="margin-top:1rem">
+            <li class="badge"><svg aria-hidden="true"><use href="#i-shield"></use></svg>CPA &mdash; {{OWNER_LICENSE_STATE}}</li>
+            <li class="badge">{{SOFTWARE_1}} ProAdvisor</li>
+          </ul>
+          <p style="margin-top:.9rem"><a href="{{LINKEDIN_URL}}">LinkedIn <svg aria-hidden="true" style="width:13px;height:13px;vertical-align:-1px"><use href="#i-linkedin"></use></svg></a></p>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Other services</h3>
+          <ul class="sidebar-list">
+            <li><a href="service-payroll.html">Payroll <svg aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+            <li><a href="service-tax-preparation.html">Tax Preparation <svg aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+            <li><a href="service-tax-planning.html">Tax Planning <svg aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+            <li><a href="service-cfo.html">Advisory &amp; Fractional CFO <svg aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+            <li><a href="service-irs-representation.html">IRS Representation <svg aria-hidden="true"><use href="#i-arrow"></use></svg></a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card" style="background:var(--color-bg-alt)">
+          <h3 style="font-size:1rem"><svg aria-hidden="true" style="width:16px;height:16px;vertical-align:-2px"><use href="#i-lock"></use></svg> Already a client?</h3>
+          <p style="font-size:.92rem;color:var(--color-muted)">Upload statements and documents in the portal. Never by email.</p>
+          <a class="btn btn-light btn-sm btn-block" href="{{PORTAL_URL}}">Open Client Portal</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICE FAQ ==================== -->
+  <section class="section" aria-labelledby="faq-head">
+    <div class="container">
+      <div class="section-head"><h2 id="faq-head">{{SERVICE_NAME}} questions</h2></div>
+      <div class="faq">
+        <details>
+          <summary>How far behind can I be before it&rsquo;s a problem?</summary>
+          <div class="faq-body"><p>We&rsquo;ve taken on clients four years behind. It&rsquo;s a bigger project, not a dead end. We quote catch-up separately after a records review, work backwards from the most recent year, and file anything outstanding as we go.</p></div>
+        </details>
+        <details>
+          <summary>Do I have to switch software?</summary>
+          <div class="faq-body"><p>No. We work in {{SOFTWARE_1}}, {{SOFTWARE_2}} and {{SOFTWARE_3}}. If you&rsquo;re on spreadsheets or something we don&rsquo;t support, we&rsquo;ll migrate you as part of onboarding and tell you the cost up front.</p></div>
+        </details>
+        <details>
+          <summary>Who actually does the work?</summary>
+          <div class="faq-body"><p>A named member of our team does your monthly close, and {{OWNER_NAME}}, {{OWNER_CREDENTIALS}} reviews it. You&rsquo;ll have both names, direct email and a phone number. Nothing is offshored without telling you.</p></div>
+        </details>
+        <details>
+          <summary>Is the tax return included?</summary>
+          <div class="faq-body"><p>In the {{PKG_1_NAME}} package and above, the annual business return is included. Owner personal returns are included from {{PKG_2_NAME}}. Stand-alone returns start at {{TAX_RETURN_FROM}} for individuals and {{BUSINESS_RETURN_FROM}} for businesses.</p></div>
+        </details>
+        <details>
+          <summary>What do you need from me each month?</summary>
+          <div class="faq-body"><p>Bank and card statements if we don&rsquo;t have a live feed, receipts for anything over your documentation threshold, and a reply to one short list of questions. Fifteen minutes, in the portal.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONSULT FORM (service pre-filled) ==================== -->
+  <section class="section section-alt" id="consult" aria-labelledby="consult-head">
+    <div class="container" style="max-width:720px">
+      <div class="section-head center">
+        <span class="eyebrow">Next step</span>
+        <h2 id="consult-head">Ask about {{SERVICE_NAME}}</h2>
+        <p>Prefer to talk? Call <a href="tel:{{PHONE_TEL}}">{{PHONE}}</a> or <a href="{{BOOKING_URL}}">pick a time</a>.</p>
+      </div>
+      <div class="form-card">
+        <p class="form-note"><strong>Please don&rsquo;t include sensitive data.</strong> No Social Security numbers, tax documents or account numbers. Existing clients: use the <a href="{{PORTAL_URL}}">secure portal</a>.</p>
+        <form action="{{FORM_ENDPOINT}}" method="post" data-validate>
+          <input type="hidden" name="form_name" value="{{SERVICE_NAME}} enquiry">
+          <div class="field">
+            <label for="s-name">Your name</label>
+            <input type="text" id="s-name" name="name" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="s-email">Email</label>
+            <input type="email" id="s-email" name="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="s-phone">Phone</label>
+            <input type="tel" id="s-phone" name="phone" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="s-service">Service</label>
+            <!-- Pre-filled for this page. Change the selected option per service page. -->
+            <select id="s-service" name="service" required>
+              <option value="bookkeeping" selected>{{SERVICE_NAME}}</option>
+              <option value="payroll">Payroll</option>
+              <option value="tax-prep">Tax Preparation</option>
+              <option value="tax-planning">Tax Planning</option>
+              <option value="cfo">Advisory / Fractional CFO</option>
+              <option value="irs">IRS Representation</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="s-message">What do you need?</label>
+            <textarea id="s-message" name="message" required placeholder="How many accounts, how far behind, and what you&rsquo;re hoping to fix."></textarea>
+          </div>
+          <div class="honeypot" aria-hidden="true">
+            <label for="s-hp">Company website</label>
+            <input type="text" id="s-hp" name="company_website" tabindex="-1" autocomplete="off">
+          </div>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <button type="submit" class="btn btn-primary btn-block">Send &amp; request a proposal</button>
+          <p class="small" style="margin-top:.8rem;color:var(--color-muted)">We reply within {{RESPONSE_PROMISE}}.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          <svg aria-hidden="true" viewBox="0 0 40 40" fill="none">
+            <rect x="1.25" y="1.25" width="37.5" height="37.5" rx="9" fill="rgba(255,255,255,.08)" stroke="#8FB49C" stroke-width="1.5"/>
+            <path d="M10 13h20M10 19h20M10 25h12" stroke="#DCE6DE" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="m22.5 27.5 3.5 3.5 7-8" stroke="#D9A45B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text">{{FIRM_SHORT}}<span class="logo-sub">CPA &amp; Advisors</span></span>
+        </a>
+        <p>Fixed-fee bookkeeping, tax and advisory for small businesses and families in {{SERVICE_AREA}}. Serving clients since {{FOUNDED_YEAR}}.</p>
+        <h3>Office</h3>
+        <address>
+          {{FIRM_NAME}}<br>{{STREET_ADDRESS}}<br>{{CITY}}, {{STATE}} {{ZIP}}<br>
+          <a href="tel:{{PHONE_TEL}}">{{PHONE}}</a><br><a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        </address>
+        <p class="small">{{HOURS}}<br>Tax season: {{TAX_SEASON_HOURS}}</p>
+        <div class="footer-portal">
+          <a class="utility-link" href="{{PORTAL_URL}}"><svg aria-hidden="true"><use href="#i-lock"></use></svg>Client Portal</a>
+          <a class="utility-link" href="{{PAYMENT_URL}}"><svg aria-hidden="true"><use href="#i-card"></use></svg>Make a Payment</a>
+        </div>
+      </div>
+      <div>
+        <h3>Services</h3>
+        <ul class="footer-list">
+          <li><a href="service.html">Bookkeeping</a></li>
+          <li><a href="service-payroll.html">Payroll</a></li>
+          <li><a href="service-tax-preparation.html">Tax Preparation</a></li>
+          <li><a href="service-tax-planning.html">Tax Planning</a></li>
+          <li><a href="service-cfo.html">Fractional CFO</a></li>
+          <li><a href="service-irs-representation.html">IRS Representation</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Industries</h3>
+        <ul class="footer-list">
+          <li><a href="industry.html">Contractors &amp; Trades</a></li>
+          <li><a href="industry-real-estate.html">Real Estate</a></li>
+          <li><a href="industry-medical.html">Medical &amp; Dental</a></li>
+          <li><a href="industry-agencies.html">Agencies</a></li>
+          <li><a href="industry-ecommerce.html">eCommerce</a></li>
+          <li><a href="industry-restaurants.html">Restaurants</a></li>
+          <li><a href="industry-nonprofits.html">Nonprofits</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Areas we serve</h3>
+        <ul class="footer-list">
+          <li><a href="areas/{{AREA_1}}.html">{{AREA_1}}</a></li>
+          <li><a href="areas/{{AREA_2}}.html">{{AREA_2}}</a></li>
+          <li><a href="areas/{{AREA_3}}.html">{{AREA_3}}</a></li>
+          <li><a href="areas/{{AREA_4}}.html">{{AREA_4}}</a></li>
+          <li><a href="areas/{{AREA_5}}.html">{{AREA_5}}</a></li>
+          <li><a href="areas/{{AREA_6}}.html">{{AREA_6}}</a></li>
+          <li><a href="areas/{{AREA_7}}.html">{{AREA_7}}</a></li>
+          <li><a href="areas/{{AREA_8}}.html">{{AREA_8}}</a></li>
+        </ul>
+        <h3 style="margin-top:1.5rem">Resources</h3>
+        <ul class="footer-list">
+          <li><a href="tax-calculators.html">Tax calculators</a></li>
+          <li><a href="tax-deadlines.html">Tax deadlines</a></li>
+          <li><a href="blog.html">Articles</a></li>
+          <li><a href="about.html">About &amp; Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>{{OWNER_NAME}}, {{OWNER_CREDENTIALS}}, licensed in {{OWNER_LICENSE_STATE}}. {{FIRM_NAME}} is an independent accounting firm.</p>
+      <p class="disclaimer">This site provides general information, not tax or legal advice. Reading it does not create a client relationship.</p>
+      <ul class="legal-links">
+        <li>&copy; {{FOUNDED_YEAR}}&ndash;{{TAX_YEAR}} {{FIRM_NAME}}</li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="accessibility.html">Accessibility</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="btn btn-primary" href="{{BOOKING_URL}}">Book a Call</a>
+  <a class="btn btn-outline" href="tel:{{PHONE_TEL}}"><svg aria-hidden="true"><use href="#i-phone"></use></svg>Call</a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://{{DOMAIN}}/{{SERVICE_SLUG}}.html#service",
+      "name": "{{SERVICE_NAME}}",
+      "serviceType": "{{SERVICE_NAME}}",
+      "url": "https://{{DOMAIN}}/{{SERVICE_SLUG}}.html",
+      "provider": { "@id": "https://{{DOMAIN}}/#firm" },
+      "areaServed": [
+        { "@type": "City", "name": "{{CITY}}" },
+        { "@type": "City", "name": "{{AREA_1}}" },
+        { "@type": "City", "name": "{{AREA_2}}" },
+        { "@type": "City", "name": "{{AREA_3}}" }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "{{SERVICE_PRICE_FROM}}",
+          "priceCurrency": "USD",
+          "valueAddedTaxIncluded": false,
+          "description": "Starting at {{SERVICE_PRICE_FROM}} per month; fixed fee confirmed in a written proposal."
+        },
+        "availability": "https://schema.org/InStock",
+        "url": "{{BOOKING_URL}}"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://{{DOMAIN}}/{{SERVICE_SLUG}}.html#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://{{DOMAIN}}/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://{{DOMAIN}}/services.html" },
+        { "@type": "ListItem", "position": 3, "name": "{{SERVICE_NAME}}", "item": "https://{{DOMAIN}}/{{SERVICE_SLUG}}.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://{{DOMAIN}}/{{SERVICE_SLUG}}.html#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "How far behind can I be before it is a problem?", "acceptedAnswer": { "@type": "Answer", "text": "We have taken on clients four years behind. Catch-up is quoted separately after a records review; we work backwards from the most recent year and file anything outstanding as we go." } },
+        { "@type": "Question", "name": "Do I have to switch software?", "acceptedAnswer": { "@type": "Answer", "text": "No. We work in {{SOFTWARE_1}}, {{SOFTWARE_2}} and {{SOFTWARE_3}}, and will migrate you during onboarding if you are on something else, with the cost quoted up front." } },
+        { "@type": "Question", "name": "Who actually does the work?", "acceptedAnswer": { "@type": "Answer", "text": "A named member of our team does the monthly close and {{OWNER_NAME}}, {{OWNER_CREDENTIALS}} reviews it. You get both names, direct email and a phone number." } },
+        { "@type": "Question", "name": "Is the tax return included?", "acceptedAnswer": { "@type": "Answer", "text": "The annual business return is included from the {{PKG_1_NAME}} package; owner personal returns from {{PKG_2_NAME}}. Stand-alone returns start at {{TAX_RETURN_FROM}} for individuals and {{BUSINESS_RETURN_FROM}} for businesses." } },
+        { "@type": "Question", "name": "What do you need from me each month?", "acceptedAnswer": { "@type": "Answer", "text": "Statements if we do not have a live bank feed, receipts above your documentation threshold, and a reply to one short list of questions in the portal." } }
+      ]
+    }
+  ]
+}
+</script>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

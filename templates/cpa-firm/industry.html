@@ -1,0 +1,458 @@
+<!doctype html>
+<!-- =========================================================================
+     REUSABLE INDUSTRY ("WHO WE SERVE") PAGE TEMPLATE
+     Duplicate per industry: industry-real-estate.html, industry-medical.html,
+     industry-agencies.html, industry-ecommerce.html, industry-restaurants.html.
+     Replace {{INDUSTRY_NAME}}, {{INDUSTRY_PAINS}} and the sample body copy
+     (written here for Contractors & Trades).
+     ========================================================================= -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accountant for {{INDUSTRY_NAME}} | {{CITY}} | {{FIRM_NAME}}</title>
+<meta name="description" content="Accounting, bookkeeping and tax for {{INDUSTRY_NAME}} in {{CITY}}, {{STATE}}. Job costing, 1099 subcontractors, WIP and sales tax handled by a {{OWNER_CREDENTIALS}}-led team. Fixed monthly fees. Book a free consultation.">
+<link rel="canonical" href="https://{{DOMAIN}}/industry-contractors.html">
+<meta name="theme-color" content="#1F4D3A">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Accounting &amp; Tax for {{INDUSTRY_NAME}} in {{CITY}} | {{FIRM_NAME}}">
+<meta property="og:description" content="Job costing, 1099s, WIP and year-round tax planning for {{INDUSTRY_NAME}}. Fixed monthly fee, replies in {{RESPONSE_PROMISE}}.">
+<meta property="og:url" content="https://{{DOMAIN}}/industry-contractors.html">
+<meta property="og:image" content="https://{{DOMAIN}}/img/og-contractors.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<noscript><style>
+  @media (max-width: 899px) {
+    .nav-toggle { display: none; }
+    #site-nav { display: block; width: 100%; }
+    #site-nav .nav-list { flex-direction: column; align-items: stretch; gap: 0; }
+    #site-nav .nav-item { flex-wrap: wrap; border-top: 1px solid var(--color-line-soft); }
+    #site-nav .sub { position: static; display: block; box-shadow: none; border: 0; padding-left: .75rem; min-width: 0; }
+    #site-nav .sub-toggle { display: none; }
+    .header-inner { flex-wrap: wrap; }
+  }
+</style></noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 5.2 2 2 0 0 1 6 3z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 9 7 7 7-7"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m-6-7 7 7-7 7"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.3-8 9.8C7.4 20.3 4 17 4 12V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-ledger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h12a2 2 0 0 1 2 2v16H7a2 2 0 0 1-2-2z"/><path d="M9 8h6M9 12h6"/><path d="m9 16.5 1.6 1.6L14 15"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05A4.2 4.2 0 0 1 16.6 8.7c3 0 4.4 1.9 4.4 5.2V21h-4v-6.1c0-1.6-.6-2.7-2-2.7-1.2 0-1.9.8-2.2 1.6-.1.3-.1.7-.1 1.1V21H9z"/></symbol>
+</svg>
+
+<div class="utility-bar">
+  <div class="container utility-inner">
+    <p class="utility-meta">
+      <span>{{STREET_ADDRESS}}, {{CITY}}</span>
+      <span class="utility-sep" aria-hidden="true">&middot;</span>
+      <span>In-person &amp; virtual appointments</span>
+      <span class="utility-sep" aria-hidden="true">&middot;</span>
+      <span class="utility-season">Tax season hours: {{TAX_SEASON_HOURS}}</span>
+    </p>
+    <div class="utility-links">
+      <a class="utility-link" href="{{PORTAL_URL}}"><svg aria-hidden="true"><use href="#i-lock"></use></svg>Client Portal</a>
+      <a class="utility-link" href="{{PAYMENT_URL}}"><svg aria-hidden="true"><use href="#i-card"></use></svg>Make a Payment</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html" aria-label="{{FIRM_NAME}} home">
+      <svg aria-hidden="true" viewBox="0 0 40 40" fill="none">
+        <rect x="1.25" y="1.25" width="37.5" height="37.5" rx="9" fill="#EEF2EC" stroke="#1F4D3A" stroke-width="1.5"/>
+        <path d="M10 13h20M10 19h20M10 25h12" stroke="#1F4D3A" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="m22.5 27.5 3.5 3.5 7-8" stroke="#A6671B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-text">{{FIRM_SHORT}}<span class="logo-sub">CPA &amp; Advisors</span></span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <div class="nav-portal">
+        <a class="utility-link" href="{{PORTAL_URL}}"><svg aria-hidden="true"><use href="#i-lock"></use></svg>Client Portal</a>
+        <a class="utility-link" href="{{PAYMENT_URL}}"><svg aria-hidden="true"><use href="#i-card"></use></svg>Make a Payment</a>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="services.html">Services</a>
+          <button type="button" class="sub-toggle" aria-expanded="false" aria-controls="sub-services"><span class="sr-only">Show services menu</span><svg aria-hidden="true"><use href="#i-chev"></use></svg></button>
+          <ul class="sub" id="sub-services">
+            <li class="sub-head">For businesses</li>
+            <li><a href="service.html">Bookkeeping</a></li>
+            <li><a href="service-payroll.html">Payroll</a></li>
+            <li><a href="service-tax-planning.html">Tax Planning</a></li>
+            <li><a href="service-cfo.html">Advisory &amp; Fractional CFO</a></li>
+            <li class="sub-head">For individuals</li>
+            <li><a href="service-tax-preparation.html">Tax Preparation</a></li>
+            <li><a href="service-irs-representation.html">IRS Representation</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="industries.html" aria-current="page">Industries</a>
+          <button type="button" class="sub-toggle" aria-expanded="false" aria-controls="sub-industries"><span class="sr-only">Show industries menu</span><svg aria-hidden="true"><use href="#i-chev"></use></svg></button>
+          <ul class="sub" id="sub-industries">
+            <li><a href="industry.html">Contractors &amp; Trades</a></li>
+            <li><a href="industry-real-estate.html">Real Estate Investors</a></li>
+            <li><a href="industry-medical.html">Medical &amp; Dental</a></li>
+            <li><a href="industry-agencies.html">Agencies &amp; Consultants</a></li>
+            <li><a href="industry-ecommerce.html">eCommerce</a></li>
+            <li><a href="industry-restaurants.html">Restaurants</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="pricing.html">Pricing</a></li>
+        <li class="nav-item"><a href="about.html">About &amp; Team</a></li>
+        <li class="nav-item">
+          <a href="resources.html">Resources</a>
+          <button type="button" class="sub-toggle" aria-expanded="false" aria-controls="sub-resources"><span class="sr-only">Show resources menu</span><svg aria-hidden="true"><use href="#i-chev"></use></svg></button>
+          <ul class="sub" id="sub-resources">
+            <li><a href="tax-calculators.html">Tax calculators</a></li>
+            <li><a href="tax-deadlines.html">Tax deadline calendar</a></li>
+            <li><a href="checklists.html">Year-end checklists</a></li>
+            <li><a href="blog.html">Articles</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="#consult">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="header-phone" href="tel:{{PHONE_TEL}}"><svg aria-hidden="true"><use href="#i-phone"></use></svg>{{PHONE}}</a>
+    <a class="btn btn-primary btn-sm header-cta" href="{{BOOKING_URL}}">Book a Free Consultation</a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <svg class="icon-menu" aria-hidden="true"><use href="#i-menu"></use></svg>
+      <svg class="icon-close" aria-hidden="true"><use href="#i-close"></use></svg>
+      Menu
+    </button>
+  </div>
+</header>
+
+<nav class="breadcrumb container" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><span aria-current="page">{{INDUSTRY_NAME}}</span></li>
+  </ol>
+</nav>
+
+<main id="main">
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" style="padding-top:1.5rem">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">{{INDUSTRY_NAME}}</span>
+        <h1>Accounting &amp; tax for {{INDUSTRY_NAME}} in {{CITY}}</h1>
+        <!-- REPLACE per industry. Sample copy written for Contractors & Trades. -->
+        <p class="lead">Electricians, plumbers, HVAC, roofing, remodellers and general contractors across {{SERVICE_AREA}}. We know job costing, retainage, 1099 subs and why your P&amp;L looks great in June and awful in December.</p>
+        <ul class="checks">
+          <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>Job-level profitability</strong>, not just a company total</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>1099 and W-9 compliance</strong> handled before January</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"></use></svg><span><strong>Fixed monthly fee</strong> &mdash; equipment questions cost nothing to ask</span></li>
+        </ul>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="{{BOOKING_URL}}">Book a Free Consultation</a>
+          <a class="btn btn-outline" href="tel:{{PHONE_TEL}}"><svg aria-hidden="true"><use href="#i-phone"></use></svg>{{PHONE}}</a>
+        </div>
+        <p class="proof-line" style="margin-top:1rem">
+          <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span><strong>{{REVIEW_RATING}}</strong> from {{REVIEW_COUNT}} reviews</span>
+          <span class="utility-sep" aria-hidden="true">&middot;</span>
+          <span>{{OWNER_CREDENTIALS}}-led &middot; {{CLIENT_COUNT}}+ clients</span>
+        </p>
+      </div>
+      <figure class="hero-media" style="margin:0">
+        <!-- REPLACE: real photo — a client on site, with permission. No stock hard hats. -->
+        <div class="media"><img src="img/placeholder-office.svg" width="1200" height="760" fetchpriority="high" decoding="async" alt="{{OWNER_NAME}} reviewing job costing with a {{CITY}} contractor on site"></div>
+        <figcaption>We meet clients on site as happily as at the office.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ==================== WE UNDERSTAND YOUR NUMBERS ==================== -->
+  <section class="section section-alt" aria-labelledby="pains-head">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">{{INDUSTRY_PAINS}}</span>
+        <h2 id="pains-head">We understand your numbers</h2>
+        <p>Generic bookkeepers treat a contractor like a retail shop. These are the five things that actually go wrong.</p>
+      </div>
+      <!-- REPLACE per industry: 3-5 industry-specific pains -->
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Job costing that nobody maintains</h3>
+          <p>Materials coded to one bucket, labour to another, and no way to tell which jobs made money. We set up classes or projects so every job carries its own cost and margin &mdash; and we keep them current.</p>
+        </div>
+        <div class="card">
+          <h3>1099 subs and missing W-9s</h3>
+          <p>You found a great framer in June and nobody collected a W-9. We track subcontractor payments against documentation all year, so January is a filing exercise, not a scramble.</p>
+        </div>
+        <div class="card">
+          <h3>WIP, deposits and retainage</h3>
+          <p>Customer deposits booked as revenue make a profitable month that isn&rsquo;t. We handle work-in-progress and over/under-billing properly, which is also what a bonding agent or lender wants to see.</p>
+        </div>
+        <div class="card">
+          <h3>Equipment, trucks and Section 179</h3>
+          <p>Buying the excavator in December versus January can be a five-figure difference. We model it before you sign, and we keep a fixed-asset schedule that matches the depreciation on the return.</p>
+        </div>
+        <div class="card">
+          <h3>Cash in, cash gone</h3>
+          <p>Progress billings, 60-day receivables and payroll every Friday. We build a simple 13-week cash view so you know whether you can take the next job.</p>
+        </div>
+        <div class="card">
+          <h3>Sales tax on labour vs. materials</h3>
+          <p>{{STATE}} treats them differently, and getting it wrong compounds quietly for years. We set the rules up once, then check the liability accounts tie to what was filed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES THAT MATTER MOST ==================== -->
+  <section class="section" aria-labelledby="svc-head">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Where we start</span>
+        <h2 id="svc-head">The services {{INDUSTRY_NAME}} need most</h2>
+        <p>Most trades clients start with the first two and add planning once the books are clean.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card service-card">
+          <span class="icon-chip"><svg aria-hidden="true"><use href="#i-ledger"></use></svg></span>
+          <h3>Job-cost bookkeeping</h3>
+          <p>Monthly close with job-level reporting, WIP schedules and a P&amp;L by project &mdash; delivered by the 15th.</p>
+          <span class="price-tag">From {{PKG_1_PRICE}}/mo</span>
+          <a class="card-link" href="service.html">Bookkeeping <svg aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </div>
+        <div class="card service-card">
+          <span class="icon-chip"><svg aria-hidden="true"><use href="#i-calendar"></use></svg></span>
+          <h3>Payroll &amp; 1099s</h3>
+          <p>Crews, prevailing wage where it applies, certified payroll reports, year-end W-2s and 1099-NECs.</p>
+          <span class="price-tag">From $95/mo</span>
+          <a class="card-link" href="service-payroll.html">Payroll <svg aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </div>
+        <div class="card service-card">
+          <span class="icon-chip"><svg aria-hidden="true"><use href="#i-shield"></use></svg></span>
+          <h3>Tax planning for trades</h3>
+          <p>Equipment timing, vehicle rules, S-corp salary, and a projection before year end so April holds no surprises.</p>
+          <span class="price-tag">Included from {{PKG_2_NAME}}</span>
+          <a class="card-link" href="service-tax-planning.html">Tax planning <svg aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CASE SNAPSHOT ==================== -->
+  <section class="section section-tight" aria-labelledby="case-head">
+    <div class="container">
+      <div class="card case-snapshot" style="max-width:860px">
+        <span class="sample-flag">Sample &mdash; replace with a real client story</span>
+        <h3 id="case-head">18 months of books cleaned up in 6 weeks &mdash; and a bonding line approved</h3>
+        <p>A six-truck electrical contractor in {{AREA_1}} came to us mid-bonding-application with unreconciled accounts going back to 2023 and no WIP schedule. We rebuilt the ledger, set up job costing in {{SOFTWARE_1}}, filed two late returns and got penalties abated. The bonding line came through nine weeks later, and job-level reporting showed that service calls &mdash; not new construction &mdash; carried the margin.</p>
+        <p style="margin-top:1rem"><a class="btn btn-light btn-sm" href="{{BOOKING_URL}}">Book a free consultation</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INDUSTRY FAQ ==================== -->
+  <section class="section section-alt" aria-labelledby="faq-head">
+    <div class="container">
+      <div class="section-head"><h2 id="faq-head">{{INDUSTRY_NAME}}: common questions</h2></div>
+      <div class="faq">
+        <details>
+          <summary>Do you work in {{SOFTWARE_1}} with job costing turned on?</summary>
+          <div class="faq-body"><p>Yes &mdash; and if your file was set up without projects or classes, fixing that is part of onboarding. We also work in {{SOFTWARE_2}} and integrate the common trades apps for estimating and time tracking.</p></div>
+        </details>
+        <details>
+          <summary>Can you handle certified payroll and prevailing wage?</summary>
+          <div class="faq-body"><p>Yes, for public work in {{STATE}}. We&rsquo;ll need your wage determinations and fringe rates; we produce the weekly reports and keep the records in case of an audit.</p></div>
+        </details>
+        <details>
+          <summary>Should I be an S-corp?</summary>
+          <div class="faq-body"><p>Often, once profit is consistently above roughly $60&ndash;80k, but not always &mdash; it depends on reasonable salary, health insurance, retirement contributions and whether you have partners. We run the numbers both ways before recommending it, and we tell you when the answer is no.</p></div>
+        </details>
+        <details>
+          <summary>My last accountant never asked about my jobs. Is that normal?</summary>
+          <div class="faq-body"><p>It&rsquo;s common, and it&rsquo;s why owners end up guessing. A compliance-only accountant files an accurate return from bad data. Job-level reporting is what tells you to stop bidding the work that loses money.</p></div>
+        </details>
+        <details>
+          <summary>I&rsquo;m behind and I have an IRS letter. Will you take me on?</summary>
+          <div class="faq-body"><p>Yes. Send the notice through the <a href="{{PORTAL_URL}}">portal</a> and we&rsquo;ll tell you within {{RESPONSE_PROMISE}} what it is and what resolving it takes. {{OWNER_NAME}} can represent you directly before the IRS.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONSULT CTA ==================== -->
+  <section class="section" id="consult" aria-labelledby="consult-head">
+    <div class="container" style="max-width:720px;text-align:center">
+      <span class="eyebrow">Next step</span>
+      <h2 id="consult-head">Let&rsquo;s look at your numbers</h2>
+      <p class="lead" style="margin-inline:auto">Twenty free minutes with {{OWNER_NAME}}, {{OWNER_CREDENTIALS}}. Bring your last P&amp;L &mdash; or just bring the question that&rsquo;s bugging you.</p>
+      <div class="btn-group" style="justify-content:center;margin-top:1.5rem">
+        <a class="btn btn-primary" href="{{BOOKING_URL}}">Book a Free Consultation</a>
+        <a class="btn btn-outline" href="tel:{{PHONE_TEL}}"><svg aria-hidden="true"><use href="#i-phone"></use></svg>{{PHONE}}</a>
+      </div>
+      <p class="proof-line" style="justify-content:center;margin-top:1rem"><span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span><strong>{{REVIEW_RATING}}</strong> &middot; {{REVIEW_COUNT}} reviews &middot; {{YEARS_IN_BUSINESS}} years &middot; replies in {{RESPONSE_PROMISE}}</span></p>
+      <p class="small" style="margin-top:1.5rem;color:var(--color-muted)">Prefer to write? Use the <a href="index.html#consult">contact form</a>. Please don&rsquo;t send SSNs or tax documents by email or web form &mdash; existing clients should use the <a href="{{PORTAL_URL}}">secure portal</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          <svg aria-hidden="true" viewBox="0 0 40 40" fill="none">
+            <rect x="1.25" y="1.25" width="37.5" height="37.5" rx="9" fill="rgba(255,255,255,.08)" stroke="#8FB49C" stroke-width="1.5"/>
+            <path d="M10 13h20M10 19h20M10 25h12" stroke="#DCE6DE" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="m22.5 27.5 3.5 3.5 7-8" stroke="#D9A45B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text">{{FIRM_SHORT}}<span class="logo-sub">CPA &amp; Advisors</span></span>
+        </a>
+        <p>Fixed-fee bookkeeping, tax and advisory for small businesses and families in {{SERVICE_AREA}}. Serving clients since {{FOUNDED_YEAR}}.</p>
+        <h3>Office</h3>
+        <address>
+          {{FIRM_NAME}}<br>{{STREET_ADDRESS}}<br>{{CITY}}, {{STATE}} {{ZIP}}<br>
+          <a href="tel:{{PHONE_TEL}}">{{PHONE}}</a><br><a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        </address>
+        <p class="small">{{HOURS}}<br>Tax season: {{TAX_SEASON_HOURS}}</p>
+        <div class="footer-portal">
+          <a class="utility-link" href="{{PORTAL_URL}}"><svg aria-hidden="true"><use href="#i-lock"></use></svg>Client Portal</a>
+          <a class="utility-link" href="{{PAYMENT_URL}}"><svg aria-hidden="true"><use href="#i-card"></use></svg>Make a Payment</a>
+        </div>
+      </div>
+      <div>
+        <h3>Services</h3>
+        <ul class="footer-list">
+          <li><a href="service.html">Bookkeeping</a></li>
+          <li><a href="service-payroll.html">Payroll</a></li>
+          <li><a href="service-tax-preparation.html">Tax Preparation</a></li>
+          <li><a href="service-tax-planning.html">Tax Planning</a></li>
+          <li><a href="service-cfo.html">Fractional CFO</a></li>
+          <li><a href="service-irs-representation.html">IRS Representation</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Industries</h3>
+        <ul class="footer-list">
+          <li><a href="industry.html">Contractors &amp; Trades</a></li>
+          <li><a href="industry-real-estate.html">Real Estate</a></li>
+          <li><a href="industry-medical.html">Medical &amp; Dental</a></li>
+          <li><a href="industry-agencies.html">Agencies</a></li>
+          <li><a href="industry-ecommerce.html">eCommerce</a></li>
+          <li><a href="industry-restaurants.html">Restaurants</a></li>
+          <li><a href="industry-nonprofits.html">Nonprofits</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Areas we serve</h3>
+        <ul class="footer-list">
+          <li><a href="areas/{{AREA_1}}.html">{{AREA_1}}</a></li>
+          <li><a href="areas/{{AREA_2}}.html">{{AREA_2}}</a></li>
+          <li><a href="areas/{{AREA_3}}.html">{{AREA_3}}</a></li>
+          <li><a href="areas/{{AREA_4}}.html">{{AREA_4}}</a></li>
+          <li><a href="areas/{{AREA_5}}.html">{{AREA_5}}</a></li>
+          <li><a href="areas/{{AREA_6}}.html">{{AREA_6}}</a></li>
+          <li><a href="areas/{{AREA_7}}.html">{{AREA_7}}</a></li>
+          <li><a href="areas/{{AREA_8}}.html">{{AREA_8}}</a></li>
+        </ul>
+        <h3 style="margin-top:1.5rem">Resources</h3>
+        <ul class="footer-list">
+          <li><a href="tax-calculators.html">Tax calculators</a></li>
+          <li><a href="tax-deadlines.html">Tax deadlines</a></li>
+          <li><a href="blog.html">Articles</a></li>
+          <li><a href="about.html">About &amp; Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>{{OWNER_NAME}}, {{OWNER_CREDENTIALS}}, licensed in {{OWNER_LICENSE_STATE}}. {{FIRM_NAME}} is an independent accounting firm.</p>
+      <p class="disclaimer">This site provides general information, not tax or legal advice. Reading it does not create a client relationship.</p>
+      <ul class="legal-links">
+        <li>&copy; {{FOUNDED_YEAR}}&ndash;{{TAX_YEAR}} {{FIRM_NAME}}</li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="accessibility.html">Accessibility</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="btn btn-primary" href="{{BOOKING_URL}}">Book a Call</a>
+  <a class="btn btn-outline" href="tel:{{PHONE_TEL}}"><svg aria-hidden="true"><use href="#i-phone"></use></svg>Call</a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://{{DOMAIN}}/industry-contractors.html#service",
+      "name": "Accounting &amp; tax for {{INDUSTRY_NAME}}",
+      "serviceType": "Accounting services for {{INDUSTRY_NAME}}",
+      "url": "https://{{DOMAIN}}/industry-contractors.html",
+      "provider": { "@id": "https://{{DOMAIN}}/#firm" },
+      "audience": { "@type": "BusinessAudience", "name": "{{INDUSTRY_NAME}}" },
+      "areaServed": [
+        { "@type": "City", "name": "{{CITY}}" },
+        { "@type": "City", "name": "{{AREA_1}}" },
+        { "@type": "City", "name": "{{AREA_2}}" },
+        { "@type": "City", "name": "{{AREA_3}}" }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "{{PKG_1_PRICE}}",
+          "priceCurrency": "USD",
+          "description": "Starting at {{PKG_1_PRICE}} per month; fixed fee confirmed in a written proposal."
+        },
+        "url": "{{BOOKING_URL}}"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://{{DOMAIN}}/industry-contractors.html#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://{{DOMAIN}}/" },
+        { "@type": "ListItem", "position": 2, "name": "Industries", "item": "https://{{DOMAIN}}/industries.html" },
+        { "@type": "ListItem", "position": 3, "name": "{{INDUSTRY_NAME}}", "item": "https://{{DOMAIN}}/industry-contractors.html" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://{{DOMAIN}}/industry-contractors.html#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "Do you work in {{SOFTWARE_1}} with job costing turned on?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, and if your file was set up without projects or classes, fixing that is part of onboarding. We also work in {{SOFTWARE_2}} and integrate common trades apps for estimating and time tracking." } },
+        { "@type": "Question", "name": "Can you handle certified payroll and prevailing wage?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, for public work in {{STATE}}. We need your wage determinations and fringe rates, then produce the weekly reports and keep the records in case of an audit." } },
+        { "@type": "Question", "name": "Should I be an S-corp?", "acceptedAnswer": { "@type": "Answer", "text": "Often, once profit is consistently above roughly $60-80k, but it depends on reasonable salary, health insurance, retirement contributions and partners. We run the numbers both ways before recommending it." } },
+        { "@type": "Question", "name": "My last accountant never asked about my jobs. Is that normal?", "acceptedAnswer": { "@type": "Answer", "text": "It is common. A compliance-only accountant files an accurate return from bad data. Job-level reporting is what tells you to stop bidding work that loses money." } },
+        { "@type": "Question", "name": "I am behind and I have an IRS letter. Will you take me on?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Send the notice through the client portal and we will tell you within {{RESPONSE_PROMISE}} what it is and what resolving it takes. {{OWNER_NAME}} can represent you before the IRS." } }
+      ]
+    }
+  ]
+}
+</script>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
