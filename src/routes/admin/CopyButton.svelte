@@ -1,5 +1,9 @@
 <script lang="ts">
-  let { text, label = 'Copy link' }: { text: string; label?: string } = $props();
+  let {
+    text,
+    label = 'Copy link',
+    tone = 'quiet'
+  }: { text: string; label?: string; tone?: 'quiet' | 'solid' } = $props();
 
   let status = $state<'idle' | 'copied' | 'manual'>('idle');
   let manualInput = $state<HTMLInputElement>();
@@ -19,9 +23,11 @@
 </script>
 
 <span class="copy">
-  <button type="button" class="copy-btn" onclick={copy}>{label}</button>
+  <button type="button" class="copy-btn" class:solid={tone === 'solid'} onclick={copy}>
+    {label}
+  </button>
   {#if status === 'copied'}
-    <span class="note" role="status">Copied</span>
+    <span class="note done" role="status">Copied</span>
   {:else if status === 'manual'}
     <span class="note" role="status">Copying is not available here. Select the link and copy it.</span>
     <input
@@ -45,28 +51,47 @@
   .copy-btn {
     font: inherit;
     font-size: 0.85rem;
-    padding: 0.3rem 0.75rem;
+    font-weight: 500;
+    /* Sized to be hit with a thumb, not a mouse pointer. */
+    min-height: 2.5rem;
+    padding: 0 1rem;
+    white-space: nowrap;
     border: 1px solid var(--line);
-    border-radius: 6px;
-    background: transparent;
+    border-radius: 8px;
+    background: var(--bg);
     color: var(--ink);
-    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
   }
   .copy-btn:hover {
     border-color: var(--accent);
+    color: var(--accent);
+  }
+  .copy-btn.solid {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .copy-btn.solid:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg);
   }
   .note {
     font-size: 0.85rem;
     color: var(--ink-soft);
   }
+  .note.done {
+    color: var(--accent);
+    font-weight: 500;
+  }
   .manual {
     flex-basis: 100%;
     font-family: var(--mono);
     font-size: 0.85rem;
-    padding: 0.4rem 0.6rem;
+    padding: 0.5rem 0.6rem;
     border: 1px solid var(--line);
     border-radius: 6px;
-    background: var(--paper);
+    background: var(--bg);
     color: var(--ink);
   }
 </style>

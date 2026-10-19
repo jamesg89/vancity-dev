@@ -6,6 +6,7 @@
 	--accent: #2d4f3f;
 	--accent2: #3a6a85;
 	--warm: #c97a4a;
+	--danger: #9b2c2c;
 	--line: color-mix(in oklab, #1a2a26 14%, transparent);
 	--serif: 'Fraunces', Georgia, serif;
 	--sans: 'Inter', system-ui, sans-serif;

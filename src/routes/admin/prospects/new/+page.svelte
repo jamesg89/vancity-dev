@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { industries } from '$lib/templates';
   import { areaWarnings, type ProspectFormErrors } from '$lib/prospects/validate';
   import type { ActionData } from './$types';
@@ -20,14 +21,20 @@
   );
 </script>
 
-<header class="bar">
+<svelte:head>
+  <title>New prospect · Admin</title>
+</svelte:head>
+
+<header class="page-head">
   <h1>New prospect</h1>
-  <nav><a href="/admin/prospects">All prospects</a></nav>
+  <p class="lede">
+    The site goes live at its own address as soon as you create it, ready to send.
+  </p>
 </header>
 
 <form method="POST" novalidate>
   {#if errors.form}
-    <p class="error" role="alert">{errors.form}</p>
+    <p class="form-error" role="alert">{errors.form}</p>
   {/if}
 
   <div class="field">
@@ -37,6 +44,8 @@
       name="companyName"
       type="text"
       autocomplete="off"
+      autocapitalize="words"
+      spellcheck="false"
       value={values?.companyName ?? ''}
       aria-invalid={errors.companyName ? 'true' : undefined}
       aria-describedby={errors.companyName ? 'companyName-error' : undefined}
@@ -59,33 +68,37 @@
     {#if errors.industry}<p class="error" id="industry-error">{errors.industry}</p>{/if}
   </div>
 
-  <div class="field">
-    <label for="city">City</label>
-    <input
-      id="city"
-      name="city"
-      type="text"
-      autocomplete="off"
-      value={values?.city ?? ''}
-      oninput={(e) => (cityInput = e.currentTarget.value)}
-      aria-invalid={errors.city ? 'true' : undefined}
-      aria-describedby={errors.city ? 'city-error' : undefined}
-    />
-    {#if errors.city}<p class="error" id="city-error">{errors.city}</p>{/if}
-  </div>
+  <div class="pair">
+    <div class="field">
+      <label for="city">City</label>
+      <input
+        id="city"
+        name="city"
+        type="text"
+        autocomplete="off"
+        autocapitalize="words"
+        value={values?.city ?? ''}
+        oninput={(e) => (cityInput = e.currentTarget.value)}
+        aria-invalid={errors.city ? 'true' : undefined}
+        aria-describedby={errors.city ? 'city-error' : undefined}
+      />
+      {#if errors.city}<p class="error" id="city-error">{errors.city}</p>{/if}
+    </div>
 
-  <div class="field">
-    <label for="region">State or province</label>
-    <input
-      id="region"
-      name="region"
-      type="text"
-      autocomplete="off"
-      value={values?.region ?? ''}
-      aria-invalid={errors.region ? 'true' : undefined}
-      aria-describedby={errors.region ? 'region-error' : undefined}
-    />
-    {#if errors.region}<p class="error" id="region-error">{errors.region}</p>{/if}
+    <div class="field">
+      <label for="region">State or province</label>
+      <input
+        id="region"
+        name="region"
+        type="text"
+        autocomplete="off"
+        autocapitalize="characters"
+        value={values?.region ?? ''}
+        aria-invalid={errors.region ? 'true' : undefined}
+        aria-describedby={errors.region ? 'region-error' : undefined}
+      />
+      {#if errors.region}<p class="error" id="region-error">{errors.region}</p>{/if}
+    </div>
   </div>
 
   <div class="field">
@@ -94,6 +107,7 @@
       id="phone"
       name="phone"
       type="tel"
+      inputmode="tel"
       autocomplete="off"
       value={values?.phone ?? ''}
       aria-invalid={errors.phone ? 'true' : undefined}
@@ -112,6 +126,7 @@
       id="nearbyAreas"
       name="nearbyAreas"
       rows="3"
+      autocapitalize="words"
       oninput={(e) => (areasInput = e.currentTarget.value)}
       aria-invalid={errors.nearbyAreas ? 'true' : undefined}
       aria-describedby={errors.nearbyAreas ? 'nearbyAreas-error' : 'nearbyAreas-hint'}>{values?.nearbyAreas ?? ''}</textarea>
@@ -125,30 +140,43 @@
     {/each}
   </div>
 
-  <button class="btn" type="submit">Create prospect</button>
+  <div class="actions">
+    <button class="btn" type="submit">Create prospect</button>
+    <a class="cancel" href={resolve('/admin/prospects')}>Cancel</a>
+  </div>
 </form>
 
 <style>
-  .bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
+  .page-head {
+    margin-bottom: 1.75rem;
   }
   h1 {
     font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 7vw, 2.75rem);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
     margin: 0;
   }
+  .lede {
+    margin: 0.5rem 0 0;
+    max-width: 46ch;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
   form {
     display: grid;
-    gap: 1rem;
-    max-width: 32rem;
+    gap: 1.25rem;
+    max-width: 34rem;
   }
   .field {
     display: grid;
-    gap: 0.3rem;
+    gap: 0.35rem;
+  }
+  .pair {
+    display: grid;
+    gap: 1.25rem;
   }
   label {
     font-weight: 600;
@@ -157,17 +185,30 @@
   input,
   select,
   textarea {
-    font: inherit;
-    padding: 0.55rem 0.7rem;
+    font-family: inherit;
+    /* 16px exactly: anything smaller makes iOS Safari zoom the page on focus. */
+    font-size: 1rem;
+    min-height: 2.9rem;
+    padding: 0.6rem 0.75rem;
     border: 1px solid var(--line);
-    border-radius: 6px;
-    background: var(--paper);
+    border-radius: 8px;
+    background: var(--bg);
     color: var(--ink);
+    transition: border-color 0.15s;
+  }
+  textarea {
+    line-height: 1.5;
+    resize: vertical;
+  }
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: color-mix(in oklab, var(--ink) 30%, transparent);
   }
   input[aria-invalid='true'],
   textarea[aria-invalid='true'],
   select[aria-invalid='true'] {
-    border-color: #9b2c2c;
+    border-color: var(--danger);
   }
   .hint {
     margin: 0;
@@ -176,8 +217,18 @@
   }
   .error {
     margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--danger);
+  }
+  .form-error {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--danger);
+    border-radius: 0 6px 6px 0;
+    background: color-mix(in oklab, var(--danger) 7%, var(--bg));
+    color: var(--danger);
     font-size: 0.9rem;
-    color: #9b2c2c;
   }
   .warning {
     margin: 0;
@@ -186,9 +237,44 @@
     border-left: 3px solid var(--warm);
     padding-left: 0.6rem;
   }
-  button.btn {
-    justify-self: start;
+
+  .actions {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: center;
+    margin-top: 0.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .actions .btn {
+    width: 100%;
+    justify-content: center;
+    /* Matches the New prospect button on the list, so the two read as one control. */
+    padding: 0.85rem 1.5rem;
     border: none;
-    cursor: pointer;
+  }
+  .cancel {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    padding: 0.5rem;
+  }
+  .cancel:hover {
+    color: var(--ink);
+  }
+
+  @media (min-width: 48rem) {
+    .pair {
+      grid-template-columns: 1fr 10rem;
+    }
+    .actions {
+      grid-auto-flow: column;
+      justify-content: start;
+      justify-items: start;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .actions .btn {
+      width: auto;
+    }
   }
 </style>
