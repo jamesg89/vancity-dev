@@ -25,7 +25,11 @@ const row = (
 ) =>
   `INSERT OR REPLACE INTO prospects (slug, company_name, industry, city, region, phone, nearby_areas, created_at, archived) VALUES ('${slug}', '${name}', '${industry}', 'Austin', 'TX', ${phone === null ? 'NULL' : `'${phone}'`}, ${areas === null ? 'NULL' : `'${areas}'`}, 1760000000000, ${archived});`;
 
-test.beforeAll(() => {
+test.beforeAll(async ({}, testInfo) => {
+  // Two `npx wrangler` round trips, which take seconds when npx and miniflare are cold.
+  // Playwright counts hook time against the test budget, so give it room rather than relying
+  // on the machine being warm — the same cold-run failure bit tests/admin-prospects.test.ts.
+  testInfo.setTimeout(testInfo.timeout + 90_000);
   execFileSync(
     'npx',
     ['wrangler', 'd1', 'migrations', 'apply', 'vancity-prospects', '--local'],

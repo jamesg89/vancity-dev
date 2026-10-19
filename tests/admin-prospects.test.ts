@@ -33,14 +33,28 @@ function d1(sql: string) {
 
 const cleanup = () => d1(`DELETE FROM prospects WHERE slug LIKE '${PREFIX}%' OR slug = 'admin-2';`);
 
-test.beforeAll(() => {
+// Every d1() call spawns `npx wrangler`, which takes seconds when npx and miniflare are cold —
+// and Playwright counts beforeAll/beforeEach time against the test's own budget, so the default
+// 30s does not fit a CLI round trip plus the test itself. The symptom was this file's first test
+// failing on the first suite run after a fresh build and passing on every warm re-run. Size the
+// budget to the work rather than hoping the machine is warm.
+const CLI_BUDGET_MS = 90_000;
+
+test.beforeAll(async ({}, testInfo) => {
+  testInfo.setTimeout(testInfo.timeout + CLI_BUDGET_MS);
   execFileSync('npx', ['wrangler', 'd1', 'migrations', 'apply', 'vancity-prospects', '--local'], {
     stdio: 'pipe',
     shell: process.platform === 'win32'
   });
 });
-test.beforeEach(cleanup);
-test.afterAll(cleanup);
+test.beforeEach(async ({}, testInfo) => {
+  testInfo.setTimeout(testInfo.timeout + CLI_BUDGET_MS);
+  cleanup();
+});
+test.afterAll(async ({}, testInfo) => {
+  testInfo.setTimeout(testInfo.timeout + CLI_BUDGET_MS);
+  cleanup();
+});
 
 const NAME = 'Admin E2E Plumbing';
 const URL1 = 'https://admin-e2e-plumbing.vancity.dev';
