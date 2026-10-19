@@ -33,7 +33,7 @@ const CA_REGIONS = new Set([
 
 // US ZIP unless the region is positively a Canadian province. A Canadian-format field that
 // rejects a valid ZIP is the worse failure, so unknown and null regions get the US form.
-function postalFor(region: string | null): PlumbingContent['postal'] {
+export function postalFor(region: string | null): PlumbingContent['postal'] {
   const key = region?.toUpperCase() ?? '';
   if (CA_REGIONS.has(key)) {
     return {
@@ -59,14 +59,14 @@ export function toTelHref(phone: string | null): string {
   return `tel:${trimmed.startsWith('+') ? '+' : ''}${digits}`;
 }
 
-function clean(value: string | null | undefined): string {
+export function clean(value: string | null | undefined): string {
   return (value ?? '').replace(/\s+/g, ' ').trim();
 }
 
 // The owner types "Austin, TX" naturally, and the form splits on the comma, so the city and
 // the region can arrive as areas. Seeding the seen-set drops them; the city and region are
 // already named on their own in every line that lists towns.
-function uniqueTowns(areas: string[], city: string, region: string | null): string[] {
+export function uniqueTowns(areas: string[], city: string, region: string | null): string[] {
   const seen = new Set<string>([city.toLowerCase()]);
   if (region) seen.add(region.toLowerCase());
   const out: string[] = [];
@@ -81,13 +81,13 @@ function uniqueTowns(areas: string[], city: string, region: string | null): stri
 }
 
 // "A", "A & B", "A, B & C"
-function joinAmp(items: string[]): string {
+export function joinAmp(items: string[]): string {
   if (items.length < 2) return items.join('');
   return `${items.slice(0, -1).join(', ')} & ${items[items.length - 1]}`;
 }
 
 // "A", "A and B", "A, B and C"
-function joinAnd(items: string[]): string {
+export function joinAnd(items: string[]): string {
   if (items.length < 2) return items.join('');
   return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
 }
