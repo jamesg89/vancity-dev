@@ -10,6 +10,8 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 - `npx tsc --noEmit` — TS type check (.svelte imports invisible here; use `npx svelte-check` for full check)
 - `npx wrangler deploy` — manual deploy (CI handles it on push)
 - `git push origin master` — triggers Cloudflare Workers Builds
+- Do NOT run `prettier --write` over the repo: `.prettierrc` says `useTabs: true` but the source is 2-space throughout, so `npm run lint` is already red on ~73 files and a format pass rewrites every one of them. Match the file you are editing
+- This sandbox ships an older Chromium than the pinned `@playwright/test` wants; `npx playwright install chromium chromium-headless-shell` once per container fixes the e2e run
 
 ## Architecture
 - All global CSS tokens in `src/app.css` (--bg, --ink, --accent, --warm, --line, --serif, --sans, --mono)
@@ -25,6 +27,19 @@ Git branch is `master` (not main). CI/CD: Cloudflare Workers Builds auto-deploys
 - `src/lib/demos/index.ts` — registry; add new demo configs here
 - Each demo page: `src/routes/demo/[slug]/+page.svelte` — uses CSS vars from parent layout palette
 - Palette injection: inline `style` on `.demo-root` div (not :root — keeps demo scoped)
+
+## Prospect Site Templates
+- Admin creates a prospect at `/admin/prospects/new`; the Industry picker chooses the template. The site is then live at `<slug>.vancity.dev`
+- `src/lib/prospects/types.ts` — `IndustryKey` union; `src/lib/templates/index.ts` — the `industries` registry both the picker and `/site` read
+- One folder per industry: `types.ts` (the Content interface), `derive.ts` (prospect row → content), `defaults.ts` (the showcase), `<Name>Site.svelte`. Roots are scoped: `.op-root`, `.df-root`, `.el-root`, `.cpa-root`
+- Shared derive helpers live in `plumbing/derive.ts` and are exported from there (`toTelHref`, `clean`, `uniqueTowns`, `joinAmp`/`joinAnd`, `postalFor`, `isCanadianRegion`). A new template imports what it needs and keeps the rest local — `defense/derive.ts` is the minimal example
+- Showcases: `/p` (plumbing), `/p/defense`, `/p/electrical`, `/p/accounting` — fictional firms with every optional block filled, all `noindex`
+- **Adding an industry**: a key in `IndustryKey`, a label in `industries`, the four files above, an `if` in `/site/+page.server.ts`, an `{:else if}` in `/site/+page.svelte`, a `/p/<industry>` showcase, and the new root selector in `tests/helpers/contrast.ts`
+- A prospect row only carries company, city, region, phone and nearby areas. Everything verifiable — licence, rating, review count, named people, address, email, software — is a nullable content field that `derive.ts` leaves **null**. Never invent one: a fabricated licence or Google rating on a real firm's prototype is a liability, not a placeholder. `PlumbingSite.spec.ts` / `AccountingSite.spec.ts` enforce this with a deny-list sweep over the rendered markup
+- Accounting only: `sampleProof` (true for a derived prospect, false for the showcase) marks the stand-in prices, testimonials and case stories as samples
+- Accounting only: the template is bilingual by jurisdiction. `isCanadianRegion(region)` picks `'CA'` (CRA, T1/T2, RRSP, instalments, SIN) or `'US'` (IRS, 1040/1120-S, estimates, SSN). The wording map and both deadline tables are in `AccountingSite.svelte` — `UPDATE YEARLY`, and confirm the dates against the revenue agency before a client site goes live
+- `templates/cpa-firm/` (repo root, outside `src/`) is the standalone static HTML/CSS version of the accounting template, with `{{TOKEN}}` placeholders and its own README. The Svelte component is a port of it; changes worth keeping should land in both
+- Clearing a form's inline errors on `blur` moves the submit button between mouse-down and mouse-up, so the click misses it. Revalidate on `oninput` instead (`AccountingSite.svelte`)
 
 ## Svelte 5 Gotchas
 - `<svelte:head>` cannot be inside `{#if}` blocks — put it at component top level with internal guards

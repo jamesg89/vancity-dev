@@ -59,9 +59,14 @@ test.afterAll(async ({}, testInfo) => {
 const NAME = 'Admin E2E Plumbing';
 const URL1 = 'https://admin-e2e-plumbing.vancity.dev';
 
-async function fillAndCreate(page: Page, name: string, extra: { phone?: string } = {}) {
+async function fillAndCreate(
+  page: Page,
+  name: string,
+  extra: { phone?: string; industry?: string } = {}
+) {
   await page.goto('/admin/prospects/new');
   await page.getByLabel('Company name').fill(name);
+  if (extra.industry) await page.getByLabel('Industry').selectOption(extra.industry);
   await page.getByLabel('City').fill('Austin');
   await page.getByLabel('State or province').fill('TX');
   await page.getByLabel('Phone').fill(extra.phone ?? '512-555-0142');
@@ -122,6 +127,21 @@ test('the created prospect is a live, personalized site', async ({ page }) => {
   await page.goto('http://admin-e2e-plumbing.localhost:4173/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Fast, Honest Plumbing in Austin, TX');
   await expect(page.locator('.towns li')).toHaveCount(2);
+});
+
+// The point of the industry picker: the same form produces a prototype on any template.
+test('choosing Accounting creates a live site on the accounting template', async ({ page }) => {
+  await fillAndCreate(page, 'Admin E2E Accounting', { industry: 'accounting' });
+  await expect(page.getByTestId('created-url')).toHaveText(
+    'https://admin-e2e-accounting.vancity.dev'
+  );
+
+  await page.goto('http://admin-e2e-accounting.localhost:4173/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Clear books, lower taxes, and an accountant who actually calls back.'
+  );
+  await expect(page.locator('.service')).toHaveCount(6);
+  await expect(page.locator('.towns li')).toHaveCount(3);
 });
 
 test('a duplicate company name gets a suffixed slug', async ({ page }) => {

@@ -1,4 +1,4 @@
-export type IndustryKey = 'plumbing' | 'defense' | 'electrical';
+export type IndustryKey = 'plumbing' | 'defense' | 'electrical' | 'accounting';
 
 export interface Prospect {
   slug: string;

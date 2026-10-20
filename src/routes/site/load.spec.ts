@@ -52,6 +52,17 @@ describe('/site load', () => {
     expect(data.content.heroHeadline).toBe('Fast, Honest Plumbing in Austin, TX');
   });
 
+  it('renders the accounting template for an accounting row', async () => {
+    const data = await run(
+      'turk-accounting',
+      platformWith(async () => ({ ...row, industry: 'accounting', company_name: 'Turk Accounting' }))
+    );
+    expect(data.industry).toBe('accounting');
+    expect(data.content.heroHeadline).toBe(
+      'Clear books, lower taxes, and an accountant who actually calls back.'
+    );
+  });
+
   it('is a 503, not a rendered page, when the D1 call throws', async () => {
     const platform = {
       env: {

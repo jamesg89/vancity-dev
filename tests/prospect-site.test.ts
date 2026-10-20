@@ -38,6 +38,7 @@ test.beforeAll(async ({}, testInfo) => {
   d1(
     [
       row('turk-plumbing', 'Turk Plumbing', 'plumbing', '512-555-0142', 'Round Rock,Cedar Park,Pflugerville'),
+      row('turk-accounting', 'Turk Accounting', 'accounting', '512-555-0143', 'Round Rock,Cedar Park'),
       row('archived-co', 'Archived Plumbing', 'plumbing', '512-555-0100', null, 1),
       row('no-phone', 'No Phone Plumbing', 'plumbing', null, null),
       row('bad-phone', 'Bad Phone Plumbing', 'plumbing', 'call us', null),
@@ -62,6 +63,33 @@ test('prospect page leaks no Vancouver defaults', async ({ page }) => {
   const body = await page.locator('body').innerText();
   for (const s of ['Vancouver', 'Octopus', 'Burnaby', 'PL-204871', 'Vancity'])
     expect(body).not.toContain(s);
+});
+
+test('an accounting prospect renders the accounting template', async ({ page }) => {
+  await page.goto('http://turk-accounting.localhost:4173/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Clear books, lower taxes, and an accountant who actually calls back.'
+  );
+  await expect(page.locator('.brand-name').first()).toContainText('Turk');
+  await expect(page.locator('.service')).toHaveCount(6);
+  await expect(page.locator('.towns li')).toHaveCount(3);
+  await expect(page.getByText('Serving Austin, Round Rock & Cedar Park').first()).toBeVisible();
+  // A Texas prospect gets IRS forms and dates, not the CRA's.
+  const body = await page.locator('body').innerText();
+  expect(body).toContain('IRS Representation');
+  expect(body).not.toContain('RRSP');
+});
+
+// A prospect row carries no licence, rating or named people, so the page must claim none.
+test('accounting prospect page invents no credentials or proof', async ({ page }) => {
+  await page.goto('http://turk-accounting.localhost:4173/');
+  const body = await page.locator('body').innerText();
+  for (const s of ['Fraser Ridge', 'Vancouver', 'Sarah Whitcomb', 'ProAdvisor', 'Vancity'])
+    expect(body).not.toContain(s);
+  expect(body).not.toContain('-led team');
+  expect(body).not.toContain('Meet the team');
+  // The sample markers are text-transform: uppercase, which innerText reflects.
+  expect(body.toLowerCase()).toContain('sample review');
 });
 
 test('any path on a prospect subdomain renders the same site', async ({ page }) => {

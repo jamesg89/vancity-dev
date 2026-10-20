@@ -54,8 +54,11 @@ export function contrastSweep(): ContrastFailure[] {
     return result;
   };
 
-  const root = document.querySelector('.op-root');
-  if (!root) return [{ tag: 'root', text: '.op-root not found', color: '', background: '', ratio: 0 }];
+  // One selector per template root. Add the new one when a template is added.
+  const ROOTS = '.op-root, .df-root, .el-root, .cpa-root';
+  const root = document.querySelector(ROOTS);
+  if (!root)
+    return [{ tag: 'root', text: `${ROOTS} not found`, color: '', background: '', ratio: 0 }];
 
   const failures: ContrastFailure[] = [];
   for (const el of Array.from(root.querySelectorAll('a, button'))) {

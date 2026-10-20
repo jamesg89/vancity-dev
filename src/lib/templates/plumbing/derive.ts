@@ -31,11 +31,16 @@ const CA_REGIONS = new Set([
   'NUNAVUT'
 ]);
 
+// Only a positively Canadian region counts; unknown and null regions read as US. Exported
+// because other templates vary more than the postal field by country (see accounting).
+export function isCanadianRegion(region: string | null): boolean {
+  return CA_REGIONS.has(region?.toUpperCase() ?? '');
+}
+
 // US ZIP unless the region is positively a Canadian province. A Canadian-format field that
 // rejects a valid ZIP is the worse failure, so unknown and null regions get the US form.
 export function postalFor(region: string | null): PlumbingContent['postal'] {
-  const key = region?.toUpperCase() ?? '';
-  if (CA_REGIONS.has(key)) {
+  if (isCanadianRegion(region)) {
     return {
       label: 'Postal code',
       hint: 'Enter a valid postal code, like A1A 1A1.',
